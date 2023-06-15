@@ -1,0 +1,44 @@
+.contact-image {
+	position: relative;
+}
+.contact-image h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	font-weight: 600;
+	font-size: 50px;
+	text-shadow: 5px 5px 16px rgba(0, 0, 0, 0.6);
+}
+.contact-image p {
+	position: absolute;
+	top: 58%;
+	left: 50%;
+	text-align: center;
+	color: white;
+	transform: translate(-50%, -50%);
+	text-shadow: 5px 5px 16px rgba(0, 0, 0, 0.6);
+}
+.p-top {
+	color: #8b8b8b;
+	margin-bottom: 10px;
+	font-style: italic;
+}
+.p-bottom {
+	// color: #8b8b8b;
+	margin-bottom: 10px;
+}
+div fieldset button.btn {
+	background-color: #ef9273;
+	color: #fff;
+	margin: 10px 0px 0px;
+	padding: 8px 28px;
+	float: right;
+}
+.item-contact-store-infor p a {
+	color: black;
+}
+.item-contact-store-infor p a:hover {
+	color: #ef9273;
+}

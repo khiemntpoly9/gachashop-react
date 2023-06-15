@@ -1,0 +1,228 @@
+.evo-header-padding {
+	padding: 15px 0;
+}
+
+.header-p {
+	.header-logo {
+		.box-logo {
+			height: 80%;
+		}
+		img {
+			width: 100%;
+			max-height: 70px;
+			// max-height: 200px;
+		}
+	}
+	.menu-icon i {
+		font-size: 2.5rem;
+		&:before {
+			width: 20px;
+			height: 20px;
+		}
+	}
+	.header-account {
+		.box-account {
+			a {
+				display: inline;
+				.box-a {
+					span {
+						display: flex;
+						align-items: center;
+						padding-top: 0.3rem;
+						margin-left: 0.4rem;
+						width: auto;
+						font-size: 14px;
+						// span
+					}
+					// Icon đếm
+					.i-count-box {
+						width: 22px;
+						height: 22px;
+						text-align: center;
+						border-radius: 50%;
+						background-color: #ef9273;
+						color: #fff;
+						line-height: 20px;
+						font-size: 13px;
+						margin: 0 0 5px 5px;
+					}
+					i {
+						&:before {
+							// 1.5
+							font-size: 2rem;
+						}
+					}
+
+					&:hover {
+						color: #ef9273;
+					}
+				}
+			}
+		}
+		// Search MD
+		i {
+			font-size: 2rem;
+		}
+	}
+	// Navbar
+	.navbar {
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
+		ul {
+			width: auto;
+			list-style: none;
+			li {
+				width: auto;
+				padding: 14px 15px;
+				a {
+					color: #000;
+					font-weight: 500;
+					letter-spacing: 0.25px;
+					line-height: 27.2px;
+				}
+				.mega-menu {
+					position: absolute;
+					top: 100%;
+					left: 0;
+					z-index: 999;
+					background: #fff none repeat scroll 0 0;
+					width: 100%;
+					padding: 10px 20px;
+					margin-top: 25px;
+					transition: 0.3s ease-in;
+					box-shadow: 0px 2px 6px 0px rgb(50 50 50 / 33%);
+					opacity: 0;
+					visibility: hidden;
+					h6 a {
+						color: #000;
+						font-size: 14px;
+						font-weight: 500;
+					}
+					.ul-list-item {
+						list-style: none;
+						margin: 0;
+						padding: 0;
+						li {
+							padding: 0;
+							a {
+								color: #000;
+								font-size: 14px;
+								font-weight: 400;
+								&:hover {
+									color: #ef9273;
+								}
+							}
+						}
+					}
+					a:hover {
+						color: #ef9273;
+					}
+				}
+				&:hover {
+					a {
+						color: #ef9273;
+					}
+					.mega-menu {
+						visibility: visible;
+						opacity: 1;
+						margin-top: 0;
+					}
+				}
+			}
+		}
+	}
+	// Search
+	.header-search {
+		border: 1px solid #e5e5e5;
+		input[type='text'] {
+			border: none;
+			outline: none;
+		}
+		.btn-s {
+			color: #a3a3a3;
+			font-size: 1.3rem;
+			&:hover {
+				color: #ef9273;
+			}
+		}
+	}
+}
+.btn-cart {
+	background-color: #ef9273;
+	color: #fff;
+	border-radius: 5px;
+	height: 35px;
+}
+
+.search-box {
+	input[type='text'] {
+		outline: none;
+		border: 1px solid #e5e5e5;
+		box-shadow: none;
+		padding: 0.4rem;
+	}
+	.btn-search {
+		background-color: #ef9273;
+		color: #fff;
+		font-size: 1.3rem;
+	}
+}
+
+// List group nav
+.list-group {
+	border-radius: none;
+	.list-group-item-link {
+		border-top: 1px solid #d4d4d4;
+		padding: 0.5rem;
+		font-weight: 500;
+		font-size: 15px;
+		text-transform: uppercase;
+		// &:hover {
+		//     background-color: aqua;
+		// }
+	}
+	&:last-child {
+		border-bottom: 1px solid #d4d4d4;
+	}
+}
+
+.link-active {
+	color: rgb(251, 115, 12);
+}
+
+// Md Screen
+@media screen and (min-width: 768px) {
+	.header-p {
+		.menu-icon i {
+			font-size: 2rem;
+		}
+	}
+}
+
+// Lg Screen
+@media screen and (min-width: 992px) {
+	.header-p {
+		.menu-icon i {
+			font-size: 2rem;
+		}
+		.header-account {
+			i {
+				font-size: 1.7rem;
+			}
+			.box-account {
+				a {
+					.box-a {
+						i {
+							&:before {
+								font-size: 1.5rem;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Xl Screen
+@media screen and (min-width: 1200px) {
+}

@@ -1,0 +1,20 @@
+.gt-image {
+	position: relative;
+}
+.gt-image h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color: white;
+	transform: translate(-50%, -50%);
+	text-shadow: 5px 5px 16px rgba(0, 0, 0, 0.6);
+}
+.gt-image p {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	text-align: center;
+	color: white;
+	transform: translate(-50%, -50%);
+	text-shadow: 5px 5px 16px rgba(0, 0, 0, 0.6);
+}

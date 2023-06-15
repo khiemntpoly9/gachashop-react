@@ -1,0 +1,35 @@
+.footer {
+	font-size: 14px;
+	.title-footer {
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 14px;
+	}
+
+	.list-items-link {
+		.items-link a {
+			color: #000;
+			&:hover {
+				color: #ef9273;
+			}
+		}
+	}
+	.icon-contact a {
+		color: #000;
+		font-size: 1.5rem;
+		&:hover {
+			color: #ef9273;
+		}
+	}
+	.payment-block {
+		img {
+			width: 54px;
+			height: 33px;
+		}
+	}
+	.copyright {
+		padding: 0.8rem;
+		background-color: #f5f5f5;
+		margin-top: 1rem;
+	}
+}
