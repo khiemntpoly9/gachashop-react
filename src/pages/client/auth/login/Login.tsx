@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, notification } from 'antd';
 import newRequest from '../../../../utils/newRequest';
 import './Login.scss';
 const Login = () => {
-	const navigate = useNavigate();
-	//
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [errors, setErrors] = useState({});
+	interface ErrorsType {
+		username?: string;
+		password?: string;
+	}
+	const [errors, setErrors] = useState<ErrorsType>({});
 
 	// Lấy địa chỉ Email
 	const handleEmailChange = (event) => {
@@ -21,7 +25,10 @@ const Login = () => {
 
 	//Validate
 	const validateForm = () => {
-		let formErrors = {};
+		const formErrors: { username: string; password: string } = {
+			username: '',
+			password: '',
+		};
 		let isValid = true;
 
 		//Validate username
@@ -49,20 +56,14 @@ const Login = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		// true
 		if (validateForm()) {
 			try {
 				const user = { email, password };
-				await newRequest.post('/auth/login', user).then((res) => {
-					if (res.data.role == 'qtv' || res.data.role == 'ctv') {
-						navigate('/admin');
-					} else {
-						navigate('/account');
-					}
-				});
+				await newRequest.post('/auth/login', user);
 
 				// <Navigate to='/account' />;
-				// eslint-disable-next-line no-unused-vars
-			} catch (error) {
+			} catch (error: any) {
 				notification.error({
 					message: 'Đăng nhập thất bại',
 					description: error.response.data.message,
