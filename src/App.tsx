@@ -14,12 +14,14 @@ import CheckOut from './pages/client/checkout/CheckOut';
 import Contact from './pages/client/contact/Contact';
 import Faq from './pages/client/faq/Faq';
 import PageNotFound from './pages/pagenotfound/PageNotFound';
+import AdminLayout from './layout/admin-layout/AdminLayout';
+import DashBoard from './pages/admin/dashboard/DashBoard';
 
 function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<DefaultLayout />}>
-				<Route path='/' element={<Home />} />
+				<Route path='' element={<Home />} />
 				<Route path='home' element={<Home />} />
 				<Route path='products' element={<Product />} />
 				<Route path='product' element={<ProductDetail />} />
@@ -35,6 +37,11 @@ function App() {
 				<Route path='checkout' element={<CheckOut />} />
 				<Route path='contact' element={<Contact />} />
 				<Route path='faq' element={<Faq />} />
+			</Route>
+			{/* Admin */}
+			<Route path='/admin' element={<AdminLayout />}>
+				<Route path='' element={<DashBoard />} />
+				<Route path='dashboard' element={<DashBoard />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>
