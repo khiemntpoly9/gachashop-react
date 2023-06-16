@@ -16,6 +16,7 @@ import Faq from './pages/client/faq/Faq';
 import PageNotFound from './pages/pagenotfound/PageNotFound';
 import AdminLayout from './layout/admin-layout/AdminLayout';
 import DashBoard from './pages/admin/dashboard/DashBoard';
+import ProductAdmin from './pages/admin/product/ProductAdmin';
 
 function App() {
 	return (
@@ -42,6 +43,7 @@ function App() {
 			<Route path='/admin' element={<AdminLayout />}>
 				<Route path='' element={<DashBoard />} />
 				<Route path='dashboard' element={<DashBoard />} />
+				<Route path='product' element={<ProductAdmin />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>
