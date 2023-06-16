@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button, notification } from 'antd';
 import newRequest from '../../../../utils/newRequest';
 import './Login.scss';
-const Login = () => {
+const Login = ({ setStatusLogin }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	interface ErrorsType {
@@ -14,7 +14,6 @@ const Login = () => {
 	}
 	const [errors, setErrors] = useState<ErrorsType>({});
 
-	// ddd 1233213
 	// Lấy địa chỉ Email
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
@@ -79,7 +78,7 @@ const Login = () => {
 		}
 	};
 	return (
-		<div className='login'>
+		<div className='login bg-white p-5'>
 			<div className='login-container container m-auto row'>
 				<div className='left col'>
 					<div className='account-policy-title'>QUYỀN LỢI THÀNH VIÊN</div>
@@ -92,10 +91,10 @@ const Login = () => {
 				<div className='right col'>
 					<ul className='auth-menu-list d-flex'>
 						<li className='loginform active'>
-							<Link to='/login'>Đăng nhập</Link>
+							<span onClick={() => setStatusLogin(true)}>Đăng nhập</span>
 						</li>
 						<li className='regisform'>
-							<Link to='/register'>Đăng kí</Link>
+							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
 						</li>
 					</ul>
 					<form method='post' id='customer-login'>
@@ -107,7 +106,7 @@ const Login = () => {
 								// type='email'
 								className='form-control'
 								id='InputEmail'
-								placeholder='Nhập Địa chỉ Email'
+								placeholder='Nhập địa chỉ email'
 								value={email}
 								onChange={handleEmailChange}
 							/>
@@ -121,7 +120,7 @@ const Login = () => {
 								type='password'
 								className='form-control'
 								id='InputPassword'
-								placeholder='Nhập Mật khẩu'
+								placeholder='Nhập mật khẩu'
 								value={password}
 								onChange={handlePassChange}
 							/>
@@ -132,9 +131,9 @@ const Login = () => {
 								Quên mật khẩu?
 							</a>
 						</p>
-						<Button type='primary' onClick={handleSubmit} className='btn'>
+						<button onClick={handleSubmit} className='btn'>
 							Đăng nhập
-						</Button>
+						</button>
 						<p className='login-note'>
 							Ant Home cam kết bảo mật và sẽ không bao giờ đăng <br /> hay chia sẻ thông tin mà chưa có được
 							sự đồng ý của bạn.

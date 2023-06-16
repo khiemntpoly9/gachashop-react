@@ -4,7 +4,7 @@ import '../login/Login.scss';
 
 import newRequest from '../../../../utils/newRequest';
 
-const Register = () => {
+const Register = ({ setStatusLogin }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [first_name, setFirstname] = useState('');
@@ -100,7 +100,7 @@ const Register = () => {
 		}
 	};
 	return (
-		<div className='login'>
+		<div className='login bg-white p-5'>
 			<div className='login-container container m-auto row'>
 				<div className='left col'>
 					<div className='account-policy-title'>QUYỀN LỢI THÀNH VIÊN</div>
@@ -113,10 +113,10 @@ const Register = () => {
 				<div className='right col'>
 					<ul className='auth-menu-list d-flex'>
 						<li className='loginform '>
-							<Link to='/login'>Đăng nhập</Link>
+							<span onClick={() => setStatusLogin(true)}>Đăng nhập</span>
 						</li>
 						<li className='regisform active'>
-							<Link to='/register'>Đăng kí</Link>
+							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
 						</li>
 					</ul>
 					<form method='post' id='customer-name' onSubmit={handleSubmit}>
@@ -128,7 +128,7 @@ const Register = () => {
 								type='text'
 								className='form-control'
 								id='InputFName'
-								placeholder='Nhập Họ'
+								placeholder='Nhập họ'
 								value={first_name}
 								onChange={handleFirstnameChange}
 							/>
@@ -142,7 +142,7 @@ const Register = () => {
 								type='text'
 								className='form-control'
 								id='InputName'
-								placeholder='Nhập Tên'
+								placeholder='Nhập tên'
 								value={last_name}
 								onChange={handleLastnameChange}
 							/>
@@ -156,7 +156,7 @@ const Register = () => {
 								type='tel'
 								className='form-control'
 								id='phone'
-								placeholder='Nhập Số điện thoại'
+								placeholder='Nhập số điện thoại'
 								value={phone}
 								onChange={handleSDTChange}
 							/>
@@ -169,7 +169,7 @@ const Register = () => {
 								type='email'
 								className='form-control'
 								id='InputEmail'
-								placeholder='Nhập Địa chỉ Email'
+								placeholder='Nhập địa chỉ Email'
 								required
 								aria-describedby='emailHelp'
 								pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$'
@@ -186,7 +186,7 @@ const Register = () => {
 								type='password'
 								className='form-control'
 								id='InputPassword'
-								placeholder='Nhập Mật khẩu'
+								placeholder='Nhập mật khẩu'
 								required
 								value={password}
 								onChange={handlePasswordChange}
