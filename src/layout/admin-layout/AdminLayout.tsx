@@ -47,7 +47,7 @@ const AdminLayout: React.FC = () => {
 						getItem(<Link to='/admin'>Thống kê</Link>, '0', <DesktopOutlined />),
 						getItem('Sản phẩm', 'sub1', <InboxOutlined />, [
 							getItem(<Link to='/admin/product'>Sản phẩm</Link>, '1'),
-							getItem('Thêm sản phẩm', '2'),
+							getItem(<Link to='/admin/product/add'>Tạo sản phẩm</Link>, '2'),
 							getItem('Option 7', '3'),
 							getItem('Option 8', '4'),
 						]),

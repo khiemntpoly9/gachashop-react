@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, TreeSelect, Upload } from 'antd';
+import { FormDataFields, ProductAdd } from '../../../interface/product.interface';
+import { addProduct } from '../../../services/product/product.service';
 
 const { TextArea } = Input;
 
@@ -11,11 +13,25 @@ const normFile = (e: any) => {
 	return e?.fileList;
 };
 
-const onFinish = (e: any) => {
-	console.log(e);
+const onFinish = async (data: ProductAdd) => {
+	const formData = new FormData() as unknown as FormDataFields;
+	formData.append('name_prod', data.name_prod || '');
+	formData.append('id_categories', data.id_categories.toString() || '');
+	formData.append('brand_prod', data.brand_prod.toString() || '');
+	formData.append('style_prod', data.style_prod.toString() || '');
+	formData.append('price_prod', data.price_prod.toString() || '');
+	formData.append('detail_prod', data.detail_prod || '');
+	formData.append('quantity', data.quantity.toString() || '');
+	formData.append('img_thumbnail', data.img_thumbnail[0].name);
+	if (data && data.list_img && data.list_img.length > 0) {
+		data.list_img.forEach((image) => {
+			formData.append('list_img', image.name);
+		});
+	}
+	await addProduct(formData);
 };
 
-const ProductAdmin: React.FC = () => {
+const ProductAddAdmin: React.FC = () => {
 	return (
 		<>
 			<Form
@@ -59,8 +75,22 @@ const ProductAdmin: React.FC = () => {
 				<Form.Item label='Số lượng' name='quantity'>
 					<InputNumber />
 				</Form.Item>
-				{/* Hình ảnh */}
-				<Form.Item label='Upload' valuePropName='fileList' getValueFromEvent={normFile}>
+				{/* Hình ảnh thumbnail */}
+				<Form.Item
+					label='Thumbnail'
+					name='img_thumbnail'
+					valuePropName='fileList'
+					getValueFromEvent={normFile}
+				>
+					<Upload listType='picture-card'>
+						<div>
+							<PlusOutlined />
+							<div style={{ marginTop: 8 }}>Upload</div>
+						</div>
+					</Upload>
+				</Form.Item>
+				{/* Hình ảnh sản phẩm */}
+				<Form.Item label='Ảnh sản phẩm' name='list_img' valuePropName='fileList' getValueFromEvent={normFile}>
 					<Upload listType='picture-card'>
 						<div>
 							<PlusOutlined />
@@ -93,4 +123,4 @@ const ProductAdmin: React.FC = () => {
 	);
 };
 
-export default ProductAdmin;
+export default ProductAddAdmin;

@@ -1,21 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import 'swiper/css';
 import './Home.scss';
-import { useQuery } from '@tanstack/react-query';
-import newRequest from '../../../utils/newRequest';
+import { getProducts } from '../../../services/product/product.service.ts';
 import SlideHome from '../components/slide-home/SlideHome';
 import ProductCard from '../components/product-card/ProductCard';
 
 const Home = () => {
-	const { isLoading, error, data } = useQuery({
-		queryKey: ['products'],
-		queryFn: () =>
-			newRequest.get('/products').then((res) => {
-				return res.data;
-			}),
-	});
-	if (isLoading) return 'Loading...';
-	if (error) return 'An error has occurred: ' + error;
+	const [products, setProducts] = useState<any>([]);
+	useEffect(() => {
+		const fetchProducts = async () => {
+			const products = await getProducts();
+			setProducts(products);
+		};
+		fetchProducts();
+	}, []);
+	// Lấy dữ liệu từ API
+	// const { isLoading, error, data } = useQuery({
+	// 	queryKey: ['products'],
+	// 	queryFn: () =>
+	// 		newRequest.get('/products').then((res) => {
+	// 			return res.data;
+	// 		}),
+	// });
+	// if (isLoading) return 'Loading...';
+	// if (error) return 'An error has occurred: ' + error;
 	return (
 		<div className='home'>
 			<SlideHome />
@@ -172,7 +182,7 @@ const Home = () => {
 						</a>
 
 						<div className='h-topp row row-cols-md-3 row-cols-lg-4 m-0 p-0'>
-							{data.slice(0, 8).map((prod) => (
+							{products.slice(0, 8).map((prod) => (
 								<div key={prod.id_product} className='p-2'>
 									<ProductCard prod={prod} />
 								</div>
