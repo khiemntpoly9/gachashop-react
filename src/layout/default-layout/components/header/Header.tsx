@@ -1,15 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
 import logo from '../../../../assets/images/logo3.png';
 import store from '../../../../assets/images/store.png';
 import img1 from '../../../../assets/images/mega-1-image.webp';
 
+import { Modal } from 'antd';
+import Login from '../../../../pages/client/auth/login/Login';
+import Register from '../../../../pages/client/auth/register/Register';
+
 function Header() {
 	const [cartItems, setCartItems] = useState<never[]>([]);
+	const [isLogined, setIsLogined] = useState(false);
+	const [openModalLogin, setOpenModalLogin] = useState(false);
+	const [statusLogin, setStatusLogin] = useState(true);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
@@ -47,7 +55,7 @@ function Header() {
 
 	const updateCart = () => {
 		// Lấy dữ liệu từ LocalStorage
-		let cartItems: string | null = JSON.parse(localStorage.getItem('productsInCart'));
+		const cartItems: string | null = JSON.parse(localStorage.getItem('productsInCart'));
 
 		// Lấy phần tử DOM của giỏ hàng trên trang home
 		const cartElement: HTMLElement | null = document.querySelector('#aaa');
@@ -77,6 +85,23 @@ function Header() {
 	};
 	return (
 		<header className='header-p container-fluid px-0'>
+			{openModalLogin ? (
+				<span className='modal-login position-absolute top-0 left-0'>
+					<div className='overlay'></div>
+					<div className='body'>
+						<div className='wrapper position-relative'>
+							<span onClick={() => setOpenModalLogin(false)} className='close position-absolute'>
+								x
+							</span>
+							{statusLogin ? (
+								<Login setStatusLogin={setStatusLogin} />
+							) : (
+								<Register setStatusLogin={setStatusLogin} />
+							)}
+						</div>
+					</div>
+				</span>
+			) : null}
 			<div className='container-lg'>
 				<div className='d-flex align-items-center justify-content-between evo-header-padding'>
 					{/* Menu icon */}
@@ -134,7 +159,11 @@ function Header() {
 							</div>
 							{/* Tài khoản */}
 							<div className='d-none d-lg-block col-3 p-0 p-lg-2 w-auto ms-lg-2 ms-xl-3'>
-								<Link className='text-black' to='/account'>
+								<Link
+									className='text-black pointer'
+									onClick={() => (isLogined ? navigate('/account') : setOpenModalLogin(true))}
+									to={''}
+								>
 									<div className='box-a w-auto d-flex'>
 										<i className='fa-regular fa-user w-auto'></i>
 										<span>Tài khoản</span>
