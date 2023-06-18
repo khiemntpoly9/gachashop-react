@@ -52,11 +52,16 @@ const ProductAddBs: React.FC = () => {
 							<input type='text' className='form-control shadow-none' name='name_prod' />
 						</div>
 						<div className='row'>
+							{/* Danh mục */}
 							<div className='col-lg-3 col-sm-6 col-12'>
 								<div className='form-group'>
 									<label>Danh mục</label>
-									<select className='select' name='id_categories'>
-										<option>Chọn danh mục</option>
+									<select
+										className='form-select shadow-none'
+										name='id_categories'
+										aria-label='Default select example'
+									>
+										<option selected>Chọn danh mục</option>
 										{categories.map((item) => (
 											<option key={item.id_categories} value={item.id_categories}>
 												{item.name_categories}
@@ -65,7 +70,20 @@ const ProductAddBs: React.FC = () => {
 									</select>
 								</div>
 							</div>
-
+							{/* Số lượng */}
+							<div className='col-lg-3 col-sm-6 col-12'>
+								<div className='form-group'>
+									<label>Số lượng</label>
+									<input className='form-control shadow-none' type='number' name='quantity' />
+								</div>
+							</div>
+							{/* Giá */}
+							<div className='col-lg-3 col-sm-6 col-12 mb-3'>
+								<div className='form-group'>
+									<label>Giá</label>
+									<input className='form-control shadow-none' type='number' name='price_prod' />
+								</div>
+							</div>
 							{/* <div className='col-lg-3 col-sm-6 col-12'>
 								<div className='form-group'>
 									<label>Thương hiệu</label>
@@ -79,51 +97,36 @@ const ProductAddBs: React.FC = () => {
 									</select>
 								</div>
 							</div> */}
-							<div className='col-lg-3 col-sm-6 col-12'>
-								<div className='form-group'>
-									<label>Số lượng</label>
-									<input type='text' name='quantity' />
-								</div>
-							</div>
-
-							<div className='col-lg-3 col-sm-6 col-12'>
-								<div className='form-group'>
-									<label>Giá</label>
-									<input type='number' name='price_prod' />
-								</div>
-							</div>
-
-							<div className='col-lg-3 col-sm-6 col-12'>
-								<div className='form-group'>
-									<label> Ẩn/ Hiện sản phẩm</label>
-									<select className='select' name='show_prod'>
-										<option value={0}>Ẩn</option>
-										<option value={1}>Hiện</option>
-									</select>
-								</div>
-							</div>
-							<div className='col-lg-12'>
+							<div className='col-lg-12 mb-3'>
 								<div className='form-group'>
 									<label>Chi tiết sản phẩm</label>
-									<textarea className='form-control' name='detail_prod'></textarea>
+									<textarea className='form-control shadow-none' name='detail_prod'></textarea>
 								</div>
 							</div>
 							<div className='col-lg-12'>
-								<div className='form-group'>
+								<div className='form-group mb-3'>
 									<label>Ảnh thumbnail</label>
-
 									<input type='file' className='form-control' name='img_thumbnail' />
 								</div>
 								{/* Lấy 4 link hình ảnh */}
-								<div className='form-group'>
-									<div className='mb-3'>
+								<div className='form-group mb-3'>
+									<div className=''>
 										<label className='form-label'>Ảnh sản phẩm</label>
 										<input type='file' multiple className='form-control' name='list_img' />
 									</div>
 									<div className='img-show'></div>
 								</div>
+								<div className='form-group'>
+									<label className='form-label'> Ẩn/ Hiện sản phẩm</label>
+									<select className='form-select' aria-label='Default select example' name='show_prod'>
+										<option selected value='1'>
+											Hiện
+										</option>
+										<option value='0'>Ẩn</option>
+									</select>
+								</div>
 							</div>
-							<div className='col-lg-12'>
+							<div className='col-lg-12 mt-3'>
 								<button type='submit' className='btn btn-submit me-2 btn-primary'>
 									Tạo sản phẩm
 								</button>
