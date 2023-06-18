@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ProductAdd {
 	name_prod: string;
 	id_categories: number;
@@ -8,11 +9,13 @@ export interface ProductAdd {
 	style_prod: number;
 	quantity: number;
 	show_prod: number;
-	img_thumbnail: Images[];
-	list_img: Images[];
+	img_thumbnail: any;
+	list_img: any;
+	files: any;
 }
 
 interface Images {
+	files: any;
 	originFileObj: Blob;
 	uid: string;
 	name: string;

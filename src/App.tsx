@@ -16,7 +16,8 @@ import Faq from './pages/client/faq/Faq';
 import PageNotFound from './pages/pagenotfound/PageNotFound';
 import AdminLayout from './layout/admin-layout/AdminLayout';
 import DashBoard from './pages/admin/dashboard/DashBoard';
-import ProductAddAdmin from './pages/admin/product/ProductAddAddAdmin';
+// import ProductAddAdmin from './pages/admin/product/ProductAddAdmin';
+import ProductAddBs from './pages/admin/product/ProductAddBs';
 
 function App() {
 	return (
@@ -44,7 +45,7 @@ function App() {
 				<Route path='' element={<DashBoard />} />
 				<Route path='dashboard' element={<DashBoard />} />
 				{/* <Route path='product' element={<ProductAdmin />} /> */}
-				<Route path='product/add' element={<ProductAddAdmin />} />
+				<Route path='product/add' element={<ProductAddBs />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>

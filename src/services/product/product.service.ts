@@ -19,6 +19,7 @@ export const getProducts = async () => {
 // Thêm sản phẩm
 export const addProduct = async (product: any) => {
 	try {
+		console.log(product);
 		const respose = await newRequest.post('product', product);
 		return respose.data;
 	} catch (error) {
