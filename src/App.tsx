@@ -3,8 +3,8 @@ import DefaultLayout from './layout/default-layout/DefaultLayout';
 import Home from './pages/client/home/Home';
 import Product from './pages/client/product/Product';
 import ProductDetail from './pages/client/product/detail/ProductDetail';
-import Login from './pages/client/auth/login/Login';
-import Register from './pages/client/auth/register/Register';
+// import Login from './pages/client/auth/login/Login';
+// import Register from './pages/client/auth/register/Register';
 import Favorite from './pages/client/account/Favorite';
 import Account from './pages/client/account/Account';
 import Orders from './pages/client/account/Orders';
@@ -16,6 +16,8 @@ import Faq from './pages/client/faq/Faq';
 import PageNotFound from './pages/pagenotfound/PageNotFound';
 import AdminLayout from './layout/admin-layout/AdminLayout';
 import DashBoard from './pages/admin/dashboard/DashBoard';
+// import ProductAddAdmin from './pages/admin/product/ProductAddAdmin';
+import ProductAddBs from './pages/admin/product/ProductAddBs';
 
 function App() {
 	return (
@@ -26,8 +28,8 @@ function App() {
 				<Route path='products' element={<Product />} />
 				<Route path='product' element={<ProductDetail />} />
 				{/* Auth */}
-				<Route path='login' element={<Login />} />
-				<Route path='register' element={<Register />} />
+				{/* <Route path='login' element={<Login />} />
+				<Route path='register' element={<Register />} /> */}
 				<Route path='favorite' element={<Favorite />} />
 				{/* Account */}
 				<Route path='account' element={<Account />} />
@@ -42,6 +44,8 @@ function App() {
 			<Route path='/admin' element={<AdminLayout />}>
 				<Route path='' element={<DashBoard />} />
 				<Route path='dashboard' element={<DashBoard />} />
+				{/* <Route path='product' element={<ProductAdmin />} /> */}
+				<Route path='product/add' element={<ProductAddBs />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>
