@@ -2,6 +2,11 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"baseUrl": ".",
+		"paths": {
+			"@services/*": ["src/services/*"],
+			"@interface/*": ["src/interface/*"],
+			"@assets/*": ["src/assets/*"]
+		},
 		"noImplicitAny": false,
 		"useDefineForClassFields": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],

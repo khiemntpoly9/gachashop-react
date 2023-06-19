@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import 'swiper/css';
 import './Home.scss';
-import { getProducts } from '../../../services/product/product.service.ts';
+import { getProducts } from '@services/product/product.service.ts';
 import SlideHome from '../components/slide-home/SlideHome';
 import ProductCard from '../components/product-card/ProductCard';
 

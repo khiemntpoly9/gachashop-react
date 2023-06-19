@@ -65,6 +65,7 @@ const AdminLayout: React.FC = () => {
 						>
 							<i className='fa-solid fa-bars-staggered'></i>
 						</button>
+						{/* avatar */}
 					</div>
 				</div>
 				<div className='p-2'>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ProductAdd {
 	name_prod: string;
@@ -14,7 +15,7 @@ export interface ProductAdd {
 	files: any;
 }
 
-interface Images {
+export interface Images {
 	files: any;
 	originFileObj: Blob;
 	uid: string;

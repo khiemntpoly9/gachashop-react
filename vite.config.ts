@@ -7,7 +7,10 @@ export default defineConfig({
 	plugins: [react()],
 	resolve: {
 		alias: {
-			// eslint-disable-next-line no-undef
+			'~': path.resolve(__dirname, './src'),
+			'@services': path.resolve(__dirname, './src/services'),
+			'@interface': path.resolve(__dirname, './src/interface'),
+			'@assets': path.resolve(__dirname, './src/assets'),
 			'~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
 		},
 	},

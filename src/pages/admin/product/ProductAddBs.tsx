@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { getCategories } from '../../../services/product/category.service';
-import { Categories } from '../../../interface/categories.type';
+import { getCategories } from '@services/product/category.service';
+import { Categories } from '@interface/categories.type';
 import { Link } from 'react-router-dom';
-import { addProduct } from '../../../services/product/product.service';
+import { addProduct } from '@services/product/product.service';
 
 const ProductAddBs: React.FC = () => {
 	const [categories, setCategories] = useState<Categories>([]);
