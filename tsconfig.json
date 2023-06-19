@@ -5,7 +5,9 @@
 		"paths": {
 			"@services/*": ["src/services/*"],
 			"@interface/*": ["src/interface/*"],
-			"@assets/*": ["src/assets/*"]
+			"@assets/*": ["src/assets/*"],
+			"@client/*": ["src/pages/client/*"],
+			"@admin/*": ["src/pages/admin/*"]
 		},
 		"noImplicitAny": false,
 		"useDefineForClassFields": true,

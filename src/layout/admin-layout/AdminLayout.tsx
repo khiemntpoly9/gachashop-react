@@ -7,7 +7,8 @@ const AdminLayout: React.FC = () => {
 	return (
 		<div className='main-container d-flex'>
 			{/* Siderbar */}
-			<div className='siderbar collapse' id='siderBar'>
+			{/* Bỏ class collapse */}
+			<div className='siderbar' id='siderBar'>
 				<div className='header-box px-2 pt-3'>
 					<h1 className='fs-4 text-center'>
 						<span className='bg-white text-dark rouded shadow px-2 me-2'>Gacha</span>
@@ -38,7 +39,7 @@ const AdminLayout: React.FC = () => {
 						</a>
 						<div className='collapse border mt-2 rounded-2' id='product'>
 							<div className='px-2'>
-								<Link to='' style={{ color: '#fff' }}>
+								<Link to='/admin/products' style={{ color: '#fff' }}>
 									Danh sách sản phẩm
 								</Link>
 							</div>
