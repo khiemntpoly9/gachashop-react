@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 
-const Category = (Cate) => {
+const Category = (Cate: any) => {
 	const [show, setShow] = useState(false);
 	return (
 		<>

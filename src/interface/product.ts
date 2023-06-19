@@ -36,3 +36,10 @@ export interface FormDataFields {
 	img_thumbnail: Blob;
 	list_img: Blob[];
 }
+
+export type Product = {
+	id_product: number;
+	name_prod: string;
+};
+
+export type Products = Product[];

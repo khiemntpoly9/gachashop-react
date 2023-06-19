@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, InputNumber, Select, Space, TreeSelect, Upload, message } from 'antd';
-import { FormDataFields, ProductAdd } from '../../../interface/product.interface';
+import { FormDataFields, ProductAdd } from '../../../interface/product';
 import { addProduct } from '../../../services/product/product.service';
 import { getCategories } from '../../../services/product/category.service';
 import { Categories, Category, CategoryA } from '../../../interface/categories.type';
