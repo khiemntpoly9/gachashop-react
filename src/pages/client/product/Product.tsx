@@ -1,22 +1,33 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '../../../services/product/product.service.ts';
+import { getCategories } from '../../../services/product/category.service.ts';
 import Category from '../components/category/Category';
 import newRequest from '../../../utils/newRequest';
 import ProductCard from '../components/product-card/ProductCard';
 import Slide from '../components/slide/Slide';
 import './Product.scss';
+import { Categories } from '../../../interface/categories.type';
+import { Products } from 'src/interface/product.ts';
 
 const Product = () => {
-	const [productData, setProducts] = useState([]);
+	const [productData, setProducts] = useState<Products>([]);
+	const [categories, setCategories] = useState<Categories>([]);
 	useEffect(() => {
-		newRequest
-			.get('/products')
-			.then((res) => {
-				setProducts(res.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		// Lấy sản phẩm
+		const fetchProducts = async () => {
+			const products = await getProducts();
+			setProducts(products);
+		};
+		fetchProducts();
+		// Lấy danh mục
+		const fetchCategories = async () => {
+			const category = await getCategories();
+			setCategories(category.data);
+		};
+		fetchCategories();
 	}, []);
 	// Lọc sản phẩm
 	const [under100, setUnder100] = useState(false);
@@ -43,7 +54,7 @@ const Product = () => {
 			});
 	}, [under100, between100And200]);
 	// Kiểm tra checkbox lọc
-	const handleCheckboxChange = (event) => {
+	const handleCheckboxChange = (event: any) => {
 		const { name, checked } = event.target;
 		if (name === 'under100') {
 			setUnder100(checked);
@@ -53,21 +64,6 @@ const Product = () => {
 			setUnder100(false);
 		}
 	};
-	// Lấy category
-	const {
-		isLoading,
-		error,
-		data: dataCate,
-	} = useQuery({
-		queryKey: ['Categorys'],
-		queryFn: () =>
-			newRequest.get('/categories/all').then((res) => {
-				return res.data;
-			}),
-	});
-	console.log(dataCate);
-	if (isLoading) return 'Loading...';
-	if (error) return 'An error has occurred: ' + error.message;
 	return (
 		<div className='container'>
 			<div className='row'>
@@ -110,7 +106,7 @@ const Product = () => {
 								</div>
 								<div className='aside-content'>
 									<ul className='navbar-pills my-2 '>
-										{dataCate.map((Cate) => (
+										{categories?.map((Cate) => (
 											<Category key={Cate.id_categories} Cate={Cate} />
 										))}
 									</ul>

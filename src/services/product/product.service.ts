@@ -8,7 +8,6 @@ import newRequest from '../../utils/newRequest';
 export const getProducts = async () => {
 	try {
 		const respose = await newRequest.get('products');
-		console.log(respose.data);
 		return respose.data;
 	} catch (error) {
 		console.error('Error fetching:', error);
