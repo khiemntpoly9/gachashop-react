@@ -1,23 +1,25 @@
 import { Routes, Route } from 'react-router-dom';
 import DefaultLayout from './layout/default-layout/DefaultLayout';
-import Home from './pages/client/home/Home';
-import Product from './pages/client/product/Product';
-import ProductDetail from './pages/client/product/detail/ProductDetail';
+import AdminLayout from './layout/admin-layout/AdminLayout';
+import PageNotFound from './pages/pagenotfound/PageNotFound';
+import Home from '@client/home/Home';
+import Product from '@client/product/Product';
+import ProductDetail from '@client/product/detail/ProductDetail';
 // import Login from './pages/client/auth/login/Login';
 // import Register from './pages/client/auth/register/Register';
-import Favorite from './pages/client/account/Favorite';
-import Account from './pages/client/account/Account';
-import Orders from './pages/client/account/Orders';
-import ChangePassWord from './pages/client/account/ChangePassWord';
-import Address from './pages/client/account/Address';
-import CheckOut from './pages/client/checkout/CheckOut';
-import Contact from './pages/client/contact/Contact';
-import Faq from './pages/client/faq/Faq';
-import PageNotFound from './pages/pagenotfound/PageNotFound';
-import AdminLayout from './layout/admin-layout/AdminLayout';
-import DashBoard from './pages/admin/dashboard/DashBoard';
+import Favorite from '@client/account/Favorite';
+import Account from '@client/account/Account';
+import Orders from '@client/account/Orders';
+import ChangePassWord from '@client/account/ChangePassWord';
+import Address from '@client/account/Address';
+import CheckOut from '@client/checkout/CheckOut';
+import Contact from '@client/contact/Contact';
+import Faq from '@client/faq/Faq';
+
+import DashBoard from '@admin/dashboard/DashBoard';
 // import ProductAddAdmin from './pages/admin/product/ProductAddAdmin';
-import ProductAddBs from './pages/admin/product/ProductAddBs';
+import ProductAddBs from '@admin/product/add-product/ProductAddBs';
+import ListProduct from '@admin/product/list-product/ListProduct';
 
 function App() {
 	return (
@@ -44,7 +46,7 @@ function App() {
 			<Route path='/admin' element={<AdminLayout />}>
 				<Route path='' element={<DashBoard />} />
 				<Route path='dashboard' element={<DashBoard />} />
-				{/* <Route path='product' element={<ProductAdmin />} /> */}
+				<Route path='products' element={<ListProduct />} />
 				<Route path='product/add' element={<ProductAddBs />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />

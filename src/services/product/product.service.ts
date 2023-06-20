@@ -18,7 +18,6 @@ export const getProducts = async () => {
 // Thêm sản phẩm
 export const addProduct = async (product: any) => {
 	try {
-		console.log(product);
 		const respose = await newRequest.post('product', product);
 		return respose.data;
 	} catch (error) {
@@ -27,6 +26,27 @@ export const addProduct = async (product: any) => {
 	}
 };
 
+// Danh sách sản phẩm (admin)
+export const listProductsAd = async (page: number, limit: number) => {
+	try {
+		const respose = await newRequest.get(`products-admin?page=${page}&limit=${limit}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
+
+// Xoá sản phẩm (admin)
+export const deleteProduct = async (id: number) => {
+	try {
+		const respose = await newRequest.delete(`product?id=${id}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
 // Sử dụng user query
 // export const useProducts = () => {
 // 	return useQuery(['products'], getProducts);
