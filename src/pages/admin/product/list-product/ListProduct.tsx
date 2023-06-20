@@ -1,6 +1,8 @@
 import { ProductsAds } from '@interface/product';
 import { listProductsAd } from '@services/product/product.service';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
+import AcitonAdmin from '@admin/components/aciton-component/AcitonAdmin';
 const ListProduct = () => {
 	const [productData, setProducts] = useState<ProductsAds>([]);
 	useEffect(() => {
@@ -45,20 +47,9 @@ const ListProduct = () => {
 								<td>{product.price_prod}</td>
 								<td>{product.quantity}</td>
 								<td>{product.user[0].last_name}</td>
-								<td>{product.createdAt}</td>
-								<td></td>
+								<td>{moment(product.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
 								<td>
-									<div className='d-flex justify-content-around'>
-										<div>
-											<i className='fa-solid fa-eye'></i>
-										</div>
-										<div>
-											<i className='fa-solid fa-pen'></i>
-										</div>
-										<div>
-											<i className='fa-solid fa-trash'></i>
-										</div>
-									</div>
+									<AcitonAdmin productId={product.id_product} nameProduct={product.name_prod} />
 								</td>
 							</tr>
 						))}

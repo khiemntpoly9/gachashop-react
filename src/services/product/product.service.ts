@@ -37,6 +37,16 @@ export const listProductsAd = async (page: number, limit: number) => {
 	}
 };
 
+// Xoá sản phẩm (admin)
+export const deleteProduct = async (id: number) => {
+	try {
+		const respose = await newRequest.delete(`product?id=${id}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
 // Sử dụng user query
 // export const useProducts = () => {
 // 	return useQuery(['products'], getProducts);
