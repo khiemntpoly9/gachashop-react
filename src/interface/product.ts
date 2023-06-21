@@ -52,7 +52,7 @@ export type ProductsAd = {
 	categories: {
 		id_categories: number;
 		name_categories: string;
-	};
+	} | null;
 	quantity: number;
 	user: [
 		{

@@ -44,7 +44,7 @@ const ListProduct = () => {
 									</th>
 									<td>{product.id_product}</td>
 									<td>{product.name_prod}</td>
-									<td>{product.categories.name_categories}</td>
+									<td>{product.categories?.name_categories}</td>
 									<td>{product.price_prod}</td>
 									<td>{product.quantity}</td>
 									<td>{product.user[0].last_name}</td>
@@ -56,7 +56,7 @@ const ListProduct = () => {
 							))
 						) : (
 							<tr>
-								<td className='text-center' colSpan={6}>
+								<td className='text-center' colSpan={9}>
 									Không có dữ liệu.
 								</td>
 							</tr>

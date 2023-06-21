@@ -8,6 +8,16 @@ export type Category = {
 	parent: {
 		name_categories: string;
 	};
+	user: [
+		{
+			id_user: number;
+			first_name: string;
+			last_name: string;
+			role: {
+				name_role: string;
+			};
+		}
+	];
 };
 
 export type Categories = Category[];
