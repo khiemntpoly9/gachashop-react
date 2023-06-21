@@ -3,7 +3,7 @@ import { deleteProduct } from '@services/product/product.service';
 const AcitonAdmin = ({ productId, nameProduct }) => {
 	const modalId = `deleteModal-${productId}`;
 	const submitDelete = async () => {
-		await deleteProduct(productId);
+		await deleteProduct(productId, nameProduct);
 	};
 	return (
 		<div className='d-flex'>

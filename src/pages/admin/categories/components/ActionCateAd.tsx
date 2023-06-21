@@ -3,7 +3,7 @@ import { deleteCategory } from '~/services/product/category.service';
 const ActionCateAd = ({ cateId, nameCate }) => {
 	const modalId = `deleteModal-${cateId}`;
 	const submitDelete = async () => {
-		await deleteCategory(cateId);
+		await deleteCategory(cateId, nameCate);
 	};
 	return (
 		<div className='d-flex'>

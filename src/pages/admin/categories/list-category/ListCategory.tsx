@@ -15,7 +15,9 @@ const ListCategory = () => {
 	return (
 		<div>
 			<h4>Danh sách danh mục</h4>
-
+			<button className='btn btn-success mb-2' data-bs-toggle='modal' data-bs-target='#addCateModal'>
+				Thêm danh mục
+			</button>
 			{/* table */}
 			<div className='border rounded-2 p-3'>
 				<table className='table'>
@@ -27,6 +29,7 @@ const ListCategory = () => {
 							<th scope='col'>ID</th>
 							<th scope='col'>Tên danh mục</th>
 							<th scope='col'>Thời gian tạo</th>
+							<th scope='col'>Người tạo</th>
 							<th scope='col'>Công cụ</th>
 						</tr>
 					</thead>
@@ -40,6 +43,7 @@ const ListCategory = () => {
 									<td>{cateParent.id_categories}</td>
 									<td>{cateParent.name_categories}</td>
 									<td>{moment(cateParent.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+									<td>{cateParent.user[0].last_name}</td>
 									<td>
 										<ActionCateAd cateId={cateParent.id_categories} nameCate={cateParent.name_categories} />
 									</td>
@@ -54,6 +58,37 @@ const ListCategory = () => {
 						)}
 					</tbody>
 				</table>
+			</div>
+			{/* end table */}
+			{/* Model thêm danh mục */}
+			<div
+				className='modal fade'
+				id='addCateModal'
+				tabIndex={-1}
+				aria-labelledby='exampleModalLabel'
+				aria-hidden='true'
+			>
+				<div className='modal-dialog'>
+					<div className='modal-content'>
+						<div className='modal-header'>
+							<h1 className='modal-title fs-5' id='exampleModalLabel'>
+								Thêm danh mục
+							</h1>
+							<button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+						</div>
+						<div className='modal-body'>
+							<span>....</span>
+						</div>
+						<div className='modal-footer'>
+							<button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
+								Huỷ
+							</button>
+							<button type='button' className='btn btn-success'>
+								Thêm
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

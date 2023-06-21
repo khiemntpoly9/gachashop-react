@@ -34,9 +34,9 @@ export const getAllChildCategories = async () => {
 };
 
 // Xoá danh mục
-export const deleteCategory = async (id: number) => {
+export const deleteCategory = async (id: number, nameCate: string) => {
 	try {
-		const respose = await newRequest.delete(`categories?id=${id}`);
+		const respose = await newRequest.delete(`categories?id=${id}&name=${nameCate}`);
 		return respose.data;
 	} catch (error) {
 		console.error('Error fetching:', error);

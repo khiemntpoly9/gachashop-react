@@ -38,9 +38,9 @@ export const listProductsAd = async (page: number, limit: number) => {
 };
 
 // Xoá sản phẩm (admin)
-export const deleteProduct = async (id: number) => {
+export const deleteProduct = async (id: number, nameProd: string) => {
 	try {
-		const respose = await newRequest.delete(`product?id=${id}`);
+		const respose = await newRequest.delete(`product?id=${id}&name=${nameProd}`);
 		return respose.data;
 	} catch (error) {
 		console.error('Error fetching:', error);
