@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import DefaultLayout from './layout/default-layout/DefaultLayout';
-import AdminLayout from './layout/admin-layout/AdminLayout';
-import PageNotFound from './pages/pagenotfound/PageNotFound';
+import DefaultLayout from '~/layout/default-layout/DefaultLayout';
+import AdminLayout from '~/layout/admin-layout/AdminLayout';
+import PageNotFound from '~/pages/pagenotfound/PageNotFound';
 import Home from '@client/home/Home';
 import Product from '@client/product/Product';
 import ProductDetail from '@client/product/detail/ProductDetail';
@@ -20,6 +20,7 @@ import DashBoard from '@admin/dashboard/DashBoard';
 // import ProductAddAdmin from './pages/admin/product/ProductAddAdmin';
 import ProductAddBs from '@admin/product/add-product/ProductAddBs';
 import ListProduct from '@admin/product/list-product/ListProduct';
+import AdLogin from '@admin/login/AdLogin';
 
 function App() {
 	return (
@@ -43,6 +44,7 @@ function App() {
 				<Route path='faq' element={<Faq />} />
 			</Route>
 			{/* Admin */}
+			<Route path='/admin/login' element={<AdLogin />} />
 			<Route path='/admin' element={<AdminLayout />}>
 				<Route path='' element={<DashBoard />} />
 				<Route path='dashboard' element={<DashBoard />} />

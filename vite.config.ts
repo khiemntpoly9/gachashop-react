@@ -13,6 +13,7 @@ export default defineConfig({
 			'@assets': path.resolve(__dirname, './src/assets'),
 			'@client': path.resolve(__dirname, './src/pages/client'),
 			'@admin': path.resolve(__dirname, './src/pages/admin'),
+			'@utils': path.resolve(__dirname, './src/utils'),
 			'~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
 		},
 	},
