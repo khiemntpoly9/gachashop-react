@@ -1,6 +1,7 @@
 import { deleteProduct } from '@services/product/product.service';
 
 const AcitonAdmin = ({ productId, nameProduct }) => {
+	const modalId = `deleteModal-${productId}`;
 	const submitDelete = async () => {
 		await deleteProduct(productId);
 	};
@@ -18,14 +19,14 @@ const AcitonAdmin = ({ productId, nameProduct }) => {
 			</div>
 			{/* Xoá */}
 			<div>
-				<button className='btn' data-bs-toggle='modal' data-bs-target='#deleteModal'>
+				<button className='btn' data-bs-toggle='modal' data-bs-target={`#${modalId}`}>
 					<i className='fa-solid fa-trash'></i>
 				</button>
 			</div>
 			{/* <!-- Modal --> */}
 			<div
 				className='modal fade'
-				id='deleteModal'
+				id={modalId}
 				tabIndex={-1}
 				aria-labelledby='exampleModalLabel'
 				aria-hidden='true'

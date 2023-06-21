@@ -48,6 +48,16 @@ const AdminLayout: React.FC = () => {
 									Thêm sản phẩm
 								</Link>
 							</div>
+							<div className='px-2'>
+								<Link to='/admin/category' style={{ color: '#fff' }}>
+									Danh sách danh mục
+								</Link>
+							</div>
+							<div className='px-2'>
+								<Link to='/admin/category-child' style={{ color: '#fff' }}>
+									Danh sách danh mục phụ
+								</Link>
+							</div>
 						</div>
 					</li>
 				</ul>
