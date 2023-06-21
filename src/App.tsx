@@ -21,6 +21,8 @@ import DashBoard from '@admin/dashboard/DashBoard';
 import ProductAddBs from '@admin/product/add-product/ProductAddBs';
 import ListProduct from '@admin/product/list-product/ListProduct';
 import AdLogin from '@admin/login/AdLogin';
+import ListCategory from '@admin/categories/list-category/ListCategory';
+import ListCategoryChild from '@admin/categories/list-category-children/ListCategoryChild';
 
 function App() {
 	return (
@@ -50,6 +52,8 @@ function App() {
 				<Route path='dashboard' element={<DashBoard />} />
 				<Route path='products' element={<ListProduct />} />
 				<Route path='product/add' element={<ProductAddBs />} />
+				<Route path='category' element={<ListCategory />} />
+				<Route path='category-child' element={<ListCategoryChild />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>

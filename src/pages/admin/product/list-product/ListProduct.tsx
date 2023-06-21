@@ -2,7 +2,7 @@ import { ProductsAds } from '@interface/product';
 import { listProductsAd } from '@services/product/product.service';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
-import AcitonAdmin from '@admin/components/aciton-component/AcitonAdmin';
+import AcitonAdmin from '@admin/product/list-product/AcitonAdmin';
 const ListProduct = () => {
 	const [productData, setProducts] = useState<ProductsAds>([]);
 	useEffect(() => {
@@ -36,23 +36,31 @@ const ListProduct = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{productData?.map((product) => (
-							<tr key={product.id_product}>
-								<th scope='row'>
-									<input type='checkbox' />
-								</th>
-								<td>{product.id_product}</td>
-								<td>{product.name_prod}</td>
-								<td>{product.categories.name_categories}</td>
-								<td>{product.price_prod}</td>
-								<td>{product.quantity}</td>
-								<td>{product.user[0].last_name}</td>
-								<td>{moment(product.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-								<td>
-									<AcitonAdmin productId={product.id_product} nameProduct={product.name_prod} />
+						{productData?.length > 0 ? (
+							productData?.map((product) => (
+								<tr key={product.id_product}>
+									<th scope='row'>
+										<input type='checkbox' />
+									</th>
+									<td>{product.id_product}</td>
+									<td>{product.name_prod}</td>
+									<td>{product.categories.name_categories}</td>
+									<td>{product.price_prod}</td>
+									<td>{product.quantity}</td>
+									<td>{product.user[0].last_name}</td>
+									<td>{moment(product.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+									<td>
+										<AcitonAdmin productId={product.id_product} nameProduct={product.name_prod} />
+									</td>
+								</tr>
+							))
+						) : (
+							<tr>
+								<td className='text-center' colSpan={6}>
+									Không có dữ liệu.
 								</td>
 							</tr>
-						))}
+						)}
 					</tbody>
 				</table>
 			</div>
