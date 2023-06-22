@@ -8,13 +8,15 @@ export type Category = {
 	parent: {
 		name_categories: string;
 	};
-	user: [
+	action_history: [
 		{
-			id_user: number;
-			first_name: string;
-			last_name: string;
-			role: {
-				name_role: string;
+			users: {
+				id_user: number;
+				first_name: string;
+				last_name: string;
+				role: {
+					name_role: string;
+				};
 			};
 		}
 	];

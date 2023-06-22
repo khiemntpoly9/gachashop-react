@@ -33,6 +33,17 @@ export const getAllChildCategories = async () => {
 	}
 };
 
+// Tạo danh mục
+export const createCategory = async (nameCate: string, parentId: number | string | null) => {
+	try {
+		const respose = await newRequest.post('categories', { name_categories: nameCate, parent_id: parentId });
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
+
 // Xoá danh mục
 export const deleteCategory = async (id: number, nameCate: string) => {
 	try {

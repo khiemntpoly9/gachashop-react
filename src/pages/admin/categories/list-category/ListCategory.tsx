@@ -1,17 +1,28 @@
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { Categories } from '~/interface/categories.type';
-import { getAllParentCategories } from '~/services/product/category.service';
+import { createCategory, getAllParentCategories } from '~/services/product/category.service';
 import ActionCateAd from '@admin/categories/components/ActionCateAd';
 const ListCategory = () => {
 	const [cateParent, setCateParent] = useState<Categories>([]);
+	const [nameCate, setNameCate] = useState<string>('');
+	const [count, setCount] = useState<number>(0);
 	useEffect(() => {
 		const fetchCategories = async () => {
 			const data = await getAllParentCategories();
 			setCateParent(data);
 		};
 		fetchCategories();
-	}, []);
+	}, [count]);
+	// Tạo danh mục parent
+	const createCategoriesParent = async () => {
+		await createCategory(nameCate, null);
+		handleIncreaseNumber();
+	};
+	// Tăng lên 1, mỗi khi có tương tác với dữ liệu
+	const handleIncreaseNumber = () => {
+		setCount(count + 1);
+	};
 	return (
 		<div>
 			<h4>Danh sách danh mục</h4>
@@ -43,9 +54,13 @@ const ListCategory = () => {
 									<td>{cateParent.id_categories}</td>
 									<td>{cateParent.name_categories}</td>
 									<td>{moment(cateParent.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-									<td>{cateParent.user[0].last_name}</td>
+									<td>{cateParent.action_history[0].users.last_name}</td>
 									<td>
-										<ActionCateAd cateId={cateParent.id_categories} nameCate={cateParent.name_categories} />
+										<ActionCateAd
+											cateId={cateParent.id_categories}
+											nameCate={cateParent.name_categories}
+											onIncreaseNumber={handleIncreaseNumber}
+										/>
 									</td>
 								</tr>
 							))
@@ -77,13 +92,24 @@ const ListCategory = () => {
 							<button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
 						</div>
 						<div className='modal-body'>
-							<span>....</span>
+							<div className='mb-3'>
+								<label htmlFor='exampleFormControlInput1' className='form-label'>
+									Tên danh mục
+								</label>
+								<input
+									type='text'
+									className='form-control shadow-none'
+									onChange={(e) => {
+										setNameCate(e.target.value);
+									}}
+								/>
+							</div>
 						</div>
 						<div className='modal-footer'>
 							<button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
 								Huỷ
 							</button>
-							<button type='button' className='btn btn-success'>
+							<button type='button' className='btn btn-success' onClick={createCategoriesParent}>
 								Thêm
 							</button>
 						</div>

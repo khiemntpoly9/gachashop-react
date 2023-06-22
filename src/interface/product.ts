@@ -54,13 +54,15 @@ export type ProductsAd = {
 		name_categories: string;
 	} | null;
 	quantity: number;
-	user: [
+	action_history: [
 		{
-			id_user: number;
-			first_name: string;
-			last_name: string;
-			role: {
-				name_role: string;
+			users: {
+				id_user: number;
+				first_name: string;
+				last_name: string;
+				role: {
+					name_role: string;
+				};
 			};
 		}
 	];
