@@ -1,9 +1,10 @@
 import { deleteCategory } from '~/services/product/category.service';
 
-const ActionCateAd = ({ cateId, nameCate }) => {
+const ActionCateAd = ({ cateId, nameCate, onIncreaseNumber }) => {
 	const modalId = `deleteModal-${cateId}`;
 	const submitDelete = async () => {
 		await deleteCategory(cateId, nameCate);
+		onIncreaseNumber();
 	};
 	return (
 		<div className='d-flex'>
@@ -37,7 +38,12 @@ const ActionCateAd = ({ cateId, nameCate }) => {
 							<h1 className='modal-title fs-5' id='exampleModalLabel'>
 								Xoá danh mục
 							</h1>
-							<button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+							<button
+								type='button'
+								className='btn-close shadow-none'
+								data-bs-dismiss='modal'
+								aria-label='Close'
+							></button>
 						</div>
 						<div className='modal-body'>
 							<span>Xác nhận xoá danh mục {nameCate}?</span>
@@ -46,7 +52,7 @@ const ActionCateAd = ({ cateId, nameCate }) => {
 							<button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>
 								Huỷ
 							</button>
-							<button type='button' className='btn btn-danger' onClick={submitDelete}>
+							<button type='button' className='btn btn-danger' data-bs-dismiss='modal' onClick={submitDelete}>
 								Xoá
 							</button>
 						</div>

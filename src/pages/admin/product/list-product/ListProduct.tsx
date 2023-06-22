@@ -47,7 +47,7 @@ const ListProduct = () => {
 									<td>{product.categories?.name_categories}</td>
 									<td>{product.price_prod}</td>
 									<td>{product.quantity}</td>
-									<td>{product.user[0].last_name}</td>
+									<td>{product.action_history[0].users.last_name}</td>
 									<td>{moment(product.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
 									<td>
 										<AcitonAdmin productId={product.id_product} nameProduct={product.name_prod} />
