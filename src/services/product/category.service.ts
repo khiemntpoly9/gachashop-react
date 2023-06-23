@@ -54,3 +54,5 @@ export const deleteCategory = async (id: number, nameCate: string) => {
 		throw error;
 	}
 };
+
+// Lấy danh mục con theo id danh mục chính
