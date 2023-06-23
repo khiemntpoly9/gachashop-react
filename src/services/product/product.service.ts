@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-useless-catch */
 // import { ProductAdd } from 'src/interface/product.interface';
-import newRequest from '../../utils/newRequest';
+import newRequest from '@utils/newRequest';
 // import { useQuery } from '@tanstack/react-query';
 
 // Lấy sản phẩm
