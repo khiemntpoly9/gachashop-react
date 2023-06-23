@@ -81,6 +81,13 @@ const AdminLayout: React.FC = () => {
 							</div>
 						</div>
 					</li>
+					<li className='w-100 px-4 mb-2'>
+						<Link to='/admin/brands' style={{ color: '#fff' }}>
+							<div className='bg-primary w-100 p-2 rounded-2'>
+								<i className='fa-solid fa-chart-line'></i> Thương hiệu
+							</div>
+						</Link>
+					</li>
 				</ul>
 			</div>
 			{/* Content */}
