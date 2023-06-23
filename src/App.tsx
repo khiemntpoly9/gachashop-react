@@ -23,6 +23,7 @@ import ListProduct from '@admin/product/list-product/ListProduct';
 import AdLogin from '@admin/login/AdLogin';
 import ListCategory from '@admin/categories/list-category/ListCategory';
 import ListCategoryChild from '@admin/categories/list-category-children/ListCategoryChild';
+import Users from '@admin/users/Users';
 
 function App() {
 	return (
@@ -54,6 +55,7 @@ function App() {
 				<Route path='product/add' element={<ProductAddBs />} />
 				<Route path='category' element={<ListCategory />} />
 				<Route path='category-child' element={<ListCategoryChild />} />
+				<Route path='list-users' element={<Users />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 		</Routes>

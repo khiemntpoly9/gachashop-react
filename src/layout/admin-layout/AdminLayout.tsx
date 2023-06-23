@@ -60,6 +60,27 @@ const AdminLayout: React.FC = () => {
 							</div>
 						</div>
 					</li>
+					<li className='w-100 px-4 mb-2'>
+						<a
+							data-bs-toggle='collapse'
+							href='#list-user'
+							role='button'
+							aria-expanded='false'
+							aria-controls='list-user'
+							style={{ color: '#fff' }}
+						>
+							<div className='bg-primary w-100 p-2 rounded-2'>
+								<i className='fa-solid fa-user'></i> Tài khoản
+							</div>
+						</a>
+						<div className='collapse border mt-2 rounded-2' id='list-user'>
+							<div className='px-2'>
+								<Link to='/admin/list-users' style={{ color: '#fff' }}>
+									Danh sách tài khoản
+								</Link>
+							</div>
+						</div>
+					</li>
 				</ul>
 			</div>
 			{/* Content */}

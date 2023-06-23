@@ -1,4 +1,4 @@
-import newRequest from '../../utils/newRequest';
+import newRequest from '@utils/newRequest';
 
 // Lấy danh mục sản phẩm
 export const getCategories = async () => {
