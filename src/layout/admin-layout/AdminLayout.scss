@@ -11,22 +11,21 @@
 		}
 	}
 }
-.ant-layout-sider {
-	background: #000;
-	min-width: 260px;
-	max-width: 260px;
 
+.custom-sider {
+	background: #060319f9;
 	transition: width 0.3s ease-in-out;
-
-	.header-box {
-		display: block;
-		&.collapsed {
-			display: none;
-		}
+	min-width: 230px !important;
+	&.collapsed {
+		width: 80px;
+		min-width: 80px !important;
 	}
-	ul {
-		li {
-			list-style: none;
-		}
+	&.ant-layout-sider-collapsed .header-box {
+		display: none;
 	}
+	// Các thuộc tính khác cho Sider khi không thu gọn
+	&.ant-layout-sider-collapsed .logo {
+		display: none;
+	}
+	// Các thuộc tính khác cho Sider khi thu gọn
 }

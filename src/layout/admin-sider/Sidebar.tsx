@@ -6,7 +6,12 @@ import { UserOutlined, ShoppingOutlined, DashboardOutlined } from '@ant-design/i
 
 const Sidebar = ({ collapsed, onCollapse }) => {
 	return (
-		<Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+		<Sider
+			collapsible
+			collapsed={collapsed}
+			onCollapse={onCollapse}
+			className={`custom-sider ${collapsed ? 'collapsed' : ''}`}
+		>
 			<div className={`header-box px-2 pt-3 ${collapsed ? 'collapsed' : ''}`}>
 				<h1 className='fs-4 text-center'>
 					<span className='bg-white text-dark rouded shadow px-2 me-2'>Gacha</span>
