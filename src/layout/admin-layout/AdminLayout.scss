@@ -1,23 +1,32 @@
-#siderBar {
-	background: #000;
-	min-width: 260px;
-	max-width: 260px;
-	transition: all 1s;
-	ul {
-		li {
-			list-style: none;
-		}
-	}
-}
 .content {
 	min-height: 100vh;
 	width: 100%;
+
 	.content-h {
 		background-color: #f2622e;
 		.page-header {
 			i {
 				color: #fff;
 			}
+		}
+	}
+}
+.ant-layout-sider {
+	background: #000;
+	min-width: 260px;
+	max-width: 260px;
+
+	transition: width 0.3s ease-in-out;
+
+	.header-box {
+		display: block;
+		&.collapsed {
+			display: none;
+		}
+	}
+	ul {
+		li {
+			list-style: none;
 		}
 	}
 }

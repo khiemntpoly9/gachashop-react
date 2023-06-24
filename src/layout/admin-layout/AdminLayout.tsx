@@ -1,14 +1,22 @@
 // import { useState } from 'react';
 import './AdminLayout.scss';
-import { Link } from 'react-router-dom';
+
 import { Outlet } from 'react-router-dom';
+import Sidebar from '../admin-sider/Sidebar';
+import { useState } from 'react';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 const AdminLayout: React.FC = () => {
+	const [collapsed, setCollapsed] = useState(false);
+
+	const toggleCollapsed = () => {
+		setCollapsed(!collapsed);
+	};
 	return (
 		<div className='main-container d-flex'>
 			{/* Siderbar */}
 			{/* Bỏ class collapse */}
-			<div className='siderbar' id='siderBar'>
+			{/* <div className='siderbar' id='siderBar'>
 				<div className='header-box px-2 pt-3'>
 					<h1 className='fs-4 text-center'>
 						<span className='bg-white text-dark rouded shadow px-2 me-2'>Gacha</span>
@@ -82,21 +90,19 @@ const AdminLayout: React.FC = () => {
 						</div>
 					</li>
 				</ul>
-			</div>
+			</div> */}
+
+			<Sidebar collapsed={collapsed} onCollapse={toggleCollapsed} />
+
 			{/* Content */}
 			<div className='content container-fluid p-0'>
 				<div className='content-h border-md shadown-sm mb-2 p-2'>
 					<div className='page-header'>
-						<button
-							className='btn'
-							type='button'
-							data-bs-toggle='collapse'
-							data-bs-target='#siderBar'
-							aria-expanded='false'
-							aria-controls='siderBar'
-						>
-							<i className='fa-solid fa-bars-staggered'></i>
-						</button>
+						{collapsed ? (
+							<MenuUnfoldOutlined className='trigger' onClick={toggleCollapsed} />
+						) : (
+							<MenuFoldOutlined className='trigger' onClick={toggleCollapsed} />
+						)}
 						{/* avatar */}
 					</div>
 				</div>
