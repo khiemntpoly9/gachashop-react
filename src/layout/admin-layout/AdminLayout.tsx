@@ -2,7 +2,7 @@
 import './AdminLayout.scss';
 
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../admin-sider/Sidebar';
+import Sidebar from './Sidebar';
 import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
