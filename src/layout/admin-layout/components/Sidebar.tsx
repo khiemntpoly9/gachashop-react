@@ -38,7 +38,7 @@ const Sidebar = ({ collapsed, onCollapse }) => {
 						<Link to='/admin/category-child'>Danh sách danh mục phụ</Link>
 					</Menu.Item>
 					<Menu.Item key='7'>
-						<Link to='/admin/brands'>Danh sách nhãn hiệu</Link>
+						<Link to='/admin/brands'>Danh sách thương hiệu</Link>
 					</Menu.Item>
 				</Menu.SubMenu>
 				<Menu.Item key='6' icon={<UserOutlined />}>
