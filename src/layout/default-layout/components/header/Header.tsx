@@ -2,18 +2,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useContext } from 'react';
 import AuthContext from '~/context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 import logo from '@assets/images/logo3.png';
 import store from '@assets/images/store.png';
 import img1 from '@assets/images/mega-1-image.webp';
-// import { checkIsLogin } from '~/services/auth/auth.service';
+import { logout } from '~/services/user/user.service';
 
 const Header = () => {
 	const [cartItems, setCartItems] = useState<never[]>([]);
+	const navigate = useNavigate();
 	const authContext = useContext(AuthContext);
 	if (!authContext) throw new Error('AuthContext null');
-	const { isLogined } = authContext;
+	const { isLogined, setIsLogined } = authContext;
 
 	useEffect(() => {
 		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
@@ -78,6 +79,14 @@ const Header = () => {
 			emptyMessage.textContent = 'Không có sản phẩm trong giỏ hàng';
 			cartElement.appendChild(emptyMessage);
 		}
+	};
+
+	// Đăng xuất
+	const handleLogout = async () => {
+		await logout();
+		localStorage.removeItem('isLogin');
+		setIsLogined(false);
+		navigate('/home');
 	};
 	return (
 		<header className='header-p container-fluid px-0'>
@@ -383,18 +392,33 @@ const Header = () => {
 							<Link className='nav-link' to='/'>
 								<li className='list-group-item-link px-3'>FAQ</li>
 							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>Đăng nhập</li>
-							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>Đăng ký</li>
-							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>
-									Sản phẩm yêu thích
-									<span className='ms-1'>(0)</span>
-								</li>
-							</Link>
+							{isLogined ? (
+								<Link className='nav-link' to='/account'>
+									<li className='list-group-item-link px-3'>Tài khoản</li>
+								</Link>
+							) : (
+								<Link className='nav-link' to='/login'>
+									<li className='list-group-item-link px-3'>Đăng nhập</li>
+								</Link>
+							)}
+							{isLogined ? null : (
+								<Link className='nav-link' to='/login'>
+									<li className='list-group-item-link px-3'>Đăng ký</li>
+								</Link>
+							)}
+							{isLogined ? (
+								<Link className='nav-link' to='/'>
+									<li className='list-group-item-link px-3'>
+										Sản phẩm yêu thích
+										<span className='ms-1'>(0)</span>
+									</li>
+								</Link>
+							) : null}
+							{isLogined ? (
+								<Link className='nav-link' to='#' onClick={handleLogout}>
+									<li className='list-group-item-link px-3'>Đăng xuất</li>
+								</Link>
+							) : null}
 						</ul>
 					</div>
 				</div>

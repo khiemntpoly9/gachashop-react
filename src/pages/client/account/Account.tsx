@@ -24,6 +24,7 @@ const Account = () => {
 	// Đăng xuất
 	const handleLogout = async () => {
 		await logout();
+		localStorage.removeItem('isLogin');
 		setIsLogined(false);
 		navigate('/home');
 	};

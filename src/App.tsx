@@ -43,10 +43,38 @@ const App = () => {
 				<Route path='login' element={<Login />} />
 				<Route path='register' element={<Register />} />
 				{/* Account */}
-				<Route path='account' element={<Account />} />
-				<Route path='account/orders' element={<Orders />} />
-				<Route path='account/changepassword' element={<ChangePassWord />} />
-				<Route path='account/addresses' element={<Address />} />
+				<Route
+					path='account'
+					element={
+						<Protected role={['qtv', 'ctv', 'user']}>
+							<Account />
+						</Protected>
+					}
+				/>
+				<Route
+					path='account/orders'
+					element={
+						<Protected role={['qtv', 'ctv', 'user']}>
+							<Orders />
+						</Protected>
+					}
+				/>
+				<Route
+					path='account/changepassword'
+					element={
+						<Protected role={['qtv', 'ctv', 'user']}>
+							<ChangePassWord />
+						</Protected>
+					}
+				/>
+				<Route
+					path='account/addresses'
+					element={
+						<Protected role={['qtv', 'ctv', 'user']}>
+							<Address />
+						</Protected>
+					}
+				/>
 				<Route path='checkout' element={<CheckOut />} />
 				<Route path='favorite' element={<Favorite />} />
 
