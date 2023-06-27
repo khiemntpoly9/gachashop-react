@@ -5,8 +5,8 @@ import PageNotFound from '~/pages/pagenotfound/PageNotFound';
 import Home from '@client/home/Home';
 import Product from '@client/product/Product';
 import ProductDetail from '@client/product/detail/ProductDetail';
-// import Login from './pages/client/auth/login/Login';
-// import Register from './pages/client/auth/register/Register';
+import Login from '@client/auth/login/Login';
+import Register from '@client/auth/register/Register';
 import Favorite from '@client/account/Favorite';
 import Account from '@client/account/Account';
 import Orders from '@client/account/Orders';
@@ -40,15 +40,16 @@ const App = () => {
 				<Route path='products' element={<Product />} />
 				<Route path='product' element={<ProductDetail />} />
 				{/* Auth */}
-				{/* <Route path='login' element={<Login />} />
-				<Route path='register' element={<Register />} /> */}
-				<Route path='favorite' element={<Favorite />} />
+				<Route path='login' element={<Login />} />
+				<Route path='register' element={<Register />} />
 				{/* Account */}
 				<Route path='account' element={<Account />} />
 				<Route path='account/orders' element={<Orders />} />
 				<Route path='account/changepassword' element={<ChangePassWord />} />
 				<Route path='account/addresses' element={<Address />} />
 				<Route path='checkout' element={<CheckOut />} />
+				<Route path='favorite' element={<Favorite />} />
+
 				<Route path='contact' element={<Contact />} />
 				<Route path='faq' element={<Faq />} />
 			</Route>

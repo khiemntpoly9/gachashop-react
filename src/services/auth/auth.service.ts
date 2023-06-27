@@ -15,7 +15,7 @@ export const checkIsLogin = async () => {
 export const login = async (email: string, password: string) => {
 	try {
 		const respose = await newRequest.post('auth/login', { email, password });
-		return respose.data;
+		return respose;
 	} catch (error) {
 		console.error('Error fetching:', error);
 		throw error;

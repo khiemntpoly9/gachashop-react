@@ -41,15 +41,11 @@
 			}
 		}
 		.right {
-			.form-control::placeholder {
-				font-size: 14px;
-			}
 			.auth-menu-list {
 				list-style: none;
 				height: 50px;
 				border-bottom: 1px solid #eee;
 				.regisform {
-					
 					border-right: none !important;
 				}
 				li {
@@ -57,7 +53,7 @@
 					border-right: 1px solid #eee;
 					position: relative;
 					flex: 1 1;
-					span {
+					a {
 						display: flex;
 						height: 100%;
 						width: 100%;
@@ -66,8 +62,6 @@
 						font-size: 15px;
 						line-height: 22px;
 						color: #999;
-						font-weight: 600;
-
 						&:hover {
 							color: #ec4f21;
 						}
@@ -119,7 +113,6 @@
 					background-color: #ec4f21;
 					border: 1px solid #ec4f21;
 					color: #fff;
-					display: inline-block;
 					&:hover {
 						color: #fff;
 						background-color: #d73f12;

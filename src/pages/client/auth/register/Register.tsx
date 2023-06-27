@@ -4,7 +4,7 @@ import '../login/Login.scss';
 
 import newRequest from '../../../../utils/newRequest';
 
-const Register = ({ setStatusLogin }) => {
+const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [first_name, setFirstname] = useState('');
@@ -113,10 +113,10 @@ const Register = ({ setStatusLogin }) => {
 				<div className='right col'>
 					<ul className='auth-menu-list d-flex'>
 						<li className='loginform '>
-							<span onClick={() => setStatusLogin(true)}>Đăng nhập</span>
+							<Link to='/login'>Đăng nhập</Link>
 						</li>
 						<li className='regisform active'>
-							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
+							<Link to='/register'>Đăng kí</Link>
 						</li>
 					</ul>
 					<form method='post' id='customer-name' onSubmit={handleSubmit}>
