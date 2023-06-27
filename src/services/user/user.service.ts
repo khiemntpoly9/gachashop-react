@@ -21,3 +21,13 @@ export const logout = async () => {
 		throw error;
 	}
 };
+
+export const getInfoUser = async () => {
+	try {
+		const respose = await newRequest.get('user/profile');
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};

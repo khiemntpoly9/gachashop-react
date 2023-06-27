@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, notification } from 'antd';
-import newRequest from '@utils/newRequest';
+import { notification } from 'antd';
 import './Login.scss';
+import { login } from '~/services/auth/auth.service';
 const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -56,14 +55,12 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 		return isValid;
 	};
 
+	// Đăng nhập
 	const handleSubmit = async () => {
 		if (validateForm()) {
 			try {
-				const user = { email, password };
-				const logLogin = await newRequest.post('/auth/login', user);
+				const logLogin = await login(email, password);
 				console.log(logLogin);
-
-				// <Navigate to='/account' />;
 			} catch (error: any) {
 				notification.error({
 					message: 'Đăng nhập thất bại',
