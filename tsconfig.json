@@ -9,7 +9,8 @@
 			"@assets/*": ["src/assets/*"],
 			"@client/*": ["src/pages/client/*"],
 			"@admin/*": ["src/pages/admin/*"],
-			"@utils/*": ["src/utils/*"]
+			"@utils/*": ["src/utils/*"],
+			"@context/*": ["src/context/*"]
 		},
 		"noImplicitAny": false,
 		"useDefineForClassFields": true,

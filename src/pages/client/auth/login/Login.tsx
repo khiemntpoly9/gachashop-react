@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { notification } from 'antd';
 import './Login.scss';
 import { login } from '~/services/auth/auth.service';
-const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
+import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '~/context/AuthContext';
+const Login = () => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const authContext = useContext(AuthContext);
+	if (!authContext) throw new Error('AuthContext null');
+	const { setIsLogined } = authContext;
+	const navigate = useNavigate();
 	interface ErrorsType {
 		username?: string;
 		password?: string;
@@ -16,12 +22,10 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 	// Lấy địa chỉ Email
 	const handleEmailChange = (event: any) => {
 		setEmail(event.target.value);
-		console.log(email);
 	};
-
+	// Lấy mật khẩu
 	const handlePassChange = (event: any) => {
 		setPassword(event.target.value);
-		console.log(password);
 	};
 
 	//Validate
@@ -56,23 +60,32 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 	};
 
 	// Đăng nhập
-	const handleSubmit = async () => {
+	const handleSubmit = async (event: any) => {
+		event.preventDefault();
 		if (validateForm()) {
 			try {
 				const logLogin = await login(email, password);
-				console.log(logLogin);
+				if (logLogin.request.status == 200) {
+					notification.success({
+						message: 'Đăng nhập thành công',
+						description: 'Chào mừng bạn đến với GachaShop',
+					});
+					setIsLogined(true);
+					setTimeout(() => {
+						navigate('/home');
+					}, 1000);
+				} else {
+					notification.error({
+						message: 'Đăng nhập thất bại',
+						description: logLogin.data,
+					});
+				}
 			} catch (error: any) {
 				notification.error({
 					message: 'Đăng nhập thất bại',
 					description: error.response.data.message,
 				});
-				// alert(error.response.data.message);
 			}
-		} else {
-			notification.error({
-				message: 'Đăng nhập thất bại',
-				description: 'Đã xảy ra lỗi khi đăng nhập',
-			});
 		}
 	};
 	return (
@@ -89,20 +102,20 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 				<div className='right col'>
 					<ul className='auth-menu-list d-flex'>
 						<li className='loginform active'>
-							<span onClick={() => setStatusLogin(true)}>Đăng nhập</span>
+							<Link to='/login'>Đăng nhập</Link>
 						</li>
 						<li className='regisform'>
-							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
+							<Link to='/register'>Đăng kí</Link>
 						</li>
 					</ul>
-					<form id='customer-login'>
+					<form id='customer-login' onSubmit={handleSubmit}>
 						<div className='mb-3'>
 							<label htmlFor='InputEmail' className='form-label'>
 								Email <span>*</span>
 							</label>
 							<input
-								// type='email'
-								className='form-control'
+								type='text'
+								className='form-control shadow-none'
 								id='InputEmail'
 								placeholder='Nhập địa chỉ email'
 								onChange={handleEmailChange}
@@ -115,7 +128,7 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 							</label>
 							<input
 								type='password'
-								className='form-control'
+								className='form-control shadow-none'
 								id='InputPassword'
 								placeholder='Nhập mật khẩu'
 								onChange={handlePassChange}
@@ -127,14 +140,7 @@ const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
 								Quên mật khẩu?
 							</a>
 						</p>
-						<button
-							onClick={() => {
-								handleSubmit();
-								setOpenModal(false);
-								handleCount();
-							}}
-							className='btn'
-						>
+						<button type='submit' className='btn'>
 							Đăng nhập
 						</button>
 						<p className='login-note'>

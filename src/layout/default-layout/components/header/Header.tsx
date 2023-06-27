@@ -1,24 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import AuthContext from '~/context/AuthContext';
 import { Link } from 'react-router-dom';
 import './Header.scss';
-
 import logo from '@assets/images/logo3.png';
 import store from '@assets/images/store.png';
 import img1 from '@assets/images/mega-1-image.webp';
-
-// import { Modal } from 'antd';
-import Login from '@client/auth/login/Login';
-import Register from '@client/auth/register/Register';
-import { checkIsLogin } from '~/services/auth/auth.service';
+// import { checkIsLogin } from '~/services/auth/auth.service';
 
 const Header = () => {
 	const [cartItems, setCartItems] = useState<never[]>([]);
-	const [isLogined, setIsLogined] = useState<boolean>(false);
-	const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
-	const [statusLogin, setStatusLogin] = useState(true);
-	const [count, setCount] = useState<number>(0);
+	const authContext = useContext(AuthContext);
+	if (!authContext) throw new Error('AuthContext null');
+	const { isLogined } = authContext;
 
 	useEffect(() => {
 		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
@@ -29,18 +24,7 @@ const Header = () => {
 		} else {
 			setCartItems([]);
 		}
-		// Kiểm tra xem đã đăng nhập chưa
-		const check = async () => {
-			const data = await checkIsLogin();
-			setIsLogined(data.isLogin);
-		};
-		check();
-	}, [setCartItems, count]);
-
-	const handCount = () => {
-		setCount(count + 1);
-	};
-	console.log(count);
+	}, [setCartItems]);
 
 	// Lấy nội dung giỏ hàng từ LocalStorage
 	const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
@@ -97,28 +81,6 @@ const Header = () => {
 	};
 	return (
 		<header className='header-p container-fluid px-0'>
-			{/* Modal */}
-			{openModalLogin ? (
-				<span className='modal-login position-absolute top-0 left-0'>
-					<div className='overlay'></div>
-					<div className='body'>
-						<div className='wrapper position-relative'>
-							<span onClick={() => setOpenModalLogin(false)} className='close position-absolute'>
-								x
-							</span>
-							{statusLogin ? (
-								<Login
-									setStatusLogin={setStatusLogin}
-									setOpenModal={setOpenModalLogin}
-									handleCount={handCount}
-								/>
-							) : (
-								<Register setStatusLogin={setStatusLogin} />
-							)}
-						</div>
-					</div>
-				</span>
-			) : null}
 			{/* Container */}
 			<div className='container-lg'>
 				<div className='d-flex align-items-center justify-content-between evo-header-padding'>
@@ -185,7 +147,7 @@ const Header = () => {
 										</div>
 									</Link>
 								) : (
-									<Link className='text-black pointer' onClick={() => setOpenModalLogin(true)} to='/'>
+									<Link className='text-black pointer' to='/login'>
 										<div className='box-a w-auto d-flex'>
 											<i className='fa-regular fa-user w-auto'></i>
 											<span>Tài khoản</span>

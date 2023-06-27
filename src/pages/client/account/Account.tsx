@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Account.scss';
 import { getInfoUser, logout } from '~/services/user/user.service';
 import { User } from '~/interface/user.type';
+import AuthContext from '~/context/AuthContext';
 
 const Account = () => {
 	const [userData, setUserData] = useState<User | null>(null);
 	const navigate = useNavigate();
+	const authContext = useContext(AuthContext);
+	if (!authContext) throw new Error('AuthContext null');
+	const { setIsLogined } = authContext;
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -20,6 +24,7 @@ const Account = () => {
 	// Đăng xuất
 	const handleLogout = async () => {
 		await logout();
+		setIsLogined(false);
 		navigate('/home');
 	};
 	if (userData === null) return <div>Loading....</div>;

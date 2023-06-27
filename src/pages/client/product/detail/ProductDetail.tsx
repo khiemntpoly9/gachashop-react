@@ -122,38 +122,38 @@ const ProductDetail = () => {
 				</nav>
 				<div className='mt-2 row'>
 					<div className='row col-12 col-xl-6'>
-						{/* <div className='col-2'>
-            <div className='list-group img-product' id='list-tab' role='tablist'>
-              {productDetail.img_prod.map((img) => (
-                <a
-                  key={img}
-                  className='list-group-item list-group-item-action active'
-                  id='list-home-list'
-                  data-bs-toggle='list'
-                  href='#list-home'
-                  role='tab'
-                  aria-controls='list-home'
-                >
-                  <img className='w-100' src={img} alt='' />
-                </a>
-              ))}
-            </div>
-          </div> */}
-						{/* <div className='col-10'>
-            <div className='tab-content' id='nav-tabContent'>
-              {productDetail.img_prod.map((img) => (
-                <div
-                  key={img}
-                  className='tab-pane fade show active'
-                  id='list-home'
-                  role='tabpanel'
-                  aria-labelledby='list-home-list'
-                >
-                  <img src={img} alt='' />
-                </div>
-              ))}
-            </div>
-          </div> */}
+						<div className='col-2'>
+							<div className='list-group img-product' id='list-tab' role='tablist'>
+								{productDetail.img_prod.map((img) => (
+									<a
+										key={img}
+										className='list-group-item list-group-item-action active'
+										id='list-home-list'
+										data-bs-toggle='list'
+										href='#list-home'
+										role='tab'
+										aria-controls='list-home'
+									>
+										<img className='w-100' src={img} alt='' />
+									</a>
+								))}
+							</div>
+						</div>
+						<div className='col-10'>
+							<div className='tab-content' id='nav-tabContent'>
+								{productDetail.img_prod.map((img) => (
+									<div
+										key={img}
+										className='tab-pane fade show active'
+										id='list-home'
+										role='tabpanel'
+										aria-labelledby='list-home-list'
+									>
+										<img src={img} alt='' />
+									</div>
+								))}
+							</div>
+						</div>
 					</div>
 					<div className='col-12 col-xl-6'>
 						<div className='fw-semibold'>
