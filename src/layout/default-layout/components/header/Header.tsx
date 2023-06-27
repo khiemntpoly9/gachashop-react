@@ -244,7 +244,7 @@ const Header = () => {
 												<div className='col-3 p-1'>
 													<div className=''>
 														<h6>
-															<Link to='/'>Nội thất</Link>
+															<Link to='/'>MÔ HÌNH</Link>
 														</h6>
 														<ul className='ul-list-item'>
 															<li>
