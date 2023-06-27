@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
-import logo from '../../../../assets/images/logo3.png';
-import store from '../../../../assets/images/store.png';
-import img1 from '../../../../assets/images/mega-1-image.webp';
+import logo from '@assets/images/logo3.png';
+import store from '@assets/images/store.png';
+import img1 from '@assets/images/mega-1-image.webp';
 
-import { Modal } from 'antd';
-import Login from '../../../../pages/client/auth/login/Login';
-import Register from '../../../../pages/client/auth/register/Register';
+// import { Modal } from 'antd';
+import Login from '@client/auth/login/Login';
+import Register from '@client/auth/register/Register';
+import { checkIsLogin } from '~/services/auth/auth.service';
 
-function Header() {
+const Header = () => {
 	const [cartItems, setCartItems] = useState<never[]>([]);
-	const [isLogined, setIsLogined] = useState(false);
-	const [openModalLogin, setOpenModalLogin] = useState(false);
+	const [isLogined, setIsLogined] = useState<boolean>(false);
+	const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
 	const [statusLogin, setStatusLogin] = useState(true);
-	const navigate = useNavigate();
+	const [count, setCount] = useState<number>(0);
 
 	useEffect(() => {
 		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
@@ -28,8 +29,20 @@ function Header() {
 		} else {
 			setCartItems([]);
 		}
-	}, [setCartItems]);
+		// Kiểm tra xem đã đăng nhập chưa
+		const check = async () => {
+			const data = await checkIsLogin();
+			setIsLogined(data.isLogin);
+		};
+		check();
+	}, [setCartItems, count]);
 
+	const handCount = () => {
+		setCount(count + 1);
+	};
+	console.log(count);
+
+	// Lấy nội dung giỏ hàng từ LocalStorage
 	const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
 	if (storedCartItemsString !== null) {
 		const btnRemove = (id_product: number) => {
@@ -49,10 +62,9 @@ function Header() {
 				updateCart();
 			}
 		};
-	} else {
-		console.log('Không có sản phẩm trong giỏ hàng');
 	}
 
+	// Cập nhật giỏ hàng
 	const updateCart = () => {
 		// Lấy dữ liệu từ LocalStorage
 		const cartItems: string | null = JSON.parse(localStorage.getItem('productsInCart'));
@@ -85,6 +97,7 @@ function Header() {
 	};
 	return (
 		<header className='header-p container-fluid px-0'>
+			{/* Modal */}
 			{openModalLogin ? (
 				<span className='modal-login position-absolute top-0 left-0'>
 					<div className='overlay'></div>
@@ -94,7 +107,11 @@ function Header() {
 								x
 							</span>
 							{statusLogin ? (
-								<Login setStatusLogin={setStatusLogin} />
+								<Login
+									setStatusLogin={setStatusLogin}
+									setOpenModal={setOpenModalLogin}
+									handleCount={handCount}
+								/>
 							) : (
 								<Register setStatusLogin={setStatusLogin} />
 							)}
@@ -102,6 +119,7 @@ function Header() {
 					</div>
 				</span>
 			) : null}
+			{/* Container */}
 			<div className='container-lg'>
 				<div className='d-flex align-items-center justify-content-between evo-header-padding'>
 					{/* Menu icon */}
@@ -159,16 +177,21 @@ function Header() {
 							</div>
 							{/* Tài khoản */}
 							<div className='d-none d-lg-block col-3 p-0 p-lg-2 w-auto ms-lg-2 ms-xl-3'>
-								<Link
-									className='text-black pointer'
-									onClick={() => (isLogined ? navigate('/account') : setOpenModalLogin(true))}
-									to={''}
-								>
-									<div className='box-a w-auto d-flex'>
-										<i className='fa-regular fa-user w-auto'></i>
-										<span>Tài khoản</span>
-									</div>
-								</Link>
+								{isLogined ? (
+									<Link className='text-black pointer' to='/account'>
+										<div className='box-a w-auto d-flex'>
+											<i className='fa-regular fa-user w-auto'></i>
+											<span>Tài khoản</span>
+										</div>
+									</Link>
+								) : (
+									<Link className='text-black pointer' onClick={() => setOpenModalLogin(true)} to='/'>
+										<div className='box-a w-auto d-flex'>
+											<i className='fa-regular fa-user w-auto'></i>
+											<span>Tài khoản</span>
+										</div>
+									</Link>
+								)}
 							</div>
 							{/* Giỏ hàng */}
 							<div className='col-3 p-0 p-lg-2 w-auto'>
@@ -354,7 +377,7 @@ function Header() {
 			{/* Offcanvas Menu */}
 			<div
 				className='offcanvas offcanvas-start'
-				tabIndex='-1'
+				tabIndex={-1}
 				id='offcanvasExample'
 				aria-labelledby='offcanvasExampleLabel'
 			>
@@ -417,7 +440,7 @@ function Header() {
 			{/* Offcanvas Cart */}
 			<div
 				className='offcanvas offcanvas-end'
-				tabIndex='-1'
+				tabIndex={-1}
 				id='offcanvasCart'
 				aria-labelledby='offcanvasCart'
 			>
@@ -429,15 +452,8 @@ function Header() {
 				</div>
 
 				<div className='offcanvas-body p-0'>
-					{/* <div className='icon-store text-center'>
-				<img className='w-50 opacity-50' src={store} alt='' />
-			</div> */}
 					<div className='aaa'>
-						{cartItems.length === 0 ? (
-							<div className='icon-store text-center'>
-								<img className='w-50 opacity-50' src={store} alt='' />
-							</div>
-						) : (
+						{isLogined ? (
 							<div>
 								{cartItems.map((value) => (
 									<div key={value.id_product} className='p-2 d-flex'>
@@ -462,46 +478,27 @@ function Header() {
 									</div>
 								))}
 							</div>
-						)}
-						{/* {cartItems.map((value) => (
-					<div key={value.id_product} className='p-2 d-flex'>
-						<img className='w-25' src={value.img_thumbnail} alt='' />
-						<div className='ps-3'>
-							<h6 className='fw-bold'>{value.name_prod}</h6>
-							<span className='text-danger fw-bold'>{value.price_prod} VNĐ</span>
-
-							<div className='d-flex space-beete'>
-								<p className='fw-bold'>Số lượng</p>
-								<span className='ps-3 fw-bold'>{value.quantity}</span>
-								<button
-									className='ms-5 btn btn-danger'
-									type='button'
-									id={`itemDelete-${value.id_product}`}
-									onClick={() => btnRemove(value.id_product)}
-								>
-									Xóa
-								</button>
+						) : (
+							<div className='icon-store text-center'>
+								<img className='w-50 opacity-50' src={store} alt='' />
+								<div className='d-flex justify-content-center mt-2'>
+									<div
+										className='btn-cart d-flex align-items-center justify-content-center p-3'
+										data-bs-dismiss='offcanvas'
+										aria-label='Close'
+									>
+										Bạn cần đăng nhập để xem giỏ hàng
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				))} */}
-					</div>
-					<div className='d-flex justify-content-center mt-2'>
-						<div
-							type='button'
-							className='btn-cart w-50 d-flex align-items-center justify-content-center'
-							data-bs-dismiss='offcanvas'
-							aria-label='Close'
-						>
-							Tiếp tục mua sắm
-						</div>
+						)}
 					</div>
 				</div>
 			</div>
 			{/* Offcanvas search */}
 			<div
 				className='offcanvas offcanvas-end'
-				tabIndex='-1'
+				tabIndex={-1}
 				id='offcanvasSearch'
 				aria-labelledby='offcanvasSearch'
 			>
@@ -524,6 +521,6 @@ function Header() {
 			</div>
 		</header>
 	);
-}
+};
 
 export default Header;

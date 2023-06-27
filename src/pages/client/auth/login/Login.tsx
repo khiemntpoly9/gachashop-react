@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, notification } from 'antd';
-import newRequest from '../../../../utils/newRequest';
+import newRequest from '@utils/newRequest';
 import './Login.scss';
-const Login = ({ setStatusLogin }) => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+const Login = ({ setStatusLogin, setOpenModal, handleCount }) => {
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 	interface ErrorsType {
 		username?: string;
 		password?: string;
@@ -15,19 +15,21 @@ const Login = ({ setStatusLogin }) => {
 	const [errors, setErrors] = useState<ErrorsType>({});
 
 	// Lấy địa chỉ Email
-	const handleEmailChange = (event) => {
+	const handleEmailChange = (event: any) => {
 		setEmail(event.target.value);
+		console.log(email);
 	};
 
-	const handlePassChange = (event) => {
+	const handlePassChange = (event: any) => {
 		setPassword(event.target.value);
+		console.log(password);
 	};
 
 	//Validate
 	const validateForm = () => {
 		const formErrors: { username: string; password: string } = {
-			username: '',
-			password: '',
+			username: email,
+			password: password,
 		};
 		let isValid = true;
 
@@ -54,13 +56,12 @@ const Login = ({ setStatusLogin }) => {
 		return isValid;
 	};
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		// true
+	const handleSubmit = async () => {
 		if (validateForm()) {
 			try {
 				const user = { email, password };
-				await newRequest.post('/auth/login', user);
+				const logLogin = await newRequest.post('/auth/login', user);
+				console.log(logLogin);
 
 				// <Navigate to='/account' />;
 			} catch (error: any) {
@@ -97,7 +98,7 @@ const Login = ({ setStatusLogin }) => {
 							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
 						</li>
 					</ul>
-					<form method='post' id='customer-login'>
+					<form id='customer-login'>
 						<div className='mb-3'>
 							<label htmlFor='InputEmail' className='form-label'>
 								Email <span>*</span>
@@ -107,7 +108,6 @@ const Login = ({ setStatusLogin }) => {
 								className='form-control'
 								id='InputEmail'
 								placeholder='Nhập địa chỉ email'
-								value={email}
 								onChange={handleEmailChange}
 							/>
 							{errors.username && <span>{errors.username}</span>}
@@ -121,7 +121,6 @@ const Login = ({ setStatusLogin }) => {
 								className='form-control'
 								id='InputPassword'
 								placeholder='Nhập mật khẩu'
-								value={password}
 								onChange={handlePassChange}
 							/>
 							{errors.password && <span>{errors.password}</span>}
@@ -131,7 +130,14 @@ const Login = ({ setStatusLogin }) => {
 								Quên mật khẩu?
 							</a>
 						</p>
-						<button onClick={handleSubmit} className='btn'>
+						<button
+							onClick={() => {
+								handleSubmit();
+								setOpenModal(false);
+								handleCount();
+							}}
+							className='btn'
+						>
 							Đăng nhập
 						</button>
 						<p className='login-note'>
