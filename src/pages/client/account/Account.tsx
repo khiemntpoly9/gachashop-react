@@ -1,30 +1,28 @@
 import { useState, useEffect } from 'react';
-import newRequest from '../../../utils/newRequest';
 import { useNavigate } from 'react-router-dom';
 
 import './Account.scss';
-import { logout } from '~/services/user/user.service';
+import { getInfoUser, logout } from '~/services/user/user.service';
+import { User } from '~/interface/user.type';
 
 const Account = () => {
-	// Khai báo
-	const [isLoading, setIsLoading] = useState(true);
-	const [userData, setUserData] = useState({});
+	const [userData, setUserData] = useState<User | null>(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		newRequest
-			.get('/user')
-			.then((res) => setUserData(res.data))
-			.catch((error) => error);
-		setIsLoading(false);
-	});
+		const getUser = async () => {
+			const user = await getInfoUser();
+			setUserData(user);
+		};
+		getUser();
+	}, []);
 
 	// Đăng xuất
 	const handleLogout = async () => {
 		await logout();
 		navigate('/home');
 	};
-	if (!setIsLoading) return <div>Loading....</div>;
+	if (userData === null) return <div>Loading....</div>;
 	return (
 		<div className='account container'>
 			<div className='row'>
@@ -65,6 +63,7 @@ const Account = () => {
 					<h4>THÔNG TIN TÀI KHOẢN</h4>
 					<p>Họ tên: {`${userData.first_name} ${userData.last_name}`}</p>
 					<p>Email: {userData.email}</p>
+					<p>Số điện thoại: {userData.phone}</p>
 				</div>
 			</div>
 		</div>
