@@ -3,6 +3,7 @@ import newRequest from '../../../utils/newRequest';
 import { useNavigate } from 'react-router-dom';
 
 import './Account.scss';
+import { logout } from '~/services/user/user.service';
 
 const Account = () => {
 	// Khai báo
@@ -19,9 +20,8 @@ const Account = () => {
 	});
 
 	// Đăng xuất
-	const handleLogout = () => {
-		newRequest.post('/logout');
-		// localStorage.setItem('user', null);
+	const handleLogout = async () => {
+		await logout();
 		navigate('/home');
 	};
 	if (!setIsLoading) return <div>Loading....</div>;
