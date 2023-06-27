@@ -70,6 +70,8 @@ const Login = () => {
 						message: 'Đăng nhập thành công',
 						description: 'Chào mừng bạn đến với GachaShop',
 					});
+					// Set localStorage
+					localStorage.setItem('isLogin', 'true');
 					setIsLogined(true);
 					setTimeout(() => {
 						navigate('/home');

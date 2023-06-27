@@ -12,8 +12,8 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-	const [isLogined, setIsLogined] = useState<boolean>(false);
-
+	const logLogin = localStorage.getItem('isLogin');
+	const [isLogined, setIsLogined] = useState<boolean>(Boolean(logLogin));
 	return <AuthContext.Provider value={{ isLogined, setIsLogined }}>{children}</AuthContext.Provider>;
 };
 

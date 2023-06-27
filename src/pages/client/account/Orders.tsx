@@ -10,7 +10,7 @@ const Orders = () => {
 						<p>Xin chào,...</p> {/* Truyền dữ liệu từ db*/}
 						<ul className='list-unstyled'>
 							<li>
-								<a href='#' className='title-info'>
+								<a href='/account' className='title-info'>
 									Thông tin tài khoản!
 								</a>
 							</li>
