@@ -16,7 +16,6 @@ import CheckOut from '@client/checkout/CheckOut';
 import Contact from '@client/contact/Contact';
 import Faq from '@client/faq/Faq';
 
-import DashBoard from '@admin/dashboard/DashBoard';
 // import ProductAddAdmin from './pages/admin/product/ProductAddAdmin';
 import ProductAddBs from '@admin/product/add-product/ProductAddBs';
 import ListProduct from '@admin/product/list-product/ListProduct';
@@ -26,6 +25,7 @@ import ListCategoryChild from '@admin/categories/list-category-children/ListCate
 import Users from '@admin/users/Users';
 import Brand from '@admin/brand/Brand';
 import Protected from '@utils/Protected';
+import DashBoard from './pages/admin/dashboard/DashBoard';
 
 const App = () => {
 	{
