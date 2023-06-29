@@ -26,6 +26,7 @@ import ListCategoryChild from '@admin/categories/list-category-children/ListCate
 import Users from '@admin/users/Users';
 import Brand from '@admin/brand/Brand';
 import Protected from '@utils/Protected';
+import ProductEditBs from './pages/admin/product/edit-product/ProductEditBs';
 
 const App = () => {
 	{
@@ -95,6 +96,7 @@ const App = () => {
 				<Route path='dashboard' element={<DashBoard />} />
 				<Route path='products' element={<ListProduct />} />
 				<Route path='product/add' element={<ProductAddBs />} />
+				<Route path='product/edit/:id' element={<ProductEditBs />} />
 				<Route path='category' element={<ListCategory />} />
 				<Route path='category-child' element={<ListCategoryChild />} />
 				<Route path='brands' element={<Brand />} />
