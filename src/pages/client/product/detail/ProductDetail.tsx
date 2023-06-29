@@ -2,23 +2,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import newRequest from '../../../../utils/newRequest';
-import Slide from '../../components/slide/Slide';
+import Slide from '@client/components/slide/Slide';
+import { getProductDetail } from '~/services/product/product.service';
 
 const ProductDetail = () => {
-	// const [favorite, setFavorite] = useState<any>();
-
+	// Lấy ID trên url
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	const id = searchParams.get('id');
+	// useState
+	const [productDetail, setProductDetail] = useState<any>(null);
 	const [showMore, setShowMore] = useState<boolean>(false);
-	// Lấy ID Sản phẩm trên URL
-	const { search } = useLocation();
+	const [value, setValue] = useState(1);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	// const [favorite, setFavorite] = useState<any>();
 	// Format tiền VND
 	const VND = new Intl.NumberFormat('vi-VN', {
 		style: 'currency',
 		currency: 'VND',
 	});
 
-	const [value, setValue] = useState(1);
+	// Lấy data sản phẩm chi tiết
+	useEffect(() => {
+		const productDetail = async () => {
+			const prodDetail = await getProductDetail(Number(id));
+			setProductDetail(prodDetail);
+			setIsLoading(true);
+		};
+		productDetail();
+	}, [id]);
 
 	const handleIncrement = () => {
 		setValue(value + 1);
@@ -29,6 +41,8 @@ const ProductDetail = () => {
 		}
 	};
 
+	console.log(productDetail);
+
 	const handleSubmit = (event: any) => {
 		event.preventDefault(); // Ngăn chặn gửi dữ liệu và tải lại trang mặc định
 	};
@@ -37,32 +51,7 @@ const ProductDetail = () => {
 		setShowMore(!showMore);
 	};
 
-	// Get Data
-	const {
-		isLoading,
-		isError,
-		data: productDetail,
-		error,
-		refetch,
-	}: any = useQuery({
-		queryKey: [`productdetail${search}`],
-		queryFn: async () => {
-			try {
-				const res = await newRequest.get(`/product${search}`);
-				return res.data;
-			} catch (error) {
-				console.log(error);
-			}
-		},
-	});
-
-	// Kiểm tra thay đổi
-	useEffect(() => {
-		refetch();
-	}, [refetch, search]);
-
 	// cart
-	// console.log(productDetail);
 	const addToCart = () => {
 		// Xác định kiểu dữ liệu
 		type Product = {
@@ -97,15 +86,7 @@ const ProductDetail = () => {
 		}
 		alert('Thêm thành công!');
 	};
-
-	// Loading
-	if (isLoading) {
-		return <span>Loading...</span>;
-	}
-	// Error
-	if (isError) {
-		return <span>Error: {error.message}</span>;
-	}
+	if (!isLoading) return <div>Loading...</div>;
 	return (
 		// Thanh breadcrumb
 		<div className='productDetail'>
@@ -124,9 +105,9 @@ const ProductDetail = () => {
 					<div className='row col-12 col-xl-6'>
 						<div className='col-2'>
 							<div className='list-group img-product' id='list-tab' role='tablist'>
-								{productDetail.img_prod.map((img) => (
+								{productDetail.img_prod.map((img: any) => (
 									<a
-										key={img}
+										key={img.id_images}
 										className='list-group-item list-group-item-action active'
 										id='list-home-list'
 										data-bs-toggle='list'
@@ -134,22 +115,35 @@ const ProductDetail = () => {
 										role='tab'
 										aria-controls='list-home'
 									>
-										<img className='w-100' src={img} alt='' />
+										<img className='w-100' src={img.url} alt='' />
 									</a>
 								))}
 							</div>
 						</div>
+						{/* <div className='col-10'>
+							<div className='tab-content' id='nav-tabContent'>
+								<div
+									key={productDetail.public_id}
+									className='tab-pane fade show active'
+									id='list-home'
+									role='tabpanel'
+									aria-labelledby='list-home-list'
+								>
+									<img src={productDetail.img_thumbnail} alt='' />
+								</div>
+							</div>
+						</div> */}
 						<div className='col-10'>
 							<div className='tab-content' id='nav-tabContent'>
-								{productDetail.img_prod.map((img) => (
+								{productDetail.img_prod.map((img: any) => (
 									<div
-										key={img}
+										key={img.id_images}
 										className='tab-pane fade show active'
 										id='list-home'
 										role='tabpanel'
 										aria-labelledby='list-home-list'
 									>
-										<img src={img} alt='' />
+										<img src={img.img_thumbnail} alt='' />
 									</div>
 								))}
 							</div>
@@ -161,10 +155,10 @@ const ProductDetail = () => {
 						</div>
 						<div className='d-flex justify-content-between'>
 							<div className='trademark-product'>
-								<p>Thương hiệu: ?</p>
+								<p>Thương hiệu: {productDetail.brands.name_brand}</p>
 							</div>
 							<div className='code-product'>
-								<p>Mã sản phẩm: 290050037302</p>
+								<p>Mã sản phẩm: {productDetail.id_product}</p>
 							</div>
 						</div>
 						<hr />

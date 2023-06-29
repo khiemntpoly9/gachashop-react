@@ -1,85 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import AuthContext from '~/context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 import logo from '@assets/images/logo3.png';
-import store from '@assets/images/store.png';
 import img1 from '@assets/images/mega-1-image.webp';
 import { logout } from '~/services/user/user.service';
 
 const Header = () => {
-	const [cartItems, setCartItems] = useState<never[]>([]);
 	const navigate = useNavigate();
 	const authContext = useContext(AuthContext);
 	if (!authContext) throw new Error('AuthContext null');
 	const { isLogined, setIsLogined } = authContext;
-
-	useEffect(() => {
-		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
-		const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
-		if (storedCartItemsString !== null) {
-			const storedCartItems = JSON.parse(storedCartItemsString);
-			setCartItems(storedCartItems);
-		} else {
-			setCartItems([]);
-		}
-	}, [setCartItems]);
-
-	// Lấy nội dung giỏ hàng từ LocalStorage
-	const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
-	if (storedCartItemsString !== null) {
-		const btnRemove = (id_product: number) => {
-			if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
-				let cartItems = JSON.parse(storedCartItemsString);
-
-				if (cartItems) {
-					cartItems = cartItems.filter((value) => value.id_product !== id_product);
-
-					localStorage.setItem('productsInCart', JSON.stringify(cartItems));
-
-					const itemDelete = document.querySelector(`#itemDelete-${id_product}`);
-					if (itemDelete) {
-						itemDelete.remove();
-					}
-				}
-				updateCart();
-			}
-		};
-	}
-
-	// Cập nhật giỏ hàng
-	const updateCart = () => {
-		// Lấy dữ liệu từ LocalStorage
-		const cartItems: string | null = JSON.parse(localStorage.getItem('productsInCart'));
-
-		// Lấy phần tử DOM của giỏ hàng trên trang home
-		const cartElement: HTMLElement | null = document.querySelector('#aaa');
-
-		// Xóa các phần tử con hiện tại của giỏ hàng
-		while (cartElement.firstChild) {
-			cartElement.removeChild(cartElement.firstChild);
-		}
-
-		// Kiểm tra nếu có dữ liệu trong giỏ hàng
-		if (cartItems && cartItems.length > 0) {
-			// Duyệt qua từng sản phẩm trong giỏ hàng
-			cartItems.forEach((item) => {
-				// Tạo phần tử li để hiển thị thông tin sản phẩm
-				const liElement = document.createElement('li');
-				liElement.textContent = item.name_product;
-
-				// Thêm phần tử li vào giỏ hàng
-				cartElement.appendChild(liElement);
-			});
-		} else {
-			// Nếu giỏ hàng trống, hiển thị thông báo không có sản phẩm
-			const emptyMessage = document.createElement('p');
-			emptyMessage.textContent = 'Không có sản phẩm trong giỏ hàng';
-			cartElement.appendChild(emptyMessage);
-		}
-	};
 
 	// Đăng xuất
 	const handleLogout = async () => {
@@ -166,13 +99,7 @@ const Header = () => {
 							</div>
 							{/* Giỏ hàng */}
 							<div className='col-3 p-0 p-lg-2 w-auto'>
-								<Link
-									className='text-black'
-									to='/'
-									data-bs-toggle='offcanvas'
-									data-bs-target='#offcanvasCart'
-									aria-controls='offcanvasCart'
-								>
+								<Link className='text-black' to='/cart'>
 									<div className='box-a d-flex justify-content-center position-relative'>
 										<i className='fa-solid fa-cart-shopping w-auto'></i>
 										<span className='text-center d-none d-lg-block'>Giỏ hàng</span>
@@ -420,64 +347,6 @@ const Header = () => {
 								</Link>
 							) : null}
 						</ul>
-					</div>
-				</div>
-			</div>
-			{/* Offcanvas Cart */}
-			<div
-				className='offcanvas offcanvas-end'
-				tabIndex={-1}
-				id='offcanvasCart'
-				aria-labelledby='offcanvasCart'
-			>
-				<div className='offcanvas-header'>
-					<h5 className='offcanvas-title' id='offcanvasCart'>
-						Giỏ hàng
-					</h5>
-					<button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
-				</div>
-
-				<div className='offcanvas-body p-0'>
-					<div className='aaa'>
-						{isLogined ? (
-							<div>
-								{cartItems.map((value) => (
-									<div key={value.id_product} className='p-2 d-flex'>
-										<img className='w-25' src={value.img_thumbnail} alt='' />
-										<div className='ps-3'>
-											<h6 className='fw-bold'>{value.name_prod}</h6>
-											<span className='text-danger fw-bold'>{value.price_prod} VNĐ</span>
-
-											<div className='d-flex space-beete'>
-												<p className='fw-bold'>Số lượng</p>
-												<span className='ps-3 fw-bold'>{value.quantity}</span>
-												<button
-													className='ms-5 btn btn-danger'
-													type='button'
-													id={`itemDelete-${value.id_product}`}
-													onClick={() => btnRemove(value.id_product)}
-												>
-													Xóa
-												</button>
-											</div>
-										</div>
-									</div>
-								))}
-							</div>
-						) : (
-							<div className='icon-store text-center'>
-								<img className='w-50 opacity-50' src={store} alt='' />
-								<div className='d-flex justify-content-center mt-2'>
-									<div
-										className='btn-cart d-flex align-items-center justify-content-center p-3'
-										data-bs-dismiss='offcanvas'
-										aria-label='Close'
-									>
-										Bạn cần đăng nhập để xem giỏ hàng
-									</div>
-								</div>
-							</div>
-						)}
 					</div>
 				</div>
 			</div>
