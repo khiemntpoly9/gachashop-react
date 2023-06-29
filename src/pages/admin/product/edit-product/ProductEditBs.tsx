@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { getAllChildCategories, getAllParentCategories } from '@services/product/category.service';
+import { Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Link } from 'react-router-dom';
+
 // interface
 import { Categories } from '@interface/categories.type';
 import { BrandsType } from '@interface/brand.type';
@@ -13,7 +14,7 @@ import { addProduct } from '@services/product/product.service';
 import { getListBrands } from '@services/brand/brand.service';
 import './ProductAdmin.scss';
 
-const ProductAddBs: React.FC = () => {
+const ProductEditBs: React.FC = () => {
 	// Set danh mục chính lấy từ API
 	const [categories, setCategories] = useState<Categories>([]);
 	// Set danh mục phụ lấy từ API
@@ -115,8 +116,7 @@ const ProductAddBs: React.FC = () => {
 		<div className='content'>
 			<div className='page-header'>
 				<div className='page-title'>
-					<h4>Thêm sản phẩm</h4>
-					<h6>Tạo sản phẩm mới</h6>
+					<h4>Sửa sản phẩm</h4>
 				</div>
 			</div>
 
@@ -224,7 +224,6 @@ const ProductAddBs: React.FC = () => {
 											}}
 										></CKEditor>
 									</div>
-									{/* <textarea className='form-control shadow-none' name='detail_prod'></textarea> */}
 								</div>
 							</div>
 							<div className='col-lg-12'>
@@ -286,4 +285,4 @@ const ProductAddBs: React.FC = () => {
 	);
 };
 
-export default ProductAddBs;
+export default ProductEditBs;

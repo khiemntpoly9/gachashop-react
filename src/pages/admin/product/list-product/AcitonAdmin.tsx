@@ -1,6 +1,8 @@
 import { deleteProduct } from '@services/product/product.service';
+import { useNavigate } from 'react-router-dom';
 
 const AcitonAdmin = ({ productId, nameProduct }) => {
+	const navigate = useNavigate()
 	const modalId = `deleteModal-${productId}`;
 	const submitDelete = async () => {
 		await deleteProduct(productId, nameProduct);
@@ -13,7 +15,7 @@ const AcitonAdmin = ({ productId, nameProduct }) => {
 				</button>
 			</div>
 			<div>
-				<button className='btn'>
+				<button onClick={() => navigate(`/admin/product/edit/${productId}`)} className='btn'>
 					<i className='fa-solid fa-pen'></i>
 				</button>
 			</div>
