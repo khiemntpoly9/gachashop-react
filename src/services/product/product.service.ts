@@ -47,6 +47,17 @@ export const deleteProduct = async (id: number, nameProd: string) => {
 		throw error;
 	}
 };
+
+// Lấy sản phẩm chi tiết
+export const getProductDetail = async (id: number) => {
+	try {
+		const respose = await newRequest.get(`product?id=${id}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
 // Sử dụng user query
 // export const useProducts = () => {
 // 	return useQuery(['products'], getProducts);
