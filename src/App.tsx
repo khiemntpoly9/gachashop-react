@@ -110,7 +110,7 @@ const App = () => {
 				<Route path='dashboard' element={<DashBoard />} />
 				<Route path='products' element={<ListProduct />} />
 				<Route path='product/add' element={<ProductAddBs />} />
-				<Route path='product/edit/:id' element={<ProductEditBs />} />
+				<Route path='product/edit' element={<ProductEditBs />} />
 				<Route path='category' element={<ListCategory />} />
 				<Route path='category-child' element={<ListCategoryChild />} />
 				<Route path='brands' element={<Brand />} />
