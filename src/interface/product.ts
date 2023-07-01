@@ -70,3 +70,38 @@ export type ProductsAd = {
 };
 
 export type ProductsAds = ProductsAd[];
+
+// Kiểu dư liệu của sản phẩm chi tiết
+export type ProductDetail = {
+	id_product: number;
+	name_prod: string;
+	price_prod: string | number;
+	img_thumbnail: string;
+	public_id: string;
+	createdAt: string;
+	updatedAt: string | null;
+	quantity: number;
+	show_prod: number;
+	categories: {
+		id_categories: number;
+		name_categories: string;
+		parent: {
+			id_categories: number;
+			name_categories: string;
+		};
+	};
+	brands: {
+		id_brand: number;
+		name_brand: string;
+	};
+	img_prod: [
+		{
+			id_images: number;
+			public_id: string;
+			url: string;
+		}
+	];
+	detail_prod: {
+		detail_prod: string;
+	};
+};

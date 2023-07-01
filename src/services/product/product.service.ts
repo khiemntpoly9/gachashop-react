@@ -26,6 +26,17 @@ export const addProduct = async (product: any) => {
 	}
 };
 
+// Cập nhật sản phẩm
+export const updateProduct = async (product: any) => {
+	try {
+		const respose = await newRequest.patch('product', product);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
+
 // Danh sách sản phẩm (admin)
 export const listProductsAd = async (page: number, limit: number) => {
 	try {
@@ -58,7 +69,3 @@ export const getProductDetail = async (id: number) => {
 		throw error;
 	}
 };
-// Sử dụng user query
-// export const useProducts = () => {
-// 	return useQuery(['products'], getProducts);
-// };

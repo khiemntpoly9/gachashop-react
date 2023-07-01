@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { getAllChildCategories, getAllParentCategories } from '@services/product/category.service';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -10,11 +10,17 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Categories } from '@interface/categories.type';
 import { BrandsType } from '@interface/brand.type';
 // services
-import { addProduct } from '@services/product/product.service';
+import { addProduct, getProductDetail } from '@services/product/product.service';
 import { getListBrands } from '@services/brand/brand.service';
 import './ProductAdmin.scss';
+import { ProductDetail } from '~/interface/product';
 
 const ProductEditBs: React.FC = () => {
+	// Lấy ID trên url
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	const id = searchParams.get('id');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	// Set danh mục chính lấy từ API
 	const [categories, setCategories] = useState<Categories>([]);
 	// Set danh mục phụ lấy từ API
@@ -23,6 +29,8 @@ const ProductEditBs: React.FC = () => {
 	const [brands, setBrands] = useState<BrandsType>([]);
 	// Sau filter, set danh mục phụ
 	const [filteredSubCategories, setFilteredSubCategories] = useState<Categories>([]);
+	// Data product detail
+	const [productDetail, setProductDetail] = useState<ProductDetail | null>(null);
 	// File
 	const [ImageThumbnail, setImageThumbnail] = useState<File | null>(null);
 	const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
@@ -30,29 +38,29 @@ const ProductEditBs: React.FC = () => {
 	const [listUrl, setListUrl] = useState<string[] | null>(null);
 	//
 	useEffect(() => {
-		// Lấy danh mục chính
-		const fetchCategories = async () => {
+		// Lấy data chi tiết sản phẩm
+		const fetchProductDetail = async () => {
+			const productDetail = await getProductDetail(Number(id));
+			setProductDetail(productDetail);
+			// Lấy danh mục chính
 			const category = await getAllParentCategories();
 			setCategories(category);
-		};
-		fetchCategories();
-		// Lấy danh mục phụ, theo id của danh mục chính
-		const fetchSubCategories = async () => {
+			// Lấy danh mục phụ
 			const subCategory = await getAllChildCategories();
 			setSubCategories(subCategory);
-		};
-		fetchSubCategories();
-		// Lấy brands
-		const fetchBrands = async () => {
+			// Lấy brands
 			const brand = await getListBrands();
 			setBrands(brand);
+			// subcategory filter
+			setFilteredSubCategories(subCategory);
+			// loading
+			setIsLoading(true);
 		};
-		fetchBrands();
-	}, []);
-	// Select của danh mục chính
+		fetchProductDetail();
+	}, [id]);
+	// Select của danh mục chính (onChange)
 	const handleParentChange = (event: any) => {
 		const selectedParent = event.target.value;
-		// Lọc dữ liệu cho danh mục phụ
 		const filteredSubCategories = subCategories.filter((item) => item.parent_id === parseInt(selectedParent));
 		setFilteredSubCategories(filteredSubCategories);
 	};
@@ -112,6 +120,7 @@ const ProductEditBs: React.FC = () => {
 
 		await addProduct(formData);
 	};
+	if (!isLoading) return <div>Loading...</div>;
 	return (
 		<div className='content'>
 			<div className='page-header'>
@@ -127,7 +136,12 @@ const ProductEditBs: React.FC = () => {
 							<label htmlFor='exampleFormControlInput1' className='form-label'>
 								Tên sản phẩm
 							</label>
-							<input type='text' className='form-control shadow-none' name='name_prod' />
+							<input
+								type='text'
+								defaultValue={productDetail?.name_prod}
+								className='form-control shadow-none'
+								name='name_prod'
+							/>
 						</div>
 						<div className='row'>
 							{/* Block 1 */}
@@ -139,9 +153,10 @@ const ProductEditBs: React.FC = () => {
 										<select
 											className='form-select shadow-none'
 											aria-label='Default select example'
+											defaultValue={productDetail?.categories.parent.id_categories}
 											onChange={handleParentChange}
 										>
-											<option selected>Chọn danh mục</option>
+											<option>Chọn danh mục</option>
 											{categories.map((item) => (
 												<option key={item.id_categories} value={item.id_categories}>
 													{item.name_categories}
@@ -158,8 +173,9 @@ const ProductEditBs: React.FC = () => {
 											className='form-select shadow-none'
 											name='id_categories'
 											aria-label='Default select example'
+											defaultValue={productDetail?.categories.id_categories}
 										>
-											<option selected>Chọn danh mục phụ</option>
+											<option>Chọn danh mục phụ</option>
 											{filteredSubCategories.map((item) => (
 												<option key={item.id_categories} value={item.id_categories}>
 													{item.name_categories}
@@ -176,8 +192,9 @@ const ProductEditBs: React.FC = () => {
 											className='form-select shadow-none'
 											name='brand_prod'
 											aria-label='Default select example'
+											defaultValue={productDetail?.brands.id_brand}
 										>
-											<option selected>Chọn thương hiệu</option>
+											<option>Chọn thương hiệu</option>
 											{brands.map((item) => (
 												<option key={item.id_brand} value={item.id_brand}>
 													{item.name_brand}
@@ -193,14 +210,24 @@ const ProductEditBs: React.FC = () => {
 								<div className='col-lg-3 col-sm-6 col-12'>
 									<div className='form-group'>
 										<label>Số lượng</label>
-										<input className='form-control shadow-none' type='number' name='quantity' />
+										<input
+											defaultValue={productDetail?.quantity}
+											className='form-control shadow-none'
+											type='number'
+											name='quantity'
+										/>
 									</div>
 								</div>
 								{/* Giá */}
 								<div className='col-lg-3 col-sm-6 col-12'>
 									<div className='form-group'>
 										<label>Giá</label>
-										<input className='form-control shadow-none' type='number' name='price_prod' />
+										<input
+											defaultValue={productDetail?.price_prod}
+											className='form-control shadow-none'
+											type='number'
+											name='price_prod'
+										/>
 									</div>
 								</div>
 							</div>
@@ -216,12 +243,12 @@ const ProductEditBs: React.FC = () => {
 												const data = editor.getData();
 												console.log({ event, editor, data });
 											}}
-											onBlur={(event, editor) => {
-												console.log('Blur.', editor);
-											}}
-											onFocus={(event, editor) => {
-												console.log('Focus.', editor);
-											}}
+											// onBlur={(event, editor) => {
+											// 	console.log('Blur.', editor);
+											// }}
+											// onFocus={(event, editor) => {
+											// 	console.log('Focus.', editor);
+											// }}
 										></CKEditor>
 									</div>
 								</div>
@@ -261,10 +288,9 @@ const ProductEditBs: React.FC = () => {
 										className='form-select shadow-none'
 										aria-label='Default select example'
 										name='show_prod'
+										defaultValue={productDetail?.show_prod}
 									>
-										<option selected value='1'>
-											Hiện
-										</option>
+										<option value='1'>Hiện</option>
 										<option value='0'>Ẩn</option>
 									</select>
 								</div>

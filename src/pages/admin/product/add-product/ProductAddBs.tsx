@@ -22,6 +22,8 @@ const ProductAddBs: React.FC = () => {
 	const [brands, setBrands] = useState<BrandsType>([]);
 	// Sau filter, set danh mục phụ
 	const [filteredSubCategories, setFilteredSubCategories] = useState<Categories>([]);
+	// Product detail
+	const [productDetail, setProductDetail] = useState<any>();
 	// File
 	const [ImageThumbnail, setImageThumbnail] = useState<File | null>(null);
 	const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
@@ -99,7 +101,7 @@ const ProductAddBs: React.FC = () => {
 		formData.append('name_prod', e.target.name_prod.value);
 		formData.append('id_categories', e.target.id_categories.value);
 		formData.append('brand_prod', e.target.brand_prod.value);
-		formData.append('detail_prod', e.target.detail_prod.value);
+		formData.append('detail_prod', productDetail);
 		formData.append('quantity', e.target.quantity.value);
 		formData.append('price_prod', e.target.price_prod.value);
 		// formData.append('material_prod', e.target.material_prod.value);
@@ -214,13 +216,7 @@ const ProductAddBs: React.FC = () => {
 											data=''
 											onChange={(event, editor) => {
 												const data = editor.getData();
-												console.log({ event, editor, data });
-											}}
-											onBlur={(event, editor) => {
-												console.log('Blur.', editor);
-											}}
-											onFocus={(event, editor) => {
-												console.log('Focus.', editor);
+												setProductDetail(data);
 											}}
 										></CKEditor>
 									</div>
