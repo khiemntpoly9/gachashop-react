@@ -24,7 +24,7 @@ const Protected: React.FC<ProtectedProps> = ({ role, children }) => {
 	}, []);
 	if (isLoading) return <div>Loading....</div>;
 	if (!isLogin) {
-		return <Navigate to='/admin/login' />;
+		return <Navigate to='/login' />;
 	}
 	if (role.includes(roleIs)) {
 		return <>{children}</>;

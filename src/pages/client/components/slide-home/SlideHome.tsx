@@ -26,7 +26,7 @@ const SlideHome = () => {
 				pagination={{ clickable: true }}
 				scrollbar={{ draggable: true }}
 				// onSwiper={(swiper) => console.log(swiper)}
-				onSlideChange={() => console.log('slide change')}
+				onSlideChange={() => null}
 				loop
 				className='myswiper'
 			>

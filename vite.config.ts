@@ -14,6 +14,7 @@ export default defineConfig({
 			'@client': path.resolve(__dirname, './src/pages/client'),
 			'@admin': path.resolve(__dirname, './src/pages/admin'),
 			'@utils': path.resolve(__dirname, './src/utils'),
+			'@context': path.resolve(__dirname, './src/context'),
 			'~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
 		},
 	},

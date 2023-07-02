@@ -26,6 +26,17 @@ export const addProduct = async (product: any) => {
 	}
 };
 
+// Cập nhật sản phẩm
+export const updateProduct = async (id: number, product: any) => {
+	try {
+		const respose = await newRequest.patch(`product?id=${id}`, product);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
+
 // Danh sách sản phẩm (admin)
 export const listProductsAd = async (page: number, limit: number) => {
 	try {
@@ -47,7 +58,14 @@ export const deleteProduct = async (id: number, nameProd: string) => {
 		throw error;
 	}
 };
-// Sử dụng user query
-// export const useProducts = () => {
-// 	return useQuery(['products'], getProducts);
-// };
+
+// Lấy sản phẩm chi tiết
+export const getProductDetail = async (id: number) => {
+	try {
+		const respose = await newRequest.get(`product?id=${id}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};

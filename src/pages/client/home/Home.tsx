@@ -182,7 +182,7 @@ const Home = () => {
 						</a>
 
 						<div className='h-topp row row-cols-md-3 row-cols-lg-4 m-0 p-0'>
-							{products.slice(0, 8).map((prod) => (
+							{products?.slice(0, 8).map((prod) => (
 								<div key={prod.id_product} className='p-2'>
 									<ProductCard prod={prod} />
 								</div>

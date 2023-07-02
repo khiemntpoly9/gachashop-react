@@ -1,107 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import AuthContext from '~/context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
+import logo from '@assets/images/logo3.png';
+import img1 from '@assets/images/mega-1-image.webp';
+import { logout } from '~/services/user/user.service';
 
-import logo from '../../../../assets/images/logo3.png';
-import store from '../../../../assets/images/store.png';
-import img1 from '../../../../assets/images/mega-1-image.webp';
-
-import { Modal } from 'antd';
-import Login from '../../../../pages/client/auth/login/Login';
-import Register from '../../../../pages/client/auth/register/Register';
-
-function Header() {
-	const [cartItems, setCartItems] = useState<never[]>([]);
-	const [isLogined, setIsLogined] = useState(false);
-	const [openModalLogin, setOpenModalLogin] = useState(false);
-	const [statusLogin, setStatusLogin] = useState(true);
+const Header = () => {
 	const navigate = useNavigate();
+	const authContext = useContext(AuthContext);
+	if (!authContext) throw new Error('AuthContext null');
+	const { isLogined, setIsLogined } = authContext;
 
-	useEffect(() => {
-		// Fix lỗi trường hợp localStorage chưa có giỏ hàng
-		const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
-		if (storedCartItemsString !== null) {
-			const storedCartItems = JSON.parse(storedCartItemsString);
-			setCartItems(storedCartItems);
-		} else {
-			setCartItems([]);
-		}
-	}, [setCartItems]);
-
-	const storedCartItemsString: string | null = localStorage.getItem('productsInCart');
-	if (storedCartItemsString !== null) {
-		const btnRemove = (id_product: number) => {
-			if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
-				let cartItems = JSON.parse(storedCartItemsString);
-
-				if (cartItems) {
-					cartItems = cartItems.filter((value) => value.id_product !== id_product);
-
-					localStorage.setItem('productsInCart', JSON.stringify(cartItems));
-
-					const itemDelete = document.querySelector(`#itemDelete-${id_product}`);
-					if (itemDelete) {
-						itemDelete.remove();
-					}
-				}
-				updateCart();
-			}
-		};
-	} else {
-		console.log('Không có sản phẩm trong giỏ hàng');
-	}
-
-	const updateCart = () => {
-		// Lấy dữ liệu từ LocalStorage
-		const cartItems: string | null = JSON.parse(localStorage.getItem('productsInCart'));
-
-		// Lấy phần tử DOM của giỏ hàng trên trang home
-		const cartElement: HTMLElement | null = document.querySelector('#aaa');
-
-		// Xóa các phần tử con hiện tại của giỏ hàng
-		while (cartElement.firstChild) {
-			cartElement.removeChild(cartElement.firstChild);
-		}
-
-		// Kiểm tra nếu có dữ liệu trong giỏ hàng
-		if (cartItems && cartItems.length > 0) {
-			// Duyệt qua từng sản phẩm trong giỏ hàng
-			cartItems.forEach((item) => {
-				// Tạo phần tử li để hiển thị thông tin sản phẩm
-				const liElement = document.createElement('li');
-				liElement.textContent = item.name_product;
-
-				// Thêm phần tử li vào giỏ hàng
-				cartElement.appendChild(liElement);
-			});
-		} else {
-			// Nếu giỏ hàng trống, hiển thị thông báo không có sản phẩm
-			const emptyMessage = document.createElement('p');
-			emptyMessage.textContent = 'Không có sản phẩm trong giỏ hàng';
-			cartElement.appendChild(emptyMessage);
-		}
+	// Đăng xuất
+	const handleLogout = async () => {
+		await logout();
+		localStorage.removeItem('isLogin');
+		setIsLogined(false);
+		navigate('/home');
 	};
 	return (
 		<header className='header-p container-fluid px-0'>
-			{openModalLogin ? (
-				<span className='modal-login position-absolute top-0 left-0'>
-					<div className='overlay'></div>
-					<div className='body'>
-						<div className='wrapper position-relative'>
-							<span onClick={() => setOpenModalLogin(false)} className='close position-absolute'>
-								x
-							</span>
-							{statusLogin ? (
-								<Login setStatusLogin={setStatusLogin} />
-							) : (
-								<Register setStatusLogin={setStatusLogin} />
-							)}
-						</div>
-					</div>
-				</span>
-			) : null}
+			{/* Container */}
 			<div className='container-lg'>
 				<div className='d-flex align-items-center justify-content-between evo-header-padding'>
 					{/* Menu icon */}
@@ -159,26 +81,25 @@ function Header() {
 							</div>
 							{/* Tài khoản */}
 							<div className='d-none d-lg-block col-3 p-0 p-lg-2 w-auto ms-lg-2 ms-xl-3'>
-								<Link
-									className='text-black pointer'
-									onClick={() => (isLogined ? navigate('/account') : setOpenModalLogin(true))}
-									to={''}
-								>
-									<div className='box-a w-auto d-flex'>
-										<i className='fa-regular fa-user w-auto'></i>
-										<span>Tài khoản</span>
-									</div>
-								</Link>
+								{isLogined ? (
+									<Link className='text-black pointer' to='/account'>
+										<div className='box-a w-auto d-flex'>
+											<i className='fa-regular fa-user w-auto'></i>
+											<span>Tài khoản</span>
+										</div>
+									</Link>
+								) : (
+									<Link className='text-black pointer' to='/login'>
+										<div className='box-a w-auto d-flex'>
+											<i className='fa-regular fa-user w-auto'></i>
+											<span>Tài khoản</span>
+										</div>
+									</Link>
+								)}
 							</div>
 							{/* Giỏ hàng */}
 							<div className='col-3 p-0 p-lg-2 w-auto'>
-								<Link
-									className='text-black'
-									to='/'
-									data-bs-toggle='offcanvas'
-									data-bs-target='#offcanvasCart'
-									aria-controls='offcanvasCart'
-								>
+								<Link className='text-black' to='/cart'>
 									<div className='box-a d-flex justify-content-center position-relative'>
 										<i className='fa-solid fa-cart-shopping w-auto'></i>
 										<span className='text-center d-none d-lg-block'>Giỏ hàng</span>
@@ -354,7 +275,7 @@ function Header() {
 			{/* Offcanvas Menu */}
 			<div
 				className='offcanvas offcanvas-start'
-				tabIndex='-1'
+				tabIndex={-1}
 				id='offcanvasExample'
 				aria-labelledby='offcanvasExampleLabel'
 			>
@@ -398,110 +319,41 @@ function Header() {
 							<Link className='nav-link' to='/'>
 								<li className='list-group-item-link px-3'>FAQ</li>
 							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>Đăng nhập</li>
-							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>Đăng ký</li>
-							</Link>
-							<Link className='nav-link' to='/'>
-								<li className='list-group-item-link px-3'>
-									Sản phẩm yêu thích
-									<span className='ms-1'>(0)</span>
-								</li>
-							</Link>
+							{isLogined ? (
+								<Link className='nav-link' to='/account'>
+									<li className='list-group-item-link px-3'>Tài khoản</li>
+								</Link>
+							) : (
+								<Link className='nav-link' to='/login'>
+									<li className='list-group-item-link px-3'>Đăng nhập</li>
+								</Link>
+							)}
+							{isLogined ? null : (
+								<Link className='nav-link' to='/login'>
+									<li className='list-group-item-link px-3'>Đăng ký</li>
+								</Link>
+							)}
+							{isLogined ? (
+								<Link className='nav-link' to='/'>
+									<li className='list-group-item-link px-3'>
+										Sản phẩm yêu thích
+										<span className='ms-1'>(0)</span>
+									</li>
+								</Link>
+							) : null}
+							{isLogined ? (
+								<Link className='nav-link' to='#' onClick={handleLogout}>
+									<li className='list-group-item-link px-3'>Đăng xuất</li>
+								</Link>
+							) : null}
 						</ul>
-					</div>
-				</div>
-			</div>
-			{/* Offcanvas Cart */}
-			<div
-				className='offcanvas offcanvas-end'
-				tabIndex='-1'
-				id='offcanvasCart'
-				aria-labelledby='offcanvasCart'
-			>
-				<div className='offcanvas-header'>
-					<h5 className='offcanvas-title' id='offcanvasCart'>
-						Giỏ hàng
-					</h5>
-					<button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
-				</div>
-
-				<div className='offcanvas-body p-0'>
-					{/* <div className='icon-store text-center'>
-				<img className='w-50 opacity-50' src={store} alt='' />
-			</div> */}
-					<div className='aaa'>
-						{cartItems.length === 0 ? (
-							<div className='icon-store text-center'>
-								<img className='w-50 opacity-50' src={store} alt='' />
-							</div>
-						) : (
-							<div>
-								{cartItems.map((value) => (
-									<div key={value.id_product} className='p-2 d-flex'>
-										<img className='w-25' src={value.img_thumbnail} alt='' />
-										<div className='ps-3'>
-											<h6 className='fw-bold'>{value.name_prod}</h6>
-											<span className='text-danger fw-bold'>{value.price_prod} VNĐ</span>
-
-											<div className='d-flex space-beete'>
-												<p className='fw-bold'>Số lượng</p>
-												<span className='ps-3 fw-bold'>{value.quantity}</span>
-												<button
-													className='ms-5 btn btn-danger'
-													type='button'
-													id={`itemDelete-${value.id_product}`}
-													onClick={() => btnRemove(value.id_product)}
-												>
-													Xóa
-												</button>
-											</div>
-										</div>
-									</div>
-								))}
-							</div>
-						)}
-						{/* {cartItems.map((value) => (
-					<div key={value.id_product} className='p-2 d-flex'>
-						<img className='w-25' src={value.img_thumbnail} alt='' />
-						<div className='ps-3'>
-							<h6 className='fw-bold'>{value.name_prod}</h6>
-							<span className='text-danger fw-bold'>{value.price_prod} VNĐ</span>
-
-							<div className='d-flex space-beete'>
-								<p className='fw-bold'>Số lượng</p>
-								<span className='ps-3 fw-bold'>{value.quantity}</span>
-								<button
-									className='ms-5 btn btn-danger'
-									type='button'
-									id={`itemDelete-${value.id_product}`}
-									onClick={() => btnRemove(value.id_product)}
-								>
-									Xóa
-								</button>
-							</div>
-						</div>
-					</div>
-				))} */}
-					</div>
-					<div className='d-flex justify-content-center mt-2'>
-						<div
-							type='button'
-							className='btn-cart w-50 d-flex align-items-center justify-content-center'
-							data-bs-dismiss='offcanvas'
-							aria-label='Close'
-						>
-							Tiếp tục mua sắm
-						</div>
 					</div>
 				</div>
 			</div>
 			{/* Offcanvas search */}
 			<div
 				className='offcanvas offcanvas-end'
-				tabIndex='-1'
+				tabIndex={-1}
 				id='offcanvasSearch'
 				aria-labelledby='offcanvasSearch'
 			>
@@ -524,6 +376,6 @@ function Header() {
 			</div>
 		</header>
 	);
-}
+};
 
 export default Header;

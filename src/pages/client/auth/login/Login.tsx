@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, notification } from 'antd';
-import newRequest from '../../../../utils/newRequest';
+import { useState, useContext } from 'react';
+import { notification } from 'antd';
 import './Login.scss';
-const Login = ({ setStatusLogin }) => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+import { login } from '~/services/auth/auth.service';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '~/context/AuthContext';
+const Login = () => {
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const authContext = useContext(AuthContext);
+	if (!authContext) throw new Error('AuthContext null');
+	const { setIsLogined } = authContext;
+	const navigate = useNavigate();
 	interface ErrorsType {
 		username?: string;
 		password?: string;
@@ -15,19 +20,19 @@ const Login = ({ setStatusLogin }) => {
 	const [errors, setErrors] = useState<ErrorsType>({});
 
 	// Lấy địa chỉ Email
-	const handleEmailChange = (event) => {
+	const handleEmailChange = (event: any) => {
 		setEmail(event.target.value);
 	};
-
-	const handlePassChange = (event) => {
+	// Lấy mật khẩu
+	const handlePassChange = (event: any) => {
 		setPassword(event.target.value);
 	};
 
 	//Validate
 	const validateForm = () => {
 		const formErrors: { username: string; password: string } = {
-			username: '',
-			password: '',
+			username: email,
+			password: password,
 		};
 		let isValid = true;
 
@@ -54,27 +59,35 @@ const Login = ({ setStatusLogin }) => {
 		return isValid;
 	};
 
-	const handleSubmit = async (event) => {
+	// Đăng nhập
+	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-		// true
 		if (validateForm()) {
 			try {
-				const user = { email, password };
-				await newRequest.post('/auth/login', user);
-
-				// <Navigate to='/account' />;
+				const logLogin = await login(email, password);
+				if (logLogin.request.status == 200) {
+					notification.success({
+						message: 'Đăng nhập thành công',
+						description: 'Chào mừng bạn đến với GachaShop',
+					});
+					// Set localStorage
+					localStorage.setItem('isLogin', 'true');
+					setIsLogined(true);
+					setTimeout(() => {
+						navigate('/home');
+					}, 1000);
+				} else {
+					notification.error({
+						message: 'Đăng nhập thất bại',
+						description: logLogin.data,
+					});
+				}
 			} catch (error: any) {
 				notification.error({
 					message: 'Đăng nhập thất bại',
 					description: error.response.data.message,
 				});
-				// alert(error.response.data.message);
 			}
-		} else {
-			notification.error({
-				message: 'Đăng nhập thất bại',
-				description: 'Đã xảy ra lỗi khi đăng nhập',
-			});
 		}
 	};
 	return (
@@ -91,23 +104,22 @@ const Login = ({ setStatusLogin }) => {
 				<div className='right col'>
 					<ul className='auth-menu-list d-flex'>
 						<li className='loginform active'>
-							<span onClick={() => setStatusLogin(true)}>Đăng nhập</span>
+							<Link to='/login'>Đăng nhập</Link>
 						</li>
 						<li className='regisform'>
-							<span onClick={() => setStatusLogin(false)}>Đăng kí</span>
+							<Link to='/register'>Đăng kí</Link>
 						</li>
 					</ul>
-					<form method='post' id='customer-login'>
+					<form id='customer-login' onSubmit={handleSubmit}>
 						<div className='mb-3'>
 							<label htmlFor='InputEmail' className='form-label'>
 								Email <span>*</span>
 							</label>
 							<input
-								// type='email'
-								className='form-control'
+								type='text'
+								className='form-control shadow-none'
 								id='InputEmail'
 								placeholder='Nhập địa chỉ email'
-								value={email}
 								onChange={handleEmailChange}
 							/>
 							{errors.username && <span>{errors.username}</span>}
@@ -118,10 +130,9 @@ const Login = ({ setStatusLogin }) => {
 							</label>
 							<input
 								type='password'
-								className='form-control'
+								className='form-control shadow-none'
 								id='InputPassword'
 								placeholder='Nhập mật khẩu'
-								value={password}
 								onChange={handlePassChange}
 							/>
 							{errors.password && <span>{errors.password}</span>}
@@ -131,7 +142,7 @@ const Login = ({ setStatusLogin }) => {
 								Quên mật khẩu?
 							</a>
 						</p>
-						<button onClick={handleSubmit} className='btn'>
+						<button type='submit' className='btn'>
 							Đăng nhập
 						</button>
 						<p className='login-note'>
