@@ -5,13 +5,20 @@
 	.content-h {
 		background-color: #f2622e;
 		.page-header {
+			height: 45px;
+			display: flex;
 			i {
 				color: #fff;
+			}
+			//searchbar
+			.search-bar {
+				margin: auto;
 			}
 		}
 	}
 }
 
+//siderbar
 .custom-sider {
 	background: #060319f9;
 	transition: width 0.3s ease-in-out;

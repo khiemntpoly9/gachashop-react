@@ -16,9 +16,11 @@ import Address from '@client/account/Address';
 import CheckOut from '@client/checkout/CheckOut';
 import Contact from '@client/contact/Contact';
 import Faq from '@client/faq/Faq';
+
 import Cart from '@client/cart/Cart';
 // Admin
 import DashBoard from '@admin/dashboard/DashBoard';
+
 import ProductAddBs from '@admin/product/add-product/ProductAddBs';
 import ListProduct from '@admin/product/list-product/ListProduct';
 import AdLogin from '@admin/login/AdLogin';
@@ -29,6 +31,7 @@ import Brand from '@admin/brand/Brand';
 import ProductEditBs from '@admin/product/edit-product/ProductEditBs';
 // Ultis
 import Protected from '@utils/Protected';
+import DashBoard from '@admin/dashboard/DashBoard';
 
 const App = () => {
 	return (

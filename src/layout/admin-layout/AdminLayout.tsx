@@ -4,9 +4,13 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import { useState } from 'react';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+
+const { Search } = Input;
 
 const AdminLayout: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(false);
+	const onSearch = (value) => console.log(value);
 
 	const toggleCollapsed = () => {
 		setCollapsed(!collapsed);
@@ -27,6 +31,14 @@ const AdminLayout: React.FC = () => {
 							<MenuFoldOutlined className='trigger' onClick={toggleCollapsed} />
 						)}
 						{/* avatar */}
+						<Search
+							className='search-bar'
+							placeholder='Nhập nội dung bạn muốn tìm'
+							enterButton='Tìm kiếm'
+							size='large'
+							onSearch={onSearch}
+							style={{ width: 500 }}
+						/>
 					</div>
 				</div>
 				<div className='p-2'>
