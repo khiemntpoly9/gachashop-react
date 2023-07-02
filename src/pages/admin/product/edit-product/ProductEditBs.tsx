@@ -5,12 +5,11 @@ import { getAllChildCategories, getAllParentCategories } from '@services/product
 import { Link, useLocation } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 // interface
 import { Categories } from '@interface/categories.type';
 import { BrandsType } from '@interface/brand.type';
 // services
-import { addProduct, getProductDetail } from '@services/product/product.service';
+import { getProductDetail, updateProduct } from '@services/product/product.service';
 import { getListBrands } from '@services/brand/brand.service';
 import './ProductAdmin.scss';
 import { ProductDetail } from '~/interface/product';
@@ -31,6 +30,8 @@ const ProductEditBs: React.FC = () => {
 	const [filteredSubCategories, setFilteredSubCategories] = useState<Categories>([]);
 	// Data product detail
 	const [productDetail, setProductDetail] = useState<ProductDetail | null>(null);
+	// Dữ liệu form
+	const [formDataProductDetail, setFormDataProductDetail] = useState<string>('');
 	// File
 	const [ImageThumbnail, setImageThumbnail] = useState<File | null>(null);
 	const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
@@ -42,6 +43,7 @@ const ProductEditBs: React.FC = () => {
 		const fetchProductDetail = async () => {
 			const productDetail = await getProductDetail(Number(id));
 			setProductDetail(productDetail);
+			console.log(productDetail);
 			// Lấy danh mục chính
 			const category = await getAllParentCategories();
 			setCategories(category);
@@ -64,7 +66,7 @@ const ProductEditBs: React.FC = () => {
 		const filteredSubCategories = subCategories.filter((item) => item.parent_id === parseInt(selectedParent));
 		setFilteredSubCategories(filteredSubCategories);
 	};
-	// Xử lý hình ảnh upload
+	// Xử lý hình ảnh thumbnail
 	const handleImageThumnail = (e: any) => {
 		const file = e.target.files && e.target.files[0];
 		if (file) {
@@ -78,6 +80,7 @@ const ProductEditBs: React.FC = () => {
 			reader.readAsDataURL(file);
 		}
 	};
+	// Xử lý list hình ảnh
 	const handleImageList = (e: any) => {
 		const files = e.target.files;
 		if (files) {
@@ -108,17 +111,21 @@ const ProductEditBs: React.FC = () => {
 		formData.append('name_prod', e.target.name_prod.value);
 		formData.append('id_categories', e.target.id_categories.value);
 		formData.append('brand_prod', e.target.brand_prod.value);
-		formData.append('detail_prod', e.target.detail_prod.value);
+		formData.append('detail_prod', formDataProductDetail);
 		formData.append('quantity', e.target.quantity.value);
 		formData.append('price_prod', e.target.price_prod.value);
 		// formData.append('material_prod', e.target.material_prod.value);
 		formData.append('show_prod', e.target.show_prod.value);
-		formData.append('img_thumbnail', ImageThumbnail as Blob);
-		for (let i = 0; i < ImageList!.length; i++) {
-			formData.append('list_img', ImageList![i]);
+		if (ImageThumbnail !== null) {
+			formData.append('img_thumbnail', ImageThumbnail as Blob);
 		}
-
-		await addProduct(formData);
+		if (ImageList !== null) {
+			for (let i = 0; i < ImageList.length; i++) {
+				formData.append('list_img', ImageList![i]);
+			}
+		}
+		// Gọi hàm update
+		await updateProduct(Number(id), formData);
 	};
 	if (!isLoading) return <div>Loading...</div>;
 	return (
@@ -238,17 +245,12 @@ const ProductEditBs: React.FC = () => {
 									<div className='editor_details'>
 										<CKEditor
 											editor={ClassicEditor}
-											data=''
+											data={productDetail?.detail_prod.detail_prod}
 											onChange={(event, editor) => {
 												const data = editor.getData();
-												console.log({ event, editor, data });
+												console.log(event);
+												setFormDataProductDetail(data);
 											}}
-											// onBlur={(event, editor) => {
-											// 	console.log('Blur.', editor);
-											// }}
-											// onFocus={(event, editor) => {
-											// 	console.log('Focus.', editor);
-											// }}
 										></CKEditor>
 									</div>
 								</div>
@@ -263,6 +265,7 @@ const ProductEditBs: React.FC = () => {
 										onChange={handleImageThumnail}
 									/>
 									{thumbnailUrl && <img src={thumbnailUrl} alt='Thumbnail' width={120} height={120} />}
+									<img src={productDetail?.img_thumbnail} width={120} height={120} />
 								</div>
 								{/* Lấy 4 link hình ảnh */}
 								<div className='form-group mb-3'>
@@ -279,6 +282,16 @@ const ProductEditBs: React.FC = () => {
 											listUrl.map((url, index) => (
 												<img className='me-3' key={index} src={url} alt='images' width={120} height={120} />
 											))}
+										{productDetail?.img_prod.map((item, index) => (
+											<img
+												className='me-3'
+												key={index}
+												src={item.url}
+												alt='images'
+												width={120}
+												height={120}
+											/>
+										))}
 									</div>
 									<div className='img-show'></div>
 								</div>
@@ -297,7 +310,7 @@ const ProductEditBs: React.FC = () => {
 							</div>
 							<div className='col-lg-12 mt-3'>
 								<button type='submit' className='btn btn-submit me-2 btn-primary'>
-									Tạo sản phẩm
+									Sửa sản phẩm
 								</button>
 								<Link className='btn btn-cancel' to='/admin/listproduct'>
 									Huỷ
