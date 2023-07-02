@@ -25,7 +25,7 @@ import ListCategoryChild from '@admin/categories/list-category-children/ListCate
 import Users from '@admin/users/Users';
 import Brand from '@admin/brand/Brand';
 import Protected from '@utils/Protected';
-import DashBoard from './pages/admin/dashboard/DashBoard';
+import DashBoard from '@admin/dashboard/DashBoard';
 
 const App = () => {
 	{
