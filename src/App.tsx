@@ -31,7 +31,6 @@ import Brand from '@admin/brand/Brand';
 import ProductEditBs from '@admin/product/edit-product/ProductEditBs';
 // Ultis
 import Protected from '@utils/Protected';
-import DashBoard from '@admin/dashboard/DashBoard';
 
 const App = () => {
 	return (
