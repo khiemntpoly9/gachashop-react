@@ -27,9 +27,9 @@ export const addProduct = async (product: any) => {
 };
 
 // Cập nhật sản phẩm
-export const updateProduct = async (product: any) => {
+export const updateProduct = async (id: number, product: any) => {
 	try {
-		const respose = await newRequest.patch('product', product);
+		const respose = await newRequest.patch(`product?id=${id}`, product);
 		return respose.data;
 	} catch (error) {
 		console.error('Error fetching:', error);
