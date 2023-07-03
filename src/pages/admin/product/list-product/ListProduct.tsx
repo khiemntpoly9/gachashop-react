@@ -1,10 +1,13 @@
 import { ProductsAds } from '@interface/product';
 import { listProductsAd } from '@services/product/product.service';
 import { useEffect, useState } from 'react';
+import { Table, Pagination } from 'antd';
 import moment from 'moment';
 import AcitonAdmin from '@admin/product/list-product/AcitonAdmin';
 const ListProduct = () => {
 	const [productData, setProducts] = useState<ProductsAds>([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const pageSize = 5;
 	useEffect(() => {
 		// Lấy sản phẩm
 		const getProductsAd = async () => {
@@ -13,56 +16,73 @@ const ListProduct = () => {
 		};
 		getProductsAd();
 	}, []);
+	const handlePageChange = (page) => {
+		setCurrentPage(page);
+	};
+
+	//Phân trang
+	const currentData = productData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+	//Chia cột
+	const columns = [
+		{
+			title: 'ID',
+			dataIndex: 'id_product',
+			key: 'id_product',
+		},
+		{
+			title: 'Tên sản phẩm',
+			dataIndex: 'name_prod',
+			key: 'name_prod',
+		},
+		{
+			title: 'Danh mục',
+			dataIndex: 'categories',
+			key: 'categories',
+			render: (categories) => categories?.name_categories,
+		},
+		{
+			title: 'Giá',
+			dataIndex: 'price_prod',
+			key: 'price_prod',
+		},
+		{
+			title: 'Số lượng',
+			dataIndex: 'quantity',
+			key: 'quantity',
+		},
+		{
+			title: 'Người tạo',
+			dataIndex: 'action_history',
+			key: 'action_history',
+			render: (actionHistory) => actionHistory[0]?.users.last_name,
+		},
+		{
+			title: 'Thời gian',
+			dataIndex: 'createdAt',
+			key: 'createdAt',
+			render: (createdAt) => moment(createdAt).format('DD/MM/YYYY HH:mm:ss'),
+		},
+		{
+			title: 'Công cụ',
+			key: 'actions',
+			render: (text, record) => <AcitonAdmin productId={record.id_product} nameProduct={record.name_prod} />,
+		},
+	];
 	return (
 		<div>
 			<h4>Danh sách sản phẩm</h4>
-
 			{/* table */}
 			<div className='border rounded-2 p-3'>
-				<table className='table'>
-					<thead>
-						<tr>
-							<th scope='col'>
-								<input type='checkbox' />
-							</th>
-							<th scope='col'>ID</th>
-							<th scope='col'>Tên sản phẩm</th>
-							<th scope='col'>Danh mục</th>
-							<th scope='col'>Giá</th>
-							<th scope='col'>Số lượng</th>
-							<th scope='col'>Người tạo</th>
-							<th scope='col'>Thời gian</th>
-							<th scope='col'>Công cụ</th>
-						</tr>
-					</thead>
-					<tbody>
-						{productData?.length > 0 ? (
-							productData?.map((product) => (
-								<tr key={product.id_product}>
-									<th scope='row'>
-										<input type='checkbox' />
-									</th>
-									<td>{product.id_product}</td>
-									<td>{product.name_prod}</td>
-									<td>{product.categories?.name_categories}</td>
-									<td>{product.price_prod}</td>
-									<td>{product.quantity}</td>
-									<td>{product.action_history[0].users.last_name}</td>
-									<td>{moment(product.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-									<td>
-										<AcitonAdmin productId={product.id_product} nameProduct={product.name_prod} />
-									</td>
-								</tr>
-							))
-						) : (
-							<tr>
-								<td className='text-center' colSpan={9}>
-									Không có dữ liệu.
-								</td>
-							</tr>
-						)}
-					</tbody>
-				</table>
+				<Table dataSource={currentData} columns={columns} pagination={false} />
+
+				<Pagination
+					className='m-2'
+					current={currentPage}
+					total={productData.length}
+					pageSize={pageSize}
+					onChange={handlePageChange}
+				/>
 			</div>
 		</div>
 	);
