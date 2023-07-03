@@ -130,6 +130,12 @@
 		margin-left: -4.5px;
 	}
 }
+.pagi {
+	.ant-pagination-item-active {
+		border-color: #ef9273; /* Màu border mới */
+	  }
+}
+
 .collection {
 	.col-title {
 		font-size: 18px;

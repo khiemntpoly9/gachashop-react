@@ -11,6 +11,7 @@ import Slide from '../components/slide/Slide';
 import './Product.scss';
 import { Categories } from '../../../interface/categories.type';
 import { Products } from 'src/interface/product.ts';
+import { Pagination } from 'antd';
 
 const Product = () => {
 	const [productData, setProducts] = useState<Products>([]);
@@ -25,7 +26,7 @@ const Product = () => {
 		// Lấy danh mục
 		const fetchCategories = async () => {
 			const category = await getCategories();
-			setCategories(category.data);
+			setCategories(category);
 		};
 		fetchCategories();
 	}, []);
@@ -159,7 +160,6 @@ const Product = () => {
 													data-bs-target='#contentId12'
 													aria-expanded='false'
 													aria-controls='contentId12'
-													// selectPrice={handelPrice}
 												>
 													Giá sản phẩm
 												</a>
@@ -183,7 +183,6 @@ const Product = () => {
 															// value={selectPrice}
 															id='Giá dưới 100.000đ'
 															onChange={handleCheckboxChange}
-															// onClick={() => filterResult()}
 														/>
 														<label className='form-check-label' htmlFor='Giá dưới 100.000đ'>
 															Giá dưới 100.000đ
@@ -198,7 +197,6 @@ const Product = () => {
 															name='between100And200'
 															checked={between100And200}
 															onChange={handleCheckboxChange}
-															// onClick={() => filterResult()}
 														/>
 														<label className='form-check-label' htmlFor='100.000đ - 200.000đ'>
 															100.000đ - 200.000đ
@@ -515,48 +513,10 @@ const Product = () => {
 									<ProductCard key={prod.id_product} prod={prod} />
 								))}
 							</div>
-							<div className='row'>
-								<div className='col-lg-12 col-sm-12 col-12 margin-top-20 fix-page'>
+							<div className='row mt-3'>
+								<div className='pagi col-lg-12 col-sm-12 col-12 margin-top-20 fix-page'>
 									<nav aria-label='Page navigation example' id='pt'>
-										<ul className='pagination '>
-											<li className='page-item col-1'>
-												<a
-													className='page-link text-center text-reset  rounded-circle'
-													href='#'
-													aria-label='Previous'
-													id='pl'
-												>
-													<span aria-hidden='true'>&laquo;</span>
-													<span className='sr-only'>Previous</span>
-												</a>
-											</li>
-											<li className='page-item col-1'>
-												<a className='page-link text-center text-reset rounded-circle' id='pl' href='#'>
-													1
-												</a>
-											</li>
-											<li className='page-item col-1'>
-												<a className='page-link text-center text-reset rounded-circle' id='pl' href='#'>
-													2
-												</a>
-											</li>
-											<li className='page-item col-1'>
-												<a className='page-link text-center text-reset rounded-circle' id='pl' href='#'>
-													3
-												</a>
-											</li>
-											<li className='page-item col-1'>
-												<a
-													className='page-link text-center text-reset rounded-circle'
-													id='pl'
-													href='#'
-													aria-label='Next'
-												>
-													<span aria-hidden='true'>&raquo;</span>
-													<span className='sr-only'>Next</span>
-												</a>
-											</li>
-										</ul>
+										<Pagination defaultCurrent={1} total={50} />
 									</nav>
 								</div>
 							</div>
