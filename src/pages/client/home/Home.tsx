@@ -332,6 +332,60 @@ const Home = () => {
         </div>
       </div>
     </div> */}
+				<div className='home-section-7'>
+					<div className='section-blog'>
+						<a href='' className='blog-title'>
+							CẨM NANG ANIME
+						</a>
+						<div className='row'>
+							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+								<a href='' className='thumb'>
+									<img
+										src='https://www.siliconera.com/wp-content/uploads/2021/11/fgo_bb_3-3.jpg?fit=710%2C400'
+										alt=''
+									/>
+								</a>
+								<a href='' className='a-title'>
+									Figure được tạo ra như thế nào ?
+								</a>
+								<div className='author'>20/07/2022</div>
+								<p>
+									Đầu tiên, quá trình tạo ra một nhân vật anime rất đa dạng phụ thuộc vào nhân vật nào sẽ được
+									thể hiện, vật liệu nào sẽ được sử dụng, v.v.
+								</p>
+							</div>
+							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+								<a href='' className='thumb'>
+									<img
+										src='https://img.meta.com.vn/Data/image/2020/12/02/huong-dan-ve-anime-cho-nguoi-moi-1.jpg'
+										alt=''
+									/>
+								</a>
+								<a href='' className='a-title'>
+									Cách vẽ anime đơn giản cho người mới bắt đầu học
+								</a>
+								<div className='author'>20/07/2020</div>
+								<p>
+									Thiết kế hình ảnh trau chuốt, tạo hình dễ thương, đôi mắt to tròn của nhân vật anime đã
+									nhanh chóng chiếm được trái tim của nhiều bạn trẻ, v.v.
+								</p>
+							</div>
+							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+								<a href='' className='thumb'>
+									<img src='https://duavang.net/wp-content/uploads/2021/01/di-fes-theo-nhom.jpg' alt='' />
+								</a>
+								<a href='' className='a-title'>
+									Cosplay Fes là gì ?
+								</a>
+								<div className='author'>20/07/2020</div>
+								<p>
+									Các sự kiện cosplay hay thường được dân mình gọi bằng Cosplay Fes là những dịp đặt biệt dành
+									riêng cho những người yêu văn hóa Nhật Bản, v.v.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div className='home-section-8'>
 				<div className='section-mail'>

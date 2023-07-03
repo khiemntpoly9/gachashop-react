@@ -16,6 +16,7 @@ import Address from '@client/account/Address';
 import CheckOut from '@client/checkout/CheckOut';
 import Contact from '@client/contact/Contact';
 import Faq from '@client/faq/Faq';
+import Intro from '@client/introduce/Introduce';
 
 import Cart from '@client/cart/Cart';
 // Admin
@@ -95,6 +96,7 @@ const App = () => {
 				/>
 				<Route path='checkout' element={<CheckOut />} />
 
+				<Route path='gioithieu' element={<Intro />} />
 				<Route path='contact' element={<Contact />} />
 				<Route path='faq' element={<Faq />} />
 			</Route>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Slide from '@client/components/slide/Slide';
 import { getProductDetail } from '~/services/product/product.service';
-
+import './ProductDetail.scss';
 const ProductDetail = () => {
 	// Lấy ID trên url
 	const location = useLocation();
@@ -94,7 +94,9 @@ const ProductDetail = () => {
 				<nav aria-label='breadcrumb'>
 					<ol className='breadcrumb'>
 						<li className='breadcrumb-item'>
-							<Link to='/'>Trang chủ</Link>
+							<Link to='/' style={{ color: 'black' }}>
+								Trang chủ
+							</Link>
 						</li>
 						<li className='breadcrumb-item active' aria-current='page'>
 							Sản phẩm chi tiết

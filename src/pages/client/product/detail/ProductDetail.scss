@@ -21,7 +21,6 @@
 	}
 	.img-product {
 		padding-top: 30px;
-
 		border: none;
 		.list-group-item {
 			padding: 3px;
@@ -30,8 +29,11 @@
 			border-radius: 3px;
 		}
 		.active {
-			border: 1px solid #ec4f21;
+			border: 1px solid #ef9273;
 		}
+	}
+	.img-product .active:hover{
+		background-color: #ef9273;
 	}
 	.gia {
 		color: #ec4f21;
@@ -40,8 +42,8 @@
 	.material-product {
 		margin-bottom: 25px;
 		label {
-			color: #ec4f21;
-			border: 1px solid #ec4f21;
+			color: #ef9273;
+			border: 1px solid #ef9273;
 		}
 	}
 	button.giam {
@@ -58,6 +60,9 @@
 		padding: 0px;
 		border-radius: 0;
 		border: none;
+	}
+	button.giam:hover {
+		background-color: #ef9273;
 	}
 	input.soluong {
 		font-size: 20px;
@@ -76,12 +81,12 @@
 	}
 	button.addsp {
 		color: #fff;
-		background-color: #ec4f21;
+		background-color: #ef9273;
 		font-size: 14px;
 		text-transform: uppercase;
 		font-weight: 500;
 		box-shadow: none;
-		border: 1px solid #ec4f21;
+		border: 1px solid #ef9273;
 		padding: 0px 20px;
 		border-radius: 0;
 		min-width: 350px;
@@ -89,8 +94,11 @@
 		line-height: 48px;
 		text-align: center;
 	}
+	button.addsp:hover{
+		background-color: #ec4f21;
+	}
 	div.tym {
-		color: #ec4f21;
+		color: #ef9273;
 	}
 	button#nav-home-tab {
 		background-color: #fff;
