@@ -142,26 +142,26 @@ const Header = () => {
 												<div className='col-3 p-1'>
 													<div className=''>
 														<h6>
-															<Link to='/'>Nội thất</Link>
+															<Link to='/'>Mô hình - Figure</Link>
 														</h6>
 														<ul className='ul-list-item'>
 															<li>
-																<Link to='/'>Phòng khách</Link>
+																<Link to='/'>Mô hình Onepice</Link>
 															</li>
 															<li>
-																<Link to='/'>Phòng ăn</Link>
+																<Link to='/'>Mô hình Naruto</Link>
 															</li>
 															<li>
-																<Link to='/'>Phòng ngủ</Link>
+																<Link to='/'>Mô hình Dragon ball</Link>
 															</li>
 															<li>
-																<Link to='/'>Phòng làm việc</Link>
+																<Link to='/'>Mô hình Fairy Tail</Link>
 															</li>
 															<li>
-																<Link to='/'>Phòng cho bé</Link>
+																<Link to='/'>Mô hình Kimetsu no Yaiba</Link>
 															</li>
 															<li>
-																<Link to='/'>Nội thất thông minh</Link>
+																<Link to='/'>Mô hình Bleach</Link>
 															</li>
 														</ul>
 													</div>
@@ -169,62 +169,96 @@ const Header = () => {
 												<div className='col-3 p-1'>
 													<div className=''>
 														<h6>
-															<Link to='/'>Đồ trang trí</Link>
+															<Link to='/'>Áo - Trang phục</Link>
 														</h6>
 														<ul className='ul-list-item'>
 															<li>
-																<Link to='/'>Tranh & Khung ảnh</Link>
+																<Link to='/'>Áo khoác</Link>
 															</li>
 															<li>
-																<Link to='/'>Lọ & Bình trang trí</Link>
+																<Link to='/'>Áo cosplay</Link>
 															</li>
 															<li>
-																<Link to='/'>Đồng hồ</Link>
+																<Link to='/'>Mặt nạ</Link>
 															</li>
 															<li>
-																<Link to='/'>Nến thơm & Đèn tinh dầu</Link>
+																<Link to='/'>Găng tay</Link>
 															</li>
 															<li>
-																<Link to='/'>Đồ dùng uống trà & Cafe</Link>
+																<Link to='/'>Nón</Link>
 															</li>
 														</ul>
 													</div>
 												</div>
 												<div className='col-3 p-1'>
 													<h6>
-														<Link to='/'>Đèn</Link>
+														<Link to='/'>Phụ kiện</Link>
 													</h6>
 													<ul className='ul-list-item'>
 														<li>
-															<Link to='/'>Đèn bàn</Link>
+															<Link to='/'>Ba lô</Link>
 														</li>
 														<li>
-															<Link to='/'>Đèn sàn</Link>
+															<Link to='/'>Mắt kính</Link>
 														</li>
 														<li>
-															<Link to='/'>Đèn trần</Link>
+															<Link to='/'>Móc khóa</Link>
 														</li>
 														<li>
-															<Link to='/'>Đèn treo tường</Link>
+															<Link to='/'>Đồng hồ đeo tay</Link>
+														</li>
+														<li>
+															<Link to='/'>Khẩu trang</Link>
 														</li>
 													</ul>
 												</div>
 												<div className='col-3 p-1'>
 													<h6>
-														<Link to='/'>Ngoại thất</Link>
+														<Link to='/'>Trang sức</Link>
 													</h6>
 													<ul className='ul-list-item'>
 														<li>
-															<Link to='/'>Trang trí ngoài trời</Link>
+															<Link to='/'>Nhẫn</Link>
 														</li>
 														<li>
-															<Link to='/'>Trang trí sân vườn</Link>
+															<Link to='/'>Dây chuyền</Link>
+														</li>
+														<li>
+															<Link to='/'>Khuyên tai</Link>
+														</li>
+														<li>
+															<Link to='/'>Vòng tay</Link>
+														</li>
+													</ul>
+												</div>
+												<div className='col-3 p-1'>
+													<h6>
+														<Link to='/'>Các sản phẩm khác</Link>
+													</h6>
+													<ul className='ul-list-item'>
+														<li>
+															<Link to='/'>Poster - Tranh treo tường</Link>
+														</li>
+														<li>
+															<Link to='/'>Bóp - Ví tiền</Link>
+														</li>
+														<li>
+															<Link to='/'>Giấy dán tường</Link>
+														</li>
+														<li>
+															<Link to='/'>Gối - Thú nhồi bông</Link>
+														</li>
+														<li>
+															<Link to='/'>Quạt</Link>
+														</li>
+														<li>
+															<Link to='/'>Lót chuột</Link>
 														</li>
 													</ul>
 												</div>
 											</div>
 											{/* Bottom */}
-											<div className='d-flex'>
+											{/* <div className='d-flex'>
 												<div className='col-3 p-1'>
 													<h6>
 														<Link to='/'>Chăn, Ga, Gối & Nệm</Link>
@@ -235,11 +269,11 @@ const Header = () => {
 														<Link to='/'>Đồ dùng nhà tắm</Link>
 													</h6>
 												</div>
-											</div>
+											</div> */}
 										</div>
-										<div className='col-lg-3'>
+										{/* <div className='col-lg-3'>
 											<img className='img-fluid' src={img1} alt='' />
-										</div>
+										</div> */}
 									</div>
 								</div>
 							</div>
