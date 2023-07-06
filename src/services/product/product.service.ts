@@ -69,3 +69,15 @@ export const getProductDetail = async (id: number) => {
 		throw error;
 	}
 };
+
+// Xóa ảnh
+
+export const deleteImage = async (id: string) => {
+	try {
+		const respose = await newRequest.delete(`product/image?idp=${id}`);
+		return respose.data;
+	} catch (error) {
+		console.error('Error fetching:', error);
+		throw error;
+	}
+};
