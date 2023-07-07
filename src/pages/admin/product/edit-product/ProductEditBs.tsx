@@ -253,7 +253,7 @@ const ProductEditBs: React.FC = () => {
 										<CKEditor
 											editor={ClassicEditor}
 											data={formDataProductDetail}
-											onChange={(event, editor) => {
+											onChange={(_, editor) => {
 												const data = editor.getData();
 												console.log(data);
 												setFormDataProductDetail(data);
