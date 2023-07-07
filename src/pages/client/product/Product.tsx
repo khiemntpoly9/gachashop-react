@@ -16,6 +16,9 @@ import { Pagination } from 'antd';
 const Product = () => {
 	const [productData, setProducts] = useState<Products>([]);
 	const [categories, setCategories] = useState<Categories>([]);
+	const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+	const [currentPage, setCurrentPage] = useState(1);
+	const pageSize = 6;
 	useEffect(() => {
 		// Lấy sản phẩm
 		const fetchProducts = async () => {
@@ -30,6 +33,18 @@ const Product = () => {
 		};
 		fetchCategories();
 	}, []);
+
+	const handleCategorySelect = (categoryId: number) => {
+		setSelectedCategory(categoryId);
+	};
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
+	const filteredProducts = productData.filter(
+		(prod) => selectedCategory === null || prod.categories?.id_categories === selectedCategory
+	);
+	const currentData = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
 	// Lọc sản phẩm
 	const [under100, setUnder100] = useState(false);
 	const [between100And200, setBetween100And200] = useState(false);
@@ -108,7 +123,11 @@ const Product = () => {
 								<div className='aside-content'>
 									<ul className='navbar-pills my-2 '>
 										{categories?.map((Cate) => (
-											<Category key={Cate.id_categories} Cate={Cate} />
+											<Category
+												key={Cate.id_categories}
+												Cate={Cate}
+												onClick={() => handleCategorySelect(Cate.id_categories)}
+											/>
 										))}
 									</ul>
 								</div>
@@ -509,14 +528,19 @@ const Product = () => {
 							</div>
 							<hr className='hr' />
 							<div className='products-view  row row-cols-3 justify-content-between gap-1'>
-								{productData.map((prod) => (
+								{currentData.map((prod) => (
 									<ProductCard key={prod.id_product} prod={prod} />
 								))}
 							</div>
 							<div className='row mt-3'>
 								<div className='pagi col-lg-12 col-sm-12 col-12 margin-top-20 fix-page'>
 									<nav aria-label='Page navigation example' id='pt'>
-										<Pagination defaultCurrent={1} total={50} />
+										<Pagination
+											current={currentPage}
+											total={filteredProducts.length}
+											pageSize={pageSize}
+											onChange={handlePageChange}
+										/>
 									</nav>
 								</div>
 							</div>
