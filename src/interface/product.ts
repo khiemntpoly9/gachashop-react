@@ -41,6 +41,9 @@ export interface FormDataFields {
 export type Product = {
 	id_product: number;
 	name_prod: string;
+	categories: {
+		id_categories: number;
+	};
 };
 
 export type Products = Product[];
