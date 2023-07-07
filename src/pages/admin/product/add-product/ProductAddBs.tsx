@@ -214,7 +214,7 @@ const ProductAddBs: React.FC = () => {
 										<CKEditor
 											editor={ClassicEditor}
 											data=''
-											onChange={(event, editor) => {
+											onChange={(_, editor) => {
 												const data = editor.getData();
 												setProductDetail(data);
 											}}

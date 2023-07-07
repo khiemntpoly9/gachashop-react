@@ -8,20 +8,18 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
 import ProductCard from '../product-card/ProductCard';
-import newRequest from '../../../../utils/newRequest';
 import './Slide.scss';
+import { getProducts } from '@services/product/product.service.ts';
+import { Products } from 'src/interface/product.ts';
 
 const Slide = () => {
-	const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState<Products>([]);
 	useEffect(() => {
-		newRequest
-			.get('/products')
-			.then((res) => {
-				setProducts(res.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		const getproducts = async () => {
+			const products = await getProducts();
+			setProducts(products);
+		};
+		getproducts();
 	}, []);
 	return (
 		<div>

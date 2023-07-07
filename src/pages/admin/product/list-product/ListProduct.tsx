@@ -66,7 +66,7 @@ const ListProduct = () => {
 		{
 			title: 'Công cụ',
 			key: 'actions',
-			render: (text, record) => <AcitonAdmin productId={record.id_product} nameProduct={record.name_prod} />,
+			render: (record) => <AcitonAdmin productId={record.id_product} nameProduct={record.name_prod} />,
 		},
 	];
 	return (

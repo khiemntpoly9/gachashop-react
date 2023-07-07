@@ -115,8 +115,8 @@ const Contact = () => {
 										className='form-control form-control-lg'
 										name='contact[body]'
 										id='comment'
-										cols='30'
-										rows='5'
+										cols={30}
+										rows={5}
 									></textarea>
 								</fieldset>
 								<fieldset className='form-group '>
