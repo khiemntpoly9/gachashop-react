@@ -50,6 +50,20 @@ const ProductDetail = () => {
 	const handleShowMore = () => {
 		setShowMore(!showMore);
 	};
+	//tách thẻ html
+	const extractTextFromHTML = (html: string) => {
+		const tempElement = document.createElement('div');
+		tempElement.innerHTML = html;
+		return tempElement.textContent || tempElement.innerText || '';
+	};
+	const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+	const handleImageClick = (index) => {
+		setActiveImageIndex(index);
+	};
+	if (!productDetail || !productDetail.img_prod) {
+		return null; // or render an error message
+	}
 
 	// cart
 	const addToCart = () => {
@@ -107,15 +121,17 @@ const ProductDetail = () => {
 					<div className='row col-12 col-xl-6'>
 						<div className='col-2'>
 							<div className='list-group img-product' id='list-tab' role='tablist'>
-								{productDetail.img_prod.map((img: any) => (
+								{productDetail.img_prod.map((img: any, index: number) => (
 									<a
 										key={img.id_images}
-										className='list-group-item list-group-item-action active'
-										id='list-home-list'
+										className={`list-group-item list-group-item-action ${index === activeImageIndex ? 'active' : ''
+											}`}
+										id={`list-${img.id_images}-list`}
 										data-bs-toggle='list'
-										href='#list-home'
+										href={`#list-${img.id_images}`}
 										role='tab'
-										aria-controls='list-home'
+										aria-controls={`list-${img.id_images}`}
+										onClick={() => handleImageClick(index)}
 									>
 										<img className='w-100' src={img.url} alt='' />
 									</a>
@@ -137,15 +153,15 @@ const ProductDetail = () => {
 						</div> */}
 						<div className='col-10'>
 							<div className='tab-content' id='nav-tabContent'>
-								{productDetail.img_prod.map((img: any) => (
+								{productDetail.img_prod.map((img: any, index: number) => (
 									<div
 										key={img.id_images}
-										className='tab-pane fade show active'
-										id='list-home'
+										className={`tab-pane fade ${index === activeImageIndex ? 'show active' : ''}`}
+										id={`list-${img.id_images}`}
 										role='tabpanel'
-										aria-labelledby='list-home-list'
+										aria-labelledby={`list-${img.id_images}-list`}
 									>
-										<img src={img.img_thumbnail} alt='' />
+										<img src={img.url} alt='' />
 									</div>
 								))}
 							</div>
@@ -214,7 +230,9 @@ const ProductDetail = () => {
 						</div>
 						{/* Thông tin chi tiết */}
 						<div className='showmore'>
-							<p className={!showMore ? 'show-more' : ''}>{productDetail.detail_prod.detail_prod}</p>
+							<div className={!showMore ? 'show-more' : ''}>
+								{extractTextFromHTML(productDetail.detail_prod.detail_prod)}
+							</div>
 
 							<button className='xemthem' onClick={handleShowMore}>
 								<p className='more-text m-1'>{showMore ? 'Thu gọn' : 'Xem thêm'}</p>
