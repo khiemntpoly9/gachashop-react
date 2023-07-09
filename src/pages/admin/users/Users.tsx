@@ -1,9 +1,12 @@
+import { Pagination, Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { UsersType } from '~/interface/user.type';
 import { getListUsers } from '~/services/user/user.service';
 
 const Users = () => {
 	const [users, setUsers] = useState<UsersType>([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const pageSize = 5;
 	useEffect(() => {
 		const fetchUsers = async () => {
 			const data = await getListUsers();
@@ -11,66 +14,77 @@ const Users = () => {
 		};
 		fetchUsers();
 	}, []);
+
+	const handlePageChange = (page) => {
+		setCurrentPage(page);
+	};
+
+	//Phân trang
+	const currentData = users.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+	//Chia cột
+	const columns = [
+		{
+			title: 'ID',
+			dataIndex: 'id_user',
+			key: 'id_user',
+		},
+		{
+			title: 'Họ',
+			dataIndex: 'first_name',
+			key: 'first_name',
+		},
+		{
+			title: 'Tên',
+			dataIndex: 'last_name',
+			key: 'last_name',
+		},
+		{
+			title: 'Email',
+			dataIndex: 'email',
+			key: 'email',
+			// render: (categories) => categories?.name_categories,
+		},
+		{
+			title: 'SĐT',
+			dataIndex: 'phone',
+			key: 'phone',
+		},
+		{
+			title: 'Xác thực',
+			dataIndex: 'verify',
+			key: 'verify',
+			render: (verify) => (verify == 1 ? 'Đã xác thực' : 'Chưa xác thực'),
+		},
+
+		// {
+		// 	title: 'Thời gian',
+		// 	dataIndex: 'createdAt',
+		// 	key: 'createdAt',
+		// 	render: (createdAt) => moment(createdAt).format('DD/MM/YYYY HH:mm:ss'),
+		// },
+		// {
+		// 	title: 'Công cụ',
+		// 	key: 'actions',
+		// 	render: (text, record) => <AcitonAdmin productId={record.id_product} nameProduct={record.name_prod} />,
+		// },
+	];
+
 	return (
 		<div>
 			<h4>Danh sách tài khoản</h4>
 			{/* table */}
 			<div className='border rounded-2 p-3'>
-				<table className='table'>
-					<thead>
-						<tr>
-							<th scope='col'>
-								<input type='checkbox' />
-							</th>
-							<th scope='col'>ID</th>
-							<th scope='col'>Họ và tên</th>
-							<th scope='col'>Email</th>
-							<th scope='col'>Số điện thoại</th>
-							<th scope='col'>Xác thực</th>
-							<th scope='col'>Công cụ</th>
-						</tr>
-					</thead>
-					<tbody>
-						{users?.length > 0 ? (
-							users?.map((user) => (
-								<tr key={user.id_user}>
-									<th scope='row'>
-										<input type='checkbox' />
-									</th>
-									<td>{user.id_user}</td>
-									<td>{`${user.first_name} ${user.last_name}`}</td>
-									<td>{user.email}</td>
-									<td>{user.phone}</td>
-									<td>{user.verify == 1 ? 'Đã xác thực' : 'Chưa xác thực'}</td>
-									{/* <td>{moment(user.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td> */}
-									{/* <td>{cateParent.action_history[0].users.last_name}</td> */}
-									<td>
-										<div className='d-flex'>
-											<div>
-												<button className='btn'>
-													<i className='fa-solid fa-eye'></i>
-												</button>
-											</div>
-											<div>
-												<button className='btn'>
-													<i className='fa-solid fa-pen'></i>
-												</button>
-											</div>
-										</div>
-									</td>
-								</tr>
-							))
-						) : (
-							<tr>
-								<td className='text-center' colSpan={5}>
-									Không có dữ liệu.
-								</td>
-							</tr>
-						)}
-					</tbody>
-				</table>
+				<Table dataSource={currentData} columns={columns} pagination={false} />
+
+				<Pagination
+					className='m-2'
+					current={currentPage}
+					total={users.length}
+					pageSize={pageSize}
+					onChange={handlePageChange}
+				/>
 			</div>
-			{/* end table */}
 		</div>
 	);
 };

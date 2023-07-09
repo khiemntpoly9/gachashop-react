@@ -13,28 +13,16 @@ const ProductCard = ({ prod }) => {
 					<img src={prod.img_thumbnail} alt='' />
 				</div>
 			</Link>
-			{/* <div className='thumb-list list-group id=list-tab' role='tablist'>
-    {imgArray.map((item, index) => {
-      return (
-        <div
-          onClick={() => {
-            changeImage(index);
-          }}
-          className={`thumb-list-item list-group-item list-group-item-action`}
-          aria-current='img-card'
-          key={index}
-        >
-          <img src={item} alt='' />
-        </div>
-      );
-    })}
-  </div> */}
+
 			<Link to={`/product?id=${prod.id_product}`} className='card-text'>
 				{prod.name_prod}
 			</Link>
 			<div className='price-box text-center'>
 				<span className='price'>{VND.format(prod.price_prod)}</span>
 			</div>
+			<Link className='btn btn-primary' to={`/product?id=${prod.id_product}`}>
+				Xem thêm
+			</Link>
 		</div>
 	);
 };
