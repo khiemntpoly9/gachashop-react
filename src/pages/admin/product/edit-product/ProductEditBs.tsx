@@ -9,7 +9,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Categories } from '@interface/categories.type';
 import { BrandsType } from '@interface/brand.type';
 // services
-import { getProductDetail, updateProduct } from '@services/product/product.service';
+import { getProductDetail, updateProduct, deleteImage } from '@services/product/product.service';
 import { getListBrands } from '@services/brand/brand.service';
 import './ProductAdmin.scss';
 import { ProductDetail } from '~/interface/product';
@@ -38,26 +38,28 @@ const ProductEditBs: React.FC = () => {
 	const [ImageList, setImageList] = useState<File[] | null>(null);
 	const [listUrl, setListUrl] = useState<string[] | null>(null);
 	//
+	const fetchProductDetail = async () => {
+		const productDetail = await getProductDetail(Number(id));
+		setProductDetail(productDetail);
+		console.log(productDetail);
+		// Lấy danh mục chính
+		const category = await getAllParentCategories();
+		setCategories(category);
+		// Lấy danh mục phụ
+		const subCategory = await getAllChildCategories();
+		setSubCategories(subCategory);
+		// Lấy brands
+		const brand = await getListBrands();
+		setBrands(brand);
+		// subcategory filter
+		setFilteredSubCategories([]);
+		//chi tiết
+		setFormDataProductDetail(productDetail?.detail_prod?.detail_prod || '');
+		// loading
+		setIsLoading(true);
+	};
 	useEffect(() => {
 		// Lấy data chi tiết sản phẩm
-		const fetchProductDetail = async () => {
-			const productDetail = await getProductDetail(Number(id));
-			setProductDetail(productDetail);
-			console.log(productDetail);
-			// Lấy danh mục chính
-			const category = await getAllParentCategories();
-			setCategories(category);
-			// Lấy danh mục phụ
-			const subCategory = await getAllChildCategories();
-			setSubCategories(subCategory);
-			// Lấy brands
-			const brand = await getListBrands();
-			setBrands(brand);
-			// subcategory filter
-			setFilteredSubCategories(subCategory);
-			// loading
-			setIsLoading(true);
-		};
 		fetchProductDetail();
 	}, [id]);
 	// Select của danh mục chính (onChange)
@@ -103,6 +105,11 @@ const ProductEditBs: React.FC = () => {
 			}
 		}
 	};
+
+	async function deleteImageHandle(item: any) {
+		await deleteImage(item.public_id);
+		fetchProductDetail();
+	}
 
 	// Xử lý submit form
 	const handleSubmit = async (e: any) => {
@@ -160,13 +167,13 @@ const ProductEditBs: React.FC = () => {
 										<select
 											className='form-select shadow-none'
 											aria-label='Default select example'
-											defaultValue={productDetail?.categories.parent.id_categories}
+											defaultValue={productDetail?.categories?.parent.id_categories}
 											onChange={handleParentChange}
 										>
 											<option>Chọn danh mục</option>
 											{categories.map((item) => (
-												<option key={item.id_categories} value={item.id_categories}>
-													{item.name_categories}
+												<option key={item?.id_categories} value={item?.id_categories}>
+													{item?.name_categories}
 												</option>
 											))}
 										</select>
@@ -180,7 +187,7 @@ const ProductEditBs: React.FC = () => {
 											className='form-select shadow-none'
 											name='id_categories'
 											aria-label='Default select example'
-											defaultValue={productDetail?.categories.id_categories}
+											defaultValue={productDetail?.categories?.id_categories}
 										>
 											<option>Chọn danh mục phụ</option>
 											{filteredSubCategories.map((item) => (
@@ -245,10 +252,10 @@ const ProductEditBs: React.FC = () => {
 									<div className='editor_details'>
 										<CKEditor
 											editor={ClassicEditor}
-											data={productDetail?.detail_prod.detail_prod}
-											onChange={(event, editor) => {
+											data={formDataProductDetail}
+											onChange={(_, editor) => {
 												const data = editor.getData();
-												console.log(event);
+												console.log(data);
 												setFormDataProductDetail(data);
 											}}
 										></CKEditor>
@@ -264,8 +271,12 @@ const ProductEditBs: React.FC = () => {
 										name='img_thumbnail'
 										onChange={handleImageThumnail}
 									/>
-									{thumbnailUrl && <img src={thumbnailUrl} alt='Thumbnail' width={120} height={120} />}
-									<img src={productDetail?.img_thumbnail} width={120} height={120} />
+
+									{thumbnailUrl ? (
+										<img src={thumbnailUrl} alt='Thumbnail' width={120} height={120} />
+									) : (
+										<img src={productDetail?.img_thumbnail} width={120} height={120} />
+									)}
 								</div>
 								{/* Lấy 4 link hình ảnh */}
 								<div className='form-group mb-3'>
@@ -280,17 +291,29 @@ const ProductEditBs: React.FC = () => {
 										/>
 										{listUrl &&
 											listUrl.map((url, index) => (
-												<img className='me-3' key={index} src={url} alt='images' width={120} height={120} />
+												<div className='me-3 position-relative d-inline-block' key={index}>
+													<img className='' src={url} alt='images' width={120} height={120} />
+													<div
+														onClick={() => {
+															setListUrl([]);
+															setImageList([]);
+														}}
+														className='position-absolute top-0 end-0 p-1 bg-white'
+													>
+														X
+													</div>
+												</div>
 											))}
 										{productDetail?.img_prod.map((item, index) => (
-											<img
-												className='me-3'
-												key={index}
-												src={item.url}
-												alt='images'
-												width={120}
-												height={120}
-											/>
+											<div className='me-3 position-relative d-inline-block' key={index}>
+												<img src={item.url} alt='images' width={120} height={120} />
+												<div
+													onClick={() => deleteImageHandle(item)}
+													className='position-absolute top-0 end-0 p-1 bg-white'
+												>
+													X
+												</div>
+											</div>
 										))}
 									</div>
 									<div className='img-show'></div>

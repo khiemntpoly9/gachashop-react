@@ -10,7 +10,13 @@ const Register = () => {
 	const [first_name, setFirstname] = useState('');
 	const [last_name, setLastname] = useState('');
 	const [phone, setSDT] = useState('');
-	const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState<{
+		email: string;
+		password: string;
+		firstname: string;
+		lastname: string;
+		username: string;
+	}>({ email: '', password: '', firstname: '', lastname: '', username: '' });
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
@@ -34,7 +40,19 @@ const Register = () => {
 
 	//Validate
 	const validateForm = () => {
-		let formErrors = {};
+		const formErrors: {
+			email: string;
+			password: string;
+			firstname: string;
+			lastname: string;
+			username: string;
+		} = {
+			email: '',
+			password: '',
+			firstname: '',
+			lastname: '',
+			username: '',
+		};
 		let isValid = true;
 
 		//Validate username
@@ -89,7 +107,7 @@ const Register = () => {
 					},
 				})
 				// eslint-disable-next-line no-unused-vars
-				.then((response) => {
+				.then(() => {
 					window.location.href = '/login';
 				})
 				.catch((error) => alert(error.response.data.message));

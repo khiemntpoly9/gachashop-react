@@ -5,7 +5,6 @@ import AuthContext from '~/context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 import logo from '@assets/images/logo3.png';
-import img1 from '@assets/images/mega-1-image.webp';
 import { logout } from '~/services/user/user.service';
 
 const Header = () => {
