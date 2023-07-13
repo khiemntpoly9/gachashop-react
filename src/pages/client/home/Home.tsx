@@ -32,8 +32,8 @@ const Home = () => {
 			{/* <img className='img-fluid' src={banner} alt='' /> */}
 			<div className='container-md'>
 				{/* Loại sản phẩm */}
-				<div className='home-section-1'>
-					<div className='home-cate-head'>
+				<div className='home-section-1 d-none d-sm-block'>
+					<div className='home-cate-head '>
 						<h4>DANH MỤC SẢN PHẨM</h4>
 						<p>
 							Gacha shop với tiêu chí là thiên đường dành cho fan Manga Anime nên shop quy tụ hầu hết các sản
@@ -41,136 +41,113 @@ const Home = () => {
 						</p>
 					</div>
 					<div className='home-cate-main'>
-						<div className='row row-cols-6'>
-							<div className='home-cate-card col'>
+						<div className='row row-cols-md-2'>
+							<div className='home-cate-card col-12 col-md-4 col-lg-5'>
 								<a href=''>
 									<img
 										src='https://cdn-amz.woka.io/images/I/51WbadQAaaS.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>figure - mô hình</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/0_dfdb51b4b5a945a98d2630a0c49555c2_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>Áo - trang phục</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/1_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>Ba lô - dụng cụ học tập</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEkeB2kHqMBhTc8n0OYQTOcr1G3vR83KY3w&usqp=CAU'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>MÓC KHÓA - STANDEE - HUY HIỆU</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/5a_1e62de7dac104984a750c5f06445b426_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>ĐỒNG HỒ</p>
 								</a>
 							</div>
-							{/* <div className='home-cate-card col'>
-            <a href=''>
-              <img
-                src='https://lzd-img-global.slatic.net/g/p/5c95e7d4235111d1350cc867332644c5.jpg_360x360q75.jpg_.webp'
-                alt=''
-                className='card-img-top'
-              />
-              <p className='card-text text-uppercase'>trang sức phụ kiện</p>
-            </a>
-          </div> */}
-						</div>
-						<div className='row row-cols-6'>
-							<div className='home-cate-card col '>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/10b_9636c5f55382428b8702acba1caee543_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>PHỤ KIỆN ĐẦU</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/0_7d0353bd938b46cd818ee0c233751e83_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>GỐI - THÚ NHỒI BÔNG</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://lzd-img-global.slatic.net/g/p/5c95e7d4235111d1350cc867332644c5.jpg_360x360q75.jpg_.webp'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>TRANG SỨC</p>
 								</a>
 							</div>
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://down-vn.img.susercontent.com/file/70d5865e1038e7d0d79e51a4d6d289c5'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>SẢN PHẨM IN THEO YÊU CẦU </p>
 								</a>
 							</div>
-
-							<div className='home-cate-card col'>
+							<div className='home-cate-card col-12 col-md-6'>
 								<a href=''>
 									<img
 										src='https://product.hstatic.net/1000273792/product/87_a045ecaf47964dde9b6b27422e362d7f_grande.jpg'
 										alt=''
-										className='card-img-top'
+										className='card-img-top img-fluid'
 									/>
 									<p className='card-text text-uppercase'>PHỤ KIỆN KHÁC</p>
 								</a>
 							</div>
-							{/* <div className='home-cate-card col'>
-            <a href=''>
-              <img
-                src='https://bizweb.dktcdn.net/thumb/large/100/396/362/collections/2-ghe-1587981944-1.jpg?v=1596443275397'
-                alt=''
-                className='card-img-top'
-              />
-              <p className='card-text text-uppercase'>Bộ sản phẩm</p>
-            </a>
-          </div> */}
 						</div>
 					</div>
 				</div>
 				<div className='home-section-2'>
 					<a href=''>
-						<div className='img-img-banner1 w-100'>
+						<div className='img-img-banner1 d-none '>
 							<div className='overlay'></div>
 						</div>
 					</a>
@@ -181,7 +158,7 @@ const Home = () => {
 							TOP SẢN PHẨM BÁN CHẠY
 						</a>
 
-						<div className='h-topp row row-cols-md-3 row-cols-lg-4 m-0 p-0'>
+						<div className='h-topp row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 m-0 p-0'>
 							{products?.slice(0, 8).map((prod) => (
 								<div key={prod.id_product} className='p-2'>
 									<ProductCard prod={prod} />
@@ -199,29 +176,47 @@ const Home = () => {
 					</div>
 				</div>
 				<div className='home-section-4'>
-					<div className='slick-track row row-cols-6'>
+					<div className='slick-track row row-cols-lg-6'>
 						<a href='' className='slick-item col ' style={{ width: '220px' }}>
-							<img src='https://otakustore.vn/image/cache//manufacturer/alter-150x150w.png' alt='' />
+							<img
+								src='https://otakustore.vn/image/cache//manufacturer/alter-150x150w.png'
+								alt=''
+								className='img-fluid'
+							/>
 						</a>
 						<a href='' className='slick-item col' style={{ width: '220px' }}>
-							<img src='https://otakustore.vn/image/cache//manufacturer/Taito-logo-150x150w.png' alt='' />
+							<img
+								src='https://otakustore.vn/image/cache//manufacturer/Taito-logo-150x150w.png'
+								alt=''
+								className='img-fluid'
+							/>
 						</a>
 						<a href='' className='slick-item col' style={{ width: '220px' }}>
 							<img
 								src='https://otakustore.vn/image/cache/catalog/manufacturer/mpalace_logo-150x150w.jpg'
 								alt=''
+								className='img-fluid'
 							/>
 						</a>
 						<a href='' className='slick-item col' style={{ width: '220px' }}>
-							<img src='https://otakustore.vn/image/cache//manufacturer/bandai-150x150.png' alt='' />
+							<img
+								src='https://otakustore.vn/image/cache//manufacturer/bandai-150x150.png'
+								alt=''
+								className='img-fluid'
+							/>
 						</a>
 						<a href='' className='slick-item col' style={{ width: '220px' }}>
-							<img src='https://otakustore.vn/image/cache//manufacturer/banpesto-150x150w.jpg' alt='' />
+							<img
+								src='https://otakustore.vn/image/cache//manufacturer/banpesto-150x150w.jpg'
+								alt=''
+								className='img-fluid'
+							/>
 						</a>
 						<a href='' className='slick-item col' style={{ width: '220px' }}>
 							<img
 								src='https://otakustore.vn/image/cache/catalog/manufacturer/bbt-studio-150x150w.jpg'
 								alt=''
+								className='img-fluid'
 							/>
 						</a>
 					</div>
@@ -244,101 +239,14 @@ const Home = () => {
 						{/* <button >Xem tất cả</button> */}
 					</div>
 				</div>
-				{/* <div className='home-section-6'>
-      <div className='section-banner'>
-        <div className='row'>
-          <div className='col-lg-4 col-md-4 col-sm-4 col-12'>
-            <a href='' className='banner'>
-              <img
-                src='https://bizweb.dktcdn.net/100/396/362/themes/777022/assets/feature_banner_1.jpg?1678155521674'
-                alt=''
-                className='banner-image'
-              />
-            </a>
-          </div>
-          <div className='col-lg-4 col-md-4 col-sm-4 col-12'>
-            <a href=''>
-              <img
-                src='https://bizweb.dktcdn.net/100/396/362/themes/777022/assets/feature_banner_2.jpg?1678155521674'
-                alt=''
-              />
-            </a>
-          </div>
-          <div className='col-lg-4 col-md-4 col-sm-4 col-12'>
-            <a href=''>
-              <img
-                src='https://bizweb.dktcdn.net/100/396/362/themes/777022/assets/feature_banner_3.jpg?1678155521674'
-                alt=''
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div> */}
-				{/* <div className='home-section-7'>
-      <div className='section-blog'>
-        <a href='' className='blog-title'>
-          CẨM NANG NỘI THẤT
-        </a>
-        <div className='row'>
-          <div className='col-lg-4 col-md-4 col-10 item-news-image'>
-            <a href='' className='thumb'>
-              <img
-                src='https://bizweb.dktcdn.net/thumb/grande/100/396/362/articles/bloglist-1-963x600-1.jpg?v=1595229357487'
-                alt=''
-              />
-            </a>
-            <a href='' className='a-title'>
-              Nhà phố hai mái giúp gia chủ không cần điều hòa
-            </a>
-            <div className='author'>20/07/2020</div>
-            <p>
-              Căn nhà trên mảnh đất 68 m2 ở quận 9 của một gia đình ba người. Để ngôi nhà thông gió và ít
-              cần sử dụng điều hòa, kiế...
-            </p>
-          </div>
-          <div className='col-lg-4 col-md-4 col-10 item-news-image'>
-            <a href='' className='thumb'>
-              <img
-                src='https://bizweb.dktcdn.net/thumb/grande/100/396/362/articles/bloglist-1-963x600-1.jpg?v=1595229357487'
-                alt=''
-              />
-            </a>
-            <a href='' className='a-title'>
-              Nhà phố hai mái giúp gia chủ không cần điều hòa
-            </a>
-            <div className='author'>20/07/2020</div>
-            <p>
-              Căn nhà trên mảnh đất 68 m2 ở quận 9 của một gia đình ba người. Để ngôi nhà thông gió và ít
-              cần sử dụng điều hòa, kiế...
-            </p>
-          </div>
-          <div className='col-lg-4 col-md-4 col-10 item-news-image'>
-            <a href='' className='thumb'>
-              <img
-                src='https://bizweb.dktcdn.net/thumb/grande/100/396/362/articles/bloglist-1-963x600-1.jpg?v=1595229357487'
-                alt=''
-              />
-            </a>
-            <a href='' className='a-title'>
-              Nhà phố hai mái giúp gia chủ không cần điều hòa
-            </a>
-            <div className='author'>20/07/2020</div>
-            <p>
-              Căn nhà trên mảnh đất 68 m2 ở quận 9 của một gia đình ba người. Để ngôi nhà thông gió và ít
-              cần sử dụng điều hòa, kiế...
-            </p>
-          </div>
-        </div>
-      </div>
-    </div> */}
+
 				<div className='home-section-7'>
 					<div className='section-blog'>
 						<a href='' className='blog-title'>
 							CẨM NANG ANIME
 						</a>
 						<div className='row'>
-							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+							<div className='col-lg-4 col-md-3 col-10 m-auto item-news-image'>
 								<a href='' className='thumb'>
 									<img
 										src='https://www.siliconera.com/wp-content/uploads/2021/11/fgo_bb_3-3.jpg?fit=710%2C400'
@@ -354,7 +262,7 @@ const Home = () => {
 									thể hiện, vật liệu nào sẽ được sử dụng, v.v.
 								</p>
 							</div>
-							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+							<div className='col-lg-4 col-md-4 col-10  m-auto item-news-image'>
 								<a href='' className='thumb'>
 									<img
 										src='https://img.meta.com.vn/Data/image/2020/12/02/huong-dan-ve-anime-cho-nguoi-moi-1.jpg'
@@ -370,7 +278,7 @@ const Home = () => {
 									nhanh chóng chiếm được trái tim của nhiều bạn trẻ, v.v.
 								</p>
 							</div>
-							<div className='col-lg-4 col-md-4 col-10 item-news-image'>
+							<div className='col-lg-4 col-md-4 col-10  m-auto item-news-image'>
 								<a href='' className='thumb'>
 									<img src='https://duavang.net/wp-content/uploads/2021/01/di-fes-theo-nhom.jpg' alt='' />
 								</a>

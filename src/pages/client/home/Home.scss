@@ -70,7 +70,6 @@
 				}
 				img {
 					width: 160px;
-					height: 160px;
 				}
 				.card-text {
 					color: #222;
@@ -102,7 +101,7 @@
 		margin: auto;
 		margin-top: 40px;
 		.img-img-banner1 {
-			width: 1140px;
+			// width: 1140px;
 			height: 280px;
 			background-position: center;
 			background-size: cover;
@@ -288,6 +287,17 @@
 			color: #1c1c1c;
 			text-align: center;
 			margin-bottom: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 767.98px) {
+	.home-section-2 {
+		.img-img-banner1 {
+			height: 150px;
+			background-size: cover;
+			background-position: center;
+			height: 150px;
 		}
 	}
 }

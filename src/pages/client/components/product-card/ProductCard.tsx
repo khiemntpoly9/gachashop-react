@@ -7,7 +7,7 @@ const ProductCard = ({ prod }) => {
 		currency: 'VND',
 	});
 	return (
-		<div className='h-top-pro-card g-col m-0 p-0'>
+		<div className='h-top-pro-card g-col m-auto'>
 			<Link to={`/product?id=${prod.id_product}`} className='card-img-top tab-content' id='nav-tabContent'>
 				<div>
 					<img src={prod.img_thumbnail} alt='' />

@@ -6,3 +6,33 @@
 		}
 	}
 }
+@media screen and (max-width: 992px) {
+	.myswiper {
+		.slideimg {
+			img {
+				width: 100%;
+				height: 50vh;
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.myswiper {
+		.slideimg {
+			img {
+				width: 100%;
+				height: 50vh;
+			}
+		}
+	}
+}
+@media screen and (max-width: 576px) {
+	.myswiper {
+		.slideimg {
+			img {
+				width: 100%;
+				height: 35vh;
+			}
+		}
+	}
+}
