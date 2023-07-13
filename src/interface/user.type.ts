@@ -4,7 +4,7 @@ export type User = {
 	last_name: string;
 	email: string;
 	phone: string | number;
-	verify: number;
+	verify_at: string | null;
 };
 
 export type UsersType = User[];
