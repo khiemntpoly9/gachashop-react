@@ -225,7 +225,7 @@ const ProductDetail = () => {
 						{/* Thông tin chi tiết */}
 						<div className='showmore'>
 							<p className={!showMore ? 'show-more' : ''}>
-								{productDetail.detail_prod.detail_prod.replace(/<\/?p>/g, '')}
+								{productDetail.detail_prod.detail_prod.replace(/<\/?[a-z]+>/gi, '')}
 							</p>
 
 							<button className='xemthem' onClick={handleShowMore}>
