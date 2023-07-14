@@ -108,3 +108,10 @@ export type ProductDetail = {
 		detail_prod: string;
 	};
 };
+export type ProductCart = {
+	id_product: number;
+	name_prod: string;
+	img_thumbnail: string;
+	price_prod: number;
+	quantity: number;
+};
