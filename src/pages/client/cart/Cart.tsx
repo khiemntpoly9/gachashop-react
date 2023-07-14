@@ -1,6 +1,24 @@
 import './Cart.scss';
-
+import React, { useEffect, useState } from 'react';
+import { ProductCart } from '~/interface/product';
 const Cart: React.FC = () => {
+	const [cartItems, setCartItems] = useState<ProductCart[]>([]);
+
+	useEffect(() => {
+		const storedCartItems = JSON.parse(localStorage.getItem('productsInCart') || '[]') as ProductCart[];
+		setCartItems(storedCartItems);
+	}, [setCartItems]);
+	console.log(cartItems);
+	const btnRemove = (id_product: number) => {
+		if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
+			const updatedCartItems = cartItems.filter((item) => item.id_product !== id_product);
+			setCartItems(updatedCartItems);
+			localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+		}
+	};
+	const calculateTotal = (): number => {
+		return cartItems.reduce((total, item) => total + item.price_prod * item.quantity, 0);
+	};
 	return (
 		<>
 			<h4 className='text-center my-4'>Giỏ hàng của bạn có 3 sản phẩm</h4>
@@ -20,74 +38,36 @@ const Cart: React.FC = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope='row'>
-								<input type='checkbox'></input>
-							</th>
-							<td>
-								<img
-									src='https://mohinhfigure.com/wp-content/uploads/2023/02/mo-hinh-combo-ca-ae-luffy-zoro-sanji-ace-sabo-luc-nho-sieu-dep-cao-15cm-no-box-1.jpg'
-									alt=''
-									width={'100px'}
-								/>
-							</td>
-							<td>Mô hình Onepiece</td>
-							<td>500.000 đ</td>
-							<td>
-								<input type='number' className='money'></input>
-							</td>
-							<td>500.000 đ</td>
-							<td>
-								<i className='fa-solid fa-trash'></i>
-							</td>
-						</tr>
-						<tr>
-							<th scope='row'>
-								<input type='checkbox'></input>
-							</th>
-							<td>
-								<img
-									src='https://mohinhfigure.com/wp-content/uploads/2023/02/mo-hinh-doi-hinh-akatsuki-chibi-hang-sieu-cap-cao-8cm-bao-gom-11-nhan-vat-co-box-mau-1.jpg'
-									alt=''
-									width={'100px'}
-								/>
-							</td>
-							<td>Mô hình naruto</td>
-							<td>500.000 đ</td>
-							<td>
-								<input type='number' className='money'></input>
-							</td>
-							<td>500.000 đ</td>
-							<td>
-								<i className='fa-solid fa-trash'></i>
-							</td>
-						</tr>
-						<tr>
-							<th scope='row'>
-								<input type='checkbox'></input>
-							</th>
-							<td>
-								<img
-									src='https://mohinhfigure.com/wp-content/uploads/2023/02/mo-hinh-majin-buu-chien-dau-sieu-ngau-co-led-cao-21cm-nang-800gram-co-hop-mau-1.jpg'
-									alt=''
-									width={'100px'}
-								/>
-							</td>
-							<td>Mô hình Mabu</td>
-							<td>300.000 đ</td>
-							<td>
-								<input type='number' className='money'></input>
-							</td>
-							<td>300.000 đ</td>
-							<td>
-								<i className='fa-solid fa-trash'></i>
-							</td>
-						</tr>
+						{cartItems.map((item) => (
+							<tr key={item.id_product}>
+								<th scope='row'>
+									<input type='checkbox'></input>
+								</th>
+								<td>
+									<img src={item.img_thumbnail} alt='' width={'100px'} />
+								</td>
+								<td>{item.name_prod}</td>
+								<td>{item.price_prod} đ</td>
+								<td>
+									<input type='number' className='money' value={item.quantity} />
+								</td>
+								<td>{item.quantity * item.price_prod} đ</td>
+								<td>
+									<i
+										className='fa-solid fa-trash'
+										id={`itemDelete-${item.id_product}`}
+										onClick={() => btnRemove(item.id_product)}
+									></i>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
-				<span>
-					<strong>Tổng tiền:</strong> 1.300.0000 đ
-				</span>
+				<div>
+					<span>
+						<strong>Tổng tiền: {calculateTotal()} </strong> VNĐ
+					</span>
+				</div>
 				<div className='d-flex flex-row-reverse my-4'>
 					<button className='btn btn-success mx-2'>Thanh toán</button>
 					<button className='btn btn-primary'>Tiếp tục mua hàng</button>

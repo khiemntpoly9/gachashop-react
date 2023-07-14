@@ -58,6 +58,7 @@ const ProductDetail = () => {
 	if (!productDetail || !productDetail.img_prod) {
 		return null; // or render an error message
 	}
+
 	// cart
 	const addToCart = () => {
 		// Xác định kiểu dữ liệu
@@ -223,7 +224,9 @@ const ProductDetail = () => {
 						</div>
 						{/* Thông tin chi tiết */}
 						<div className='showmore'>
-							<p className={!showMore ? 'show-more' : ''}>{productDetail.detail_prod.detail_prod}</p>
+							<p className={!showMore ? 'show-more' : ''}>
+								{productDetail.detail_prod.detail_prod.replace(/<\/?[a-z]+>/gi, '')}
+							</p>
 
 							<button className='xemthem' onClick={handleShowMore}>
 								<p className='more-text m-1'>{showMore ? 'Thu gọn' : 'Xem thêm'}</p>
